@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio Digital | Angel Gonzalez</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <header class="cyber-header">
+        <div class="container header-content">
+            <div class="logo">
+                <span class="cmd">></span> ANGEL_GONZALEZ<span class="cursor">_</span>
+            </div>
+            <div class="course-info">
+                <p>CNO V: Seguridad Informática</p>
+                <p>UPSLP | Semestre 2025-2026</p>
+            </div>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#inicio" class="active">/Inicio</a></li>
+                <li><a href="#" class="disabled">/Notas</a></li>
+                <li><a href="#" class="disabled">/Herramientas</a></li>
+                <li><a href="#" class="disabled">/Proyectos</a></li>
+                <li><a href="#" class="disabled">/Certificaciones</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="inicio" class="hero-section">
+        <div class="container">
+            <h1 class="glitch-text" data-text="SEGURIDAD INFORMÁTICA">SEGURIDAD INFORMÁTICA</h1>
+            <p class="subtitle">Portafolio de Evidencias y Hacking Ético</p>
+            
+            <div class="intro-box">
+                <h3>// Propósito del Sitio</h3>
+                <p>
+                    Este espacio digital tiene como objetivo documentar de manera técnica y sistemática mi proceso de aprendizaje en la asignatura de <strong>Seguridad Informática</strong>.
+                </p>
+                <p>
+                    Aquí se concentrarán las evidencias prácticas sobre <strong>análisis de vulnerabilidades, pruebas de penetración (pentesting)</strong> y metodologías de defensa digital. Este portafolio no solo actúa como un repositorio académico, sino como una demostración de las competencias técnicas adquiridas para organizar y presentar información crítica en entornos corporativos.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="profile-section">
+        <div class="container grid-2">
+            <div class="profile-text">
+                <h2>// Sobre Mí</h2>
+                <p>
+                    Soy estudiante de <strong>Ingeniería en Tecnologías de la Información</strong> en la Universidad Politécnica de San Luis Potosí. Me defino como un entusiasta de la tecnología con un enfoque analítico hacia la resolución de problemas.
+                </p>
+                <p>
+                    Mis intereses principales radican en la <strong>ciberseguridad</strong>, la arquitectura de hardware (Arduino/IoT) y el desarrollo de software seguro. Actualmente, estoy enfocado en comprender los vectores de ataque modernos para diseñar estrategias de mitigación efectivas. Busco especializarme en la protección de infraestructuras críticas y la gestión de incidentes.
+                </p>
+                <div class="tags">
+                    <span>#CyberSecurity</span>
+                    <span>#EthicalHacking</span>
+                    <span>#IT_Engineering</span>
+                    <span>#Hardware</span>
+                </div>
+            </div>
+            <div class="profile-graphic">
+                <div class="terminal-window">
+                    <div class="terminal-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <div class="terminal-body">
+                        <p class="code">> Angel.CurrentStatus()</p>
+                        <p class="output">"Estudiante Activo"</p>
+                        <p class="code">> Angel.Location</p>
+                        <p class="output">"San Luis Potosí, MX"</p>
+                        <p class="code">> Angel.Interests</p>
+                        <p class="output">["Pentesting", "Hardware", "Network Sec"]</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="tech-info">
+        <div class="container">
+            <h3>// Ficha Técnica del Sitio</h3>
+            <div class="grid-3">
+                <div class="tech-card">
+                    <h4>Stack Tecnológico</h4>
+                    <p>Desarrollado de forma nativa utilizando <strong>HTML5</strong> semántico y <strong>CSS3</strong> moderno (Flexbox/Grid). Sin frameworks pesados para garantizar limpieza de código y rendimiento.</p>
+                </div>
+                <div class="tech-card">
+                    <h4>Plataforma</h4>
+                    <p>Alojado en <strong>GitHub Pages</strong>, aprovechando la infraestructura de control de versiones distribuido de Git.</p>
+                </div>
+                <div class="tech-card">
+                    <h4>Seguridad</h4>
+                    <p>Despliegue bajo protocolo <strong>HTTPS</strong> forzado mediante certificación SSL/TLS provista por GitHub, garantizando la integridad y confidencialidad de la navegación.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section">
+        <div class="container">
+            <h2>// Iniciar Comunicación</h2>
+            <p class="contact-desc">Para consultas académicas o profesionales, utilice el siguiente canal encriptado (simulado).</p>
+            
+            <form action="https://formspree.io/f/TU_ID_DE_FORMSPREE" method="POST" class="cyber-form">
+                <div class="form-group">
+                    <label for="name">Identificador (Nombre):</label>
+                    <input type="text" id="name" name="name" required placeholder="Ej. Usuario Anónimo">
+                </div>
+                <div class="form-group">
+                    <label for="email">Canal de Respuesta (Email):</label>
+                    <input type="email" id="email" name="email" required placeholder="correo@ejemplo.com">
+                </div>
+                <div class="form-group">
+                    <label for="message">Payload (Mensaje):</label>
+                    <textarea id="message" name="message" rows="5" required placeholder="Escriba su mensaje aquí..."></textarea>
+                </div>
+                <button type="submit" class="btn-submit">>> ENVIAR DATOS</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-content">
+            <p>&copy; 2026 Angel Gonzalez. Todos los derechos reservados.</p>
+            <p class="secure-badge"><i class="fas fa-lock"></i> Conexión Segura SSL</p>
+        </div>
+    </footer>
+
+</body>
+</html>
