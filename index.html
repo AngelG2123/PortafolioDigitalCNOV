@@ -4,9 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portafolio Digital | Ángel González</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css"> 
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* Estado inicial: invisible y desplazado hacia abajo */
+        .scroll-element {
+            opacity: 0;
+            transform: translateY(50px); /* Se mueve 50px abajo */
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
+        }
+
+        /* Estado visible: opacidad total y posición original */
+        .scroll-element.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Retrasos escalonados para las tarjetas (opcional, para que aparezcan una por una) */
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+    </style>
 </head>
 <body>
 
@@ -14,6 +35,7 @@
         <div class="contenedor contenido-cabecera">
             <div class="logo-terminal">
                 <span class="simbolo">></span> Ángel Josué González Delgado<span class="cursor">_</span>
+                <br>
                 <span class="simbolo">></span> VenusWatch<span class="cursor">_</span>
             </div>
             <div class="info-materia">
@@ -37,10 +59,12 @@
 
     <section id="inicio" class="seccion-inicio">
         <div class="contenedor">
-            <h1 class="titulo-principal">SEGURIDAD INFORMÁTICA</h1>
-            <p class="subtitulo">Portafolio de Evidencias</p>
+            <div class="scroll-element">
+                <h1 class="titulo-principal">SEGURIDAD INFORMÁTICA</h1>
+                <p class="subtitulo">Portafolio de Evidencias</p>
+            </div>
             
-            <div class="caja-intro">
+            <div class="caja-intro scroll-element delay-200">
                 <h3>// Propósito del Sitio</h3>
                 <p>
                     El siguiente portafolio de evidencias tiene como finalidad evidenciar y llevar un control de todas las actividades realizadas durante el semestre de la materia de <strong>Seguridad Informática</strong>.
@@ -54,7 +78,7 @@
 
     <section class="seccion-perfil">
         <div class="contenedor grid-dos-col">
-            <div class="texto-perfil">
+            <div class="texto-perfil scroll-element">
                 <h2>// Sobre Mí</h2>
                 <p>
                     Soy estudiante de la carrera de <strong>Ingeniería en Tecnologías de la Información</strong> en la Universidad Politécnica de San Luis Potosí. Me defino como un apasionado de la tecnología con un enfoque en la seguridad ofensiva y defensiva, además de un gusto por el análisis de vulnerabilidades.
@@ -70,7 +94,7 @@
                 </div>
             </div>
             
-            <div class="grafico-perfil">
+            <div class="grafico-perfil scroll-element delay-200">
                 <div class="ventana-terminal">
                     <div class="barra-terminal">
                         <span class="punto rojo"></span>
@@ -88,17 +112,17 @@
 
     <section class="seccion-info-tecnica">
         <div class="contenedor">
-            <h3>// Ficha Técnica del Sitio</h3>
+            <h3 class="scroll-element">// Ficha Técnica del Sitio</h3>
             <div class="grid-tres-col">
-                <div class="tarjeta-dato">
+                <div class="tarjeta-dato scroll-element delay-100">
                     <h4>Stack Tecnológico</h4>
                     <p>Desarrollado con <strong>HTML5</strong> y <strong>CSS</strong>. Todo esto para un mejor rendimiento y compatibilidad.</p>
                 </div>
-                <div class="tarjeta-dato">
+                <div class="tarjeta-dato scroll-element delay-200">
                     <h4>Plataforma</h4>
                     <p>Alojado en <strong>GitHub Pages</strong>, utilizando control de versiones Git para la gestión de cambios y actualizaciones continuas.</p>
                 </div>
-                <div class="tarjeta-dato">
+                <div class="tarjeta-dato scroll-element delay-300">
                     <h4>Seguridad</h4>
                     <p>Uso del protocolo <strong>HTTPS</strong> mediante certificado SSL/TLS, garantizando la integridad.</p>
                 </div>
@@ -108,9 +132,9 @@
 
     <section class="seccion-contacto">
         <div class="contenedor">
-            <h2>// Contacto</h2>
+            <h2 class="scroll-element">// Contacto</h2>
             
-            <form id="form-contacto" class="formulario-cyber">
+            <form id="form-contacto" class="formulario-cyber scroll-element delay-200">
                 
                 <div class="campo">
                     <label for="nombre">Nombre:</label>
@@ -140,12 +164,13 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     
     <script type="text/javascript">
+        // --- CÓDIGO EMAILJS EXISTENTE ---
         (function() {
-            // inicio
             emailjs.init("MASBu8avvt8m2e264");
         })();
 
         window.onload = function() {
+            // Inicializar el formulario
             document.getElementById('form-contacto').addEventListener('submit', function(event) {
                 event.preventDefault();
                 
@@ -153,26 +178,37 @@
                 btn.value = 'Enviando...';
                 btn.innerHTML = '>> ENVIANDO...';
 
-                // ENVÍO
-                // Reemplaza 'SERVICE_ID' y 'TEMPLATE_ID' con tus datos (Paso 2.2)
                 emailjs.sendForm('service_5k1kdek', 'template_qqvnw7h', this)
                     .then(function() {
                         console.log('SUCCESS!');
                         alert("¡Mensaje enviado con éxito! Me pondré en contacto pronto.");
                         btn.innerHTML = '>> ENVIAR';
-                        document.getElementById('form-contacto').reset(); // Limpia el formulario
+                        document.getElementById('form-contacto').reset();
                     }, function(error) {
                         console.log('FAILED...', error);
                         alert("Error al enviar: " + JSON.stringify(error));
                         btn.innerHTML = '>> ENVIAR';
                     });
             });
+
+            // --- NUEVO CÓDIGO DE ANIMACIÓN (Intersection Observer) ---
+            
+            const observador = new IntersectionObserver((entradas) => {
+                entradas.forEach((entrada) => {
+                    // Si el elemento entra en el viewport (pantalla)
+                    if (entrada.isIntersecting) {
+                        entrada.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1 // Se activa cuando el 10% del elemento es visible
+            });
+
+            // Seleccionar todos los elementos que tienen la clase 'scroll-element'
+            const elementosOcultos = document.querySelectorAll('.scroll-element');
+            elementosOcultos.forEach((el) => observador.observe(el));
         }
     </script>
 
 </body>
 </html>
-
-
-
-
