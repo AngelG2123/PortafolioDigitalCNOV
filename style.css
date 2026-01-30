@@ -1,16 +1,19 @@
-/* VARIABLES Y CONFIGURACIÓN BÁSICA */
+/* --- Variables Globales --- */
 :root {
-    --color-fondo: #0d1117;        /* Gris muy oscuro estilo GitHub Dark */
-    --color-tarjeta: #161b22;      /* Gris un poco más claro para cajas */
-    --texto-primario: #c9d1d9;     /* Blanco suave */
-    --texto-secundario: #8b949e;   /* Gris texto */
-    --color-acento: #238636;       /* Verde Hacker/GitHub */
-    --brillo-acento: #2ea043;      /* Verde más brillante para hover */
+    --color-fondo: #0d1117;        /* Fondo principal */
+    --color-tarjeta: #161b22;      /* Fondo de cajas/secciones */
+    --texto-primario: #c9d1d9;     /* Texto base */
+    --texto-secundario: #8b949e;   /* Texto gris */
+    --color-acento: #238636;       /* Verde base */
+    --brillo-acento: #2ea043;      /* Verde hover */
     --borde: #30363d;              /* Bordes sutiles */
+    
+    /* Fuentes */
     --fuente-texto: 'Inter', sans-serif;
-    --fuente-codigo: 'JetBrains Mono', monospace;
+    --fuente-codigo: 'JetBrains Mono', monospace; 
 }
 
+/* --- Reset basico --- */
 * {
     margin: 0;
     padding: 0;
@@ -30,12 +33,12 @@ body {
     padding: 0 20px;
 }
 
-/* --- ESTILOS DEL ENCABEZADO --- */
+/* --- Header y Navegacion --- */
 .cabecera-principal {
     background-color: var(--color-tarjeta);
     border-bottom: 1px solid var(--borde);
     padding: 20px 0;
-    position: sticky; /* Menú fijo */
+    position: sticky; /* Menu fijo al scrollear */
     top: 0;
     z-index: 1000;
 }
@@ -50,25 +53,35 @@ body {
 .logo-terminal {
     font-family: var(--fuente-codigo);
     font-weight: 700;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: #fff;
 }
 
-.simbolo { color: var(--color-acento); }
+.simbolo { 
+    color: var(--color-acento); 
+    margin-right: 5px;
+}
 
-/* Animación del cursor parpadeante (_) */
+/* Cursor parpadeante estilo terminal */
 .cursor {
     animation: parpadeo 1s infinite;
+    font-weight: bold;
+    color: var(--brillo-acento);
 }
-@keyframes parpadeo { 50% { opacity: 0; } }
+
+@keyframes parpadeo { 
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; } 
+}
 
 .info-materia p {
     font-size: 0.85rem;
     color: var(--texto-secundario);
     text-align: right;
+    font-family: var(--fuente-codigo);
 }
 
-/* --- NAVEGACIÓN --- */
+/* Menu */
 .barra-navegacion {
     border-top: 1px solid var(--borde);
     padding-top: 10px;
@@ -93,7 +106,7 @@ body {
 
 .enlaces a:hover, .enlaces a.activo {
     color: var(--brillo-acento);
-    text-shadow: 0 0 5px rgba(46, 160, 67, 0.4); /* Brillo neón */
+    text-shadow: 0 0 5px rgba(46, 160, 67, 0.4);
 }
 
 .enlaces a.deshabilitado {
@@ -101,7 +114,7 @@ body {
     opacity: 0.5;
 }
 
-/* --- SECCIONES GENERALES --- */
+/* --- Estilos Generales Secciones --- */
 section {
     padding: 60px 0;
     border-bottom: 1px solid var(--borde);
@@ -119,62 +132,39 @@ h2 {
     padding-left: 15px; 
 }
 
-/* --- SECCIÓN INICIO (HERO) --- */
+/* --- Hero Section (Inicio) --- */
 .seccion-inicio {
     text-align: center;
     padding: 80px 0;
 }
 
-/* Efecto Glitch (Falla técnica) para el título */
+/* Titulo con animacion glow */
+.titulo-principal {
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: #fff;
+    margin-bottom: 10px;
+    animation: brillo-suave 3s infinite alternate;
+}
+
+@keyframes brillo-suave {
+    from {
+        text-shadow: 0 0 5px rgba(35, 134, 54, 0.2); 
+    }
+    to {
+        text-shadow: 0 0 20px rgba(35, 134, 54, 0.6); 
+    }
+}
+
+/* Compatibilidad por si quedo la clase vieja */
 .titulo-glitch {
     font-size: 3rem;
     font-weight: 800;
-    letter-spacing: -2px;
+    letter-spacing: -1px;
     color: #fff;
-    position: relative;
     margin-bottom: 10px;
-}
-
-/* Pseudoelementos para crear el efecto duplicado */
-.titulo-glitch::before, .titulo-glitch::after {
-    content: attr(data-texto);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.titulo-glitch::before {
-    left: 2px;
-    text-shadow: -1px 0 #ff00c1;
-    clip: rect(44px, 450px, 56px, 0);
-    animation: glitch-anim 5s infinite linear alternate-reverse;
-}
-
-.titulo-glitch::after {
-    left: -2px;
-    text-shadow: -1px 0 #00fff9;
-    clip: rect(44px, 450px, 56px, 0);
-    animation: glitch-anim2 5s infinite linear alternate-reverse;
-}
-
-/* Animaciones complejas del glitch */
-@keyframes glitch-anim {
-    0% { clip: rect(31px, 9999px, 94px, 0); }
-    20% { clip: rect(6px, 9999px, 86px, 0); }
-    40% { clip: rect(68px, 9999px, 7px, 0); }
-    60% { clip: rect(10px, 9999px, 56px, 0); }
-    80% { clip: rect(93px, 9999px, 14px, 0); }
-    100% { clip: rect(48px, 9999px, 33px, 0); }
-}
-@keyframes glitch-anim2 {
-    0% { clip: rect(65px, 9999px, 95px, 0); }
-    20% { clip: rect(15px, 9999px, 15px, 0); }
-    40% { clip: rect(80px, 9999px, 3px, 0); }
-    60% { clip: rect(5px, 9999px, 69px, 0); }
-    80% { clip: rect(56px, 9999px, 49px, 0); }
-    100% { clip: rect(2px, 9999px, 38px, 0); }
+    animation: brillo-suave 3s infinite alternate;
 }
 
 .subtitulo {
@@ -194,7 +184,7 @@ h2 {
     margin: 0 auto;
 }
 
-/* --- PERFIL --- */
+/* --- Perfil --- */
 .grid-dos-col {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -204,7 +194,7 @@ h2 {
 
 .etiquetas span {
     display: inline-block;
-    background: rgba(46, 160, 67, 0.1);
+    background: rgba(35, 134, 54, 0.15);
     color: var(--brillo-acento);
     padding: 5px 10px;
     border-radius: 4px;
@@ -212,11 +202,12 @@ h2 {
     font-size: 0.8rem;
     margin-right: 10px;
     margin-top: 15px;
+    border: 1px solid rgba(35, 134, 54, 0.3);
 }
 
-/* VENTANA TERMINAL (Gráfico visual) */
+/* Terminal Grafica */
 .ventana-terminal {
-    background: #000;
+    background: #0d1117;
     border: 1px solid var(--borde);
     border-radius: 6px;
     overflow: hidden;
@@ -224,10 +215,11 @@ h2 {
 }
 
 .barra-terminal {
-    background: var(--borde);
+    background: var(--color-tarjeta);
     padding: 10px;
     display: flex;
     gap: 8px;
+    border-bottom: 1px solid var(--borde);
 }
 
 .punto { width: 12px; height: 12px; border-radius: 50%; display: block; }
@@ -235,11 +227,16 @@ h2 {
 .amarillo { background: #ffbd2e; }
 .verde { background: #27c93f; }
 
-.cuerpo-terminal { padding: 20px; font-family: var(--fuente-codigo); font-size: 0.9rem; }
+.cuerpo-terminal { 
+    padding: 20px; 
+    font-family: var(--fuente-codigo); 
+    font-size: 0.9rem; 
+}
+
 .codigo { color: #fff; }
 .salida { color: var(--color-acento); margin-bottom: 10px; padding-left: 20px; }
 
-/* --- INFO TÉCNICA --- */
+/* --- Ficha Tecnica --- */
 .grid-tres-col {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -259,7 +256,7 @@ h2 {
     transform: translateY(-5px);
 }
 
-/* --- FORMULARIO --- */
+/* --- Formulario --- */
 .formulario-cyber {
     max-width: 600px;
     margin: 0 auto;
@@ -276,6 +273,7 @@ label {
     margin-bottom: 8px;
     font-family: var(--fuente-codigo);
     font-size: 0.9rem;
+    color: var(--texto-secundario);
 }
 
 input, textarea {
@@ -286,6 +284,7 @@ input, textarea {
     color: #fff;
     font-family: var(--fuente-texto);
     border-radius: 4px;
+    font-size: 1rem;
 }
 
 input:focus, textarea:focus {
@@ -304,29 +303,51 @@ input:focus, textarea:focus {
     font-weight: 700;
     cursor: pointer;
     transition: 0.3s;
+    border-radius: 4px;
 }
 
 .boton-enviar:hover {
     background: var(--brillo-acento);
 }
 
-/* --- FOOTER --- */
+/* --- Footer --- */
 footer {
     text-align: center;
     padding: 40px 0;
     font-size: 0.9rem;
     color: var(--texto-secundario);
+    background-color: var(--color-tarjeta);
+    border-top: 1px solid var(--borde);
 }
 
 .ssl-badge {
     margin-top: 10px;
     font-family: var(--fuente-codigo);
     color: var(--color-acento);
+    font-size: 0.8rem;
 }
 
-/* RESPONSIVE (Celulares) */
+/* --- Responsive --- */
 @media (max-width: 768px) {
-    .grid-dos-col { grid-template-columns: 1fr; }
-    .contenido-cabecera { flex-direction: column; text-align: center; }
-    .enlaces { gap: 15px; }
+    .grid-dos-col { 
+        grid-template-columns: 1fr; 
+    }
+    
+    .contenido-cabecera { 
+        flex-direction: column; 
+        text-align: center; 
+        gap: 10px;
+    }
+    
+    .info-materia p {
+        text-align: center;
+    }
+
+    .enlaces { 
+        gap: 15px; 
+    }
+
+    .titulo-principal, .titulo-glitch {
+        font-size: 2rem;
+    }
 }
