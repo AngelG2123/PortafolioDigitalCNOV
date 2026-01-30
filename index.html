@@ -3,123 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portafolio | Angel Gonzalez</title>
+    <title>Portafolio Digital | Angel Gonzalez</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
-    <header>
-        <div class="contenedor header-grid">
-            <div class="datos-alumno">
-                <h1>Angel Gonzalez <span class="alias">/ AngelGonzalez1</span></h1>
-                <p>Ingeniería en Tecnologías de la Información</p>
-                <small>CNO V: Seguridad Informática | UPSLP 2025-2026</small>
+    <header class="cabecera-principal">
+        <div class="contenedor contenido-cabecera">
+            <div class="logo-terminal">
+                <span class="simbolo">></span> ANGEL_GONZALEZ<span class="cursor">_</span>
             </div>
-            
-            <nav>
-                <ul class="menu">
-                    <li><a href="#inicio" class="activo">Inicio</a></li>
-                    <li><a href="#" class="pendiente">Notas</a></li>
-                    <li><a href="#" class="pendiente">Herramientas</a></li>
-                    <li><a href="#" class="pendiente">Proyectos</a></li>
-                </ul>
-            </nav>
+            <div class="info-materia">
+                <p>CNO V: Seguridad Informática</p>
+                <p>UPSLP | Semestre 2025-2026</p>
+            </div>
         </div>
+        
+        <nav class="barra-navegacion">
+            <ul class="enlaces">
+                <li><a href="#inicio" class="activo">/Inicio</a></li>
+                <li><a href="#" class="deshabilitado">/Notas</a></li>
+                <li><a href="#" class="deshabilitado">/Herramientas</a></li>
+                <li><a href="#" class="deshabilitado">/Proyectos</a></li>
+                <li><a href="#" class="deshabilitado">/Certif.</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <section id="inicio" class="seccion-principal">
+    <section id="inicio" class="seccion-inicio">
         <div class="contenedor">
-            <h2>Portafolio de Evidencias Digital</h2>
-            <div class="caja-texto">
-                <h3>// Propósito</h3>
+            <h1 class="titulo-glitch" data-texto="SEGURIDAD INFORMÁTICA">SEGURIDAD INFORMÁTICA</h1>
+            <p class="subtitulo">Portafolio de Evidencias & Hacking Ético</p>
+            
+            <div class="caja-intro">
+                <h3>// Propósito del Sitio</h3>
                 <p>
-                    Bienvenido a mi repositorio académico. Este sitio tiene como objetivo documentar mi progreso en la materia de <strong>Seguridad Informática</strong>. 
+                    Este espacio digital tiene como objetivo documentar de manera técnica mi proceso de aprendizaje en la asignatura de <strong>Seguridad Informática</strong>.
                 </p>
                 <p>
-                    Aquí publicaré evidencias sobre análisis de vulnerabilidades, prácticas de <em>pentesting</em> (hacking ético) y estrategias de defensa digital. Este portafolio demuestra mis competencias técnicas y mi capacidad para organizar información crítica.
+                    Aquí concentraré las evidencias prácticas sobre <strong>análisis de vulnerabilidades, pruebas de penetración (pentesting)</strong> y metodologías de defensa digital. Este portafolio actúa como un repositorio académico y demostración de competencias técnicas profesionales.
                 </p>
             </div>
         </div>
     </section>
 
-    <section class="seccion-oscura">
-        <div class="contenedor">
-            <h2>Sobre Mí</h2>
-            <div class="perfil-grid">
-                <div class="texto">
-                    <p>
-                        Soy estudiante de <strong>Ingeniería en TI</strong> en la Universidad Politécnica de San Luis Potosí. Me apasiona entender cómo funcionan los sistemas para poder protegerlos.
-                    </p>
-                    <p>
-                        Mis áreas de interés principales son:
-                    </p>
-                    <ul class="lista-intereses">
-                        <li>Ciberseguridad y Hacking Ético</li>
-                        <li>Hardware y Redes</li>
-                        <li>Desarrollo Seguro</li>
-                        <li>Investigación de amenazas</li>
-                    </ul>
+    <section class="seccion-perfil">
+        <div class="contenedor grid-dos-col">
+            <div class="texto-perfil">
+                <h2>// Sobre Mí</h2>
+                <p>
+                    Soy estudiante de <strong>Ingeniería en Tecnologías de la Información</strong> en la Universidad Politécnica de San Luis Potosí. Me defino como un entusiasta de la tecnología con enfoque en la seguridad ofensiva y defensiva.
+                </p>
+                <p>
+                    Mis intereses principales radican en la <strong>ciberseguridad</strong>, la arquitectura de hardware (Arduino/IoT) y el desarrollo seguro. Busco especializarme en la protección de infraestructuras críticas y la gestión de incidentes informáticos.
+                </p>
+                <div class="etiquetas">
+                    <span>#CyberSecurity</span>
+                    <span>#EthicalHacking</span>
+                    <span>#IT_Engineering</span>
+                    <span>#Hardware</span>
                 </div>
-                <div class="cuadro-codigo">
-                    <p><span class="color-azul">const</span> estudiante = {</p>
-                    <p>&nbsp;&nbsp;nombre: <span class="color-verde">"Angel"</span>,</p>
-                    <p>&nbsp;&nbsp;carrera: <span class="color-verde">"ITI"</span>,</p>
-                    <p>&nbsp;&nbsp;estado: <span class="color-verde">"Aprendiendo..."</span></p>
-                    <p>};</p>
+            </div>
+            
+            <div class="grafico-perfil">
+                <div class="ventana-terminal">
+                    <div class="barra-terminal">
+                        <span class="punto rojo"></span>
+                        <span class="punto amarillo"></span>
+                        <span class="punto verde"></span>
+                    </div>
+                    <div class="cuerpo-terminal">
+                        <p class="codigo">> Angel.getStatus()</p>
+                        <p class="salida">"Estudiante Activo"</p>
+                        <p class="codigo">> Angel.getLocation()</p>
+                        <p class="salida">"San Luis Potosí, MX"</p>
+                        <p class="codigo">> Angel.getInterests()</p>
+                        <p class="salida">["Pentesting", "Hardware", "Network Sec"]</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="contenedor seccion-tecnica">
-        <h3>Ficha Técnica del Portafolio</h3>
-        <div class="grid-tarjetas">
-            <div class="tarjeta">
-                <h4>Tecnologías</h4>
-                <p>HTML5 Semántico y CSS3 nativo (Sin frameworks).</p>
-            </div>
-            <div class="tarjeta">
-                <h4>Plataforma</h4>
-                <p>Alojado en GitHub Pages (Control de versiones con Git).</p>
-            </div>
-            <div class="tarjeta">
-                <h4>Seguridad</h4>
-                <p>Despliegue bajo protocolo HTTPS.</p>
+    <section class="seccion-info-tecnica">
+        <div class="contenedor">
+            <h3>// Ficha Técnica del Sitio</h3>
+            <div class="grid-tres-col">
+                <div class="tarjeta-dato">
+                    <h4>Stack Tecnológico</h4>
+                    <p>Desarrollado nativamente con <strong>HTML5</strong> semántico y <strong>CSS3</strong> moderno. Sin frameworks externos para asegurar rendimiento y control total del código.</p>
+                </div>
+                <div class="tarjeta-dato">
+                    <h4>Plataforma</h4>
+                    <p>Alojado en <strong>GitHub Pages</strong>, utilizando control de versiones Git para la gestión de cambios y actualizaciones continuas.</p>
+                </div>
+                <div class="tarjeta-dato">
+                    <h4>Seguridad</h4>
+                    <p>Despliegue bajo protocolo <strong>HTTPS</strong> forzado mediante certificación SSL/TLS, garantizando la integridad de la navegación.</p>
+                </div>
             </div>
         </div>
     </section>
 
     <section class="seccion-contacto">
         <div class="contenedor">
-            <h2>Contacto</h2>
-            <p>Formulario de comunicación académica.</p>
+            <h2>// Iniciar Comunicación</h2>
+            <p class="desc-contacto">Canal de comunicación encriptado (simulado) para fines académicos.</p>
             
-            <form action="https://formsubmit.co/TU_CORREO@GMAIL.COM" method="POST" class="formulario">
+            <form action="https://formsubmit.co/TU_CORREO@GMAIL.COM" method="POST" class="formulario-cyber">
                 
-                <input type="hidden" name="_subject" value="Nuevo mensaje del Portafolio!">
-                <input type="hidden" name="_autoresponse" value="Gracias por tu mensaje. Lo he recibido correctamente y responderé pronto. - Angel G.">
+                <input type="hidden" name="_subject" value="Nuevo contacto desde el Portafolio!">
+                <input type="hidden" name="_autoresponse" value="He recibido tu mensaje correctamente. Me pondré en contacto contigo pronto. - Angel Gonzalez">
                 <input type="hidden" name="_next" value="https://angelgonzalez.github.io/portafolio-seguridad/">
-                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_captcha" value="false">
 
-                <label>Nombre:</label>
-                <input type="text" name="name" required placeholder="Tu nombre">
-
-                <label>Correo (para respuesta):</label>
-                <input type="email" name="email" required placeholder="tu@correo.com">
-
-                <label>Mensaje:</label>
-                <textarea name="message" rows="4" required placeholder="Escribe aquí..."></textarea>
-
-                <button type="submit">Enviar Mensaje</button>
+                <div class="campo">
+                    <label for="name">Identificador (Nombre):</label>
+                    <input type="text" id="name" name="name" required placeholder="Ej. Usuario Anónimo">
+                </div>
+                <div class="campo">
+                    <label for="email">Canal de Respuesta (Email):</label>
+                    <input type="email" id="email" name="email" required placeholder="correo@ejemplo.com">
+                </div>
+                <div class="campo">
+                    <label for="message">Payload (Mensaje):</label>
+                    <textarea id="message" name="message" rows="5" required placeholder="Escriba su mensaje aquí..."></textarea>
+                </div>
+                
+                <button type="submit" class="boton-enviar">>> EJECUTAR ENVÍO</button>
             </form>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 Angel Gonzalez. Todos los derechos reservados.</p>
-        <p><i class="fas fa-lock"></i> Conexión Segura (SSL)</p>
+        <div class="contenedor contenido-footer">
+            <p>&copy; 2026 Angel Gonzalez. Todos los derechos reservados.</p>
+            <p class="ssl-badge"><i class="fas fa-lock"></i> Conexión Segura SSL</p>
+        </div>
     </footer>
 
 </body>
