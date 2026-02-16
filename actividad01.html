@@ -9,56 +9,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
-        /* --- TODOS LOS ESTILOS DEL ARTÍCULO --- */
-
-        /* 1. Fondo Animado Sutil */
-        body { 
-            background: radial-gradient(circle at 50% 50%, #0a0a0a, #000000);
-            background-size: 200% 200%;
-            animation: brilloMonitor 15s ease infinite;
-            color: #e0e0e0; 
-            font-family: 'Inter', sans-serif; 
-            margin: 0;
-        }
-
-        @keyframes brilloMonitor {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .contenedor-articulo { 
-            max-width: 950px; 
-            margin: 0 auto; 
-            padding: 2rem 1rem; 
-            position: relative; 
-            z-index: 1; 
-        }
+        /* ESTILOS GENERALES (TERMINAL/HACKER) */
+        body { background-color: #050505; color: #e0e0e0; font-family: 'Inter', sans-serif; }
+        .contenedor-articulo { max-width: 950px; margin: 0 auto; padding: 2rem 1rem; }
         
-        /* 2. Corrección Cabecera (Letras Grises y Compactas) */
-        .info-materia p {
-            margin: 0 !important;          
-            padding: 2px 0 !important;     
-            line-height: 1.2 !important;   
-            text-align: right !important;  
-            font-size: 0.85rem !important; 
-            color: #a0a0a0 !important;     /* Color gris técnico */
-            display: block !important;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .info-materia span.simbolo, 
-        .info-materia span.cursor {
-            color: #00ff41 !important;     /* Símbolos verdes */
-        }
-
-        /* 3. Títulos y Tipografía */
         h1 { font-size: 2.2rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
 
         .rubrica-titulo {
             font-family: 'JetBrains Mono', monospace;
             font-size: 1.3rem;
-            color: #00ff41; 
+            color: #00ff41; /* Verde Terminal */
             border-bottom: 2px solid #333;
             padding-bottom: 0.5rem;
             margin-top: 4rem;
@@ -70,60 +30,74 @@
             background: #222; color: #aaa; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; margin-right: 10px; vertical-align: middle;
         }
 
-        /* Párrafos del cuerpo del artículo */
         p { line-height: 1.8; margin-bottom: 1.2rem; text-align: justify; font-size: 1rem; color: #d1d1d1; }
         strong { color: #fff; }
         h3 { color: #fff; margin-top: 2rem; margin-bottom: 1rem; font-size: 1.1rem; border-left: 3px solid #00ff41; padding-left: 10px; }
 
-        /* 4. Bloques de Información y Metadatos */
         .box-metadata {
-            background: rgba(17, 17, 17, 0.8); 
-            border: 1px solid #333; 
-            padding: 1.5rem; 
-            margin-bottom: 3rem; 
-            border-left: 4px solid #00ff41;
-            backdrop-filter: blur(5px);
+            background: #111; border: 1px solid #333; padding: 1.5rem; margin-bottom: 3rem; border-left: 4px solid #00ff41;
         }
         .box-metadata ul { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; }
         .box-metadata li { font-size: 0.9rem; color: #aaa; }
         .box-metadata li i { color: #00ff41; margin-right: 8px; }
 
-        /* 5. Tablas Técnicas */
-        .tabla-container { background: rgba(0,0,0,0.5); overflow-x: auto; margin-bottom: 2rem; border: 1px solid #333; border-radius: 4px; }
+        /* Tablas */
+        .tabla-container { overflow-x: auto; margin-bottom: 2rem; border: 1px solid #333; border-radius: 4px; }
         table { width: 100%; border-collapse: collapse; font-size: 0.9rem; font-family: 'JetBrains Mono', monospace; }
         th { background: #1a1a1a; color: #00ff41; padding: 12px; text-align: left; border-bottom: 2px solid #444; min-width: 150px; }
         td { padding: 12px; border: 1px solid #333; vertical-align: top; background: rgba(255,255,255,0.02); }
         tr:nth-child(even) td { background: rgba(255,255,255,0.04); }
 
-        /* 6. Multimedia */
+        /* Multimedia y Placeholders */
         .multimedia-area {
-            background: rgba(10, 10, 10, 0.6); border: 1px dashed #444; padding: 1.5rem; text-align: center; margin: 2rem 0; border-radius: 6px;
+            background: #0a0a0a; border: 1px dashed #444; padding: 1.5rem; text-align: center; margin: 2rem 0; border-radius: 6px;
         }
-        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 1rem; border-radius: 4px; }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 1rem; border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
         .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 1px solid #333; }
 
-        /* 7. Imágenes y Placeholders */
+        /* Estilo para los Espacios de Imagen (Placeholders) */
         .espacio-imagen {
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            background-color: #0f0f0f; border: 2px dashed #333; color: #555; padding: 2rem; margin: 1.5rem 0; border-radius: 6px; min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #0f0f0f;
+            border: 2px dashed #333;
+            color: #555;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            min-height: 200px;
         }
-        .espacio-imagen i { font-size: 2.5rem; margin-bottom: 1rem; }
-        .espacio-imagen img { max-width: 100%; height: auto; border: 1px solid #333; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .espacio-imagen:hover {
+            border-color: #00ff41;
+            color: #888;
+        }
+        .espacio-imagen i { font-size: 2.5rem; margin-bottom: 1rem; color: #333; }
+        .espacio-imagen img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #333;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+        .caption-imagen { font-size: 0.8rem; color: #666; margin-top: 10px; font-style: italic; }
 
-        /* 8. Botón Exportar PDF */
+        /* Botón Exportar */
         .btn-exportar {
             display: block; width: 100%; max-width: 350px; margin: 3rem auto; 
             padding: 1.2rem; background: #b71c1c; color: white; text-align: center; 
             text-decoration: none; font-weight: bold; border-radius: 4px; 
             font-family: 'JetBrains Mono', monospace; transition: 0.3s;
             border: 1px solid #e53935; font-size: 1.1rem;
+            box-shadow: 0 4px 10px rgba(183, 28, 28, 0.3);
         }
         .btn-exportar:hover { background: #d32f2f; box-shadow: 0 0 20px rgba(229, 57, 53, 0.6); transform: translateY(-2px); }
 
-        /* 9. Referencias */
-        .referencias-lista { list-style: none; padding: 0; background: #111; padding: 1.5rem; border-left: 2px solid #555; }
+        /* Referencias */
+        .referencias-lista { list-style: none; padding: 0; background: #111; padding: 1.5rem; border-left: 2px solid #555; border-radius: 0 4px 4px 0; }
         .referencias-lista li { margin-bottom: 1rem; font-size: 0.9rem; color: #bbb; word-break: break-all; }
-        .referencias-lista li::before { content: ">> "; color: #00ff41; }
+        .referencias-lista li::before { content: ">> "; color: #00ff41; font-weight: bold; }
 
     </style>
 </head>
