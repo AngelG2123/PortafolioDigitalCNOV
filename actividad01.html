@@ -10,223 +10,61 @@
 
     <style>
 
-        
-        body {
-            background-color: #050505; 
-            color: #e0e0e0;
-        }
+        body { background-color: #050505; color: #e0e0e0; font-family: 'Inter', sans-serif; }
+        .contenedor-articulo { max-width: 950px; margin: 0 auto; padding: 2rem 1rem; }
 
-        .articulo-container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
+        h1 { font-size: 2.2rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
 
-        .header-articulo {
+        .rubrica-titulo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.3rem;
+            color: #00ff41;
             border-bottom: 2px solid #333;
-            padding-bottom: 2rem;
-            margin-bottom: 3rem;
-            margin-top: 2rem;
-        }
-
-        .etiqueta-rubrica {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            background-color: #222;
-            color: #aaa;
-            padding: 2px 8px;
-            border-radius: 4px;
-            margin-bottom: 5px;
-            display: inline-block;
-            border: 1px solid #444;
-        }
-
-        .titulo-articulo {
-            font-family: 'Inter', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 0.5rem;
-            line-height: 1.2;
-            text-shadow: 0 0 15px rgba(0, 255, 65, 0.15);
-        }
-
-        .subtitulo-articulo {
-            font-family: 'JetBrains Mono', monospace;
-            color: #00ff41; /* Verde Terminal */
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        /* Caja de Integrantes (Datos Generales) */
-        .caja-meta-datos {
-            background-color: rgba(255, 255, 255, 0.05);
-            border-left: 4px solid #00ff41;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            border-radius: 0 8px 8px 0;
-        }
-
-        .grid-integrantes {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .integrante-item {
-            font-size: 0.9rem;
-            color: #ccc;
-            display: flex;
-            align-items: center;
-        }
-        
-        .integrante-item i { color: #00ff41; margin-right: 8px; }
-
-        /* Títulos de sección numerados */
-        h2.seccion-titulo {
-            color: #fff;
-            border-bottom: 1px solid #333;
             padding-bottom: 0.5rem;
             margin-top: 4rem;
             margin-bottom: 1.5rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.4rem;
+            text-transform: uppercase;
+        }
+        
+        .rubrica-tag {
+            background: #222; color: #aaa; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; margin-right: 10px; vertical-align: middle;
         }
 
-        h2.seccion-titulo span { color: #00ff41; }
-
-        /* Estilos de Texto */
-        p { line-height: 1.7; margin-bottom: 1.5rem; font-size: 1.05rem; }
+        p { line-height: 1.8; margin-bottom: 1.2rem; text-align: justify; font-size: 1rem; color: #d1d1d1; }
         strong { color: #fff; }
+        h3 { color: #fff; margin-top: 2rem; margin-bottom: 1rem; font-size: 1.1rem; }
 
-        /* Tablas Técnicas (Estilo Terminal) */
-        .tabla-terminal-wrapper { overflow-x: auto; }
-        
-        .tabla-terminal {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1.5rem 0;
-            font-size: 0.9rem;
-            font-family: 'JetBrains Mono', monospace;
-            border: 1px solid #333;
+        .box-metadata {
+            background: #111; border: 1px solid #333; padding: 1.5rem; margin-bottom: 3rem; border-left: 4px solid #00ff41;
         }
-        .tabla-terminal th { background-color: #111; color: #00ff41; padding: 12px; text-align: left; border-bottom: 2px solid #333; }
-        .tabla-terminal td { border: 1px solid #333; padding: 12px; color: #ddd; vertical-align: top; background-color: rgba(0,0,0,0.3); }
-        .tabla-terminal tr:hover td { background-color: rgba(0, 255, 65, 0.05); }
+        .box-metadata ul { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; }
+        .box-metadata li { font-size: 0.9rem; color: #aaa; }
+        .box-metadata li i { color: #00ff41; margin-right: 8px; }
 
-        /* Multimedia: Video y Diagramas */
-        .contenedor-multimedia {
-            margin: 2rem 0;
-            border: 1px solid #333;
-            padding: 5px;
-            background: #111;
-        }
+        .tabla-container { overflow-x: auto; margin-bottom: 2rem; border: 1px solid #333; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; font-family: 'JetBrains Mono', monospace; }
+        th { background: #1a1a1a; color: #00ff41; padding: 12px; text-align: left; border-bottom: 2px solid #444; min-width: 150px; }
+        td { padding: 12px; border: 1px solid #333; vertical-align: top; background: rgba(255,255,255,0.02); }
+        tr:nth-child(even) td { background: rgba(255,255,255,0.04); }
 
-        .video-responsive {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
+        .multimedia-area {
+            background: #0a0a0a; border: 1px dashed #444; padding: 1.5rem; text-align: center; margin: 2rem 0;
         }
-        
-        .video-responsive iframe {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-        }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 1rem; }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 1px solid #333; }
 
-        .diagrama-placeholder {
-            background-color: #0a0a0a;
-            border: 1px dashed #444;
-            min-height: 300px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #666;
-            padding: 2rem;
-            text-align: center;
+        .btn-exportar {
+            display: block; width: 100%; max-width: 350px; margin: 3rem auto; 
+            padding: 1.2rem; background: #b71c1c; color: white; text-align: center; 
+            text-decoration: none; font-weight: bold; border-radius: 4px; 
+            font-family: 'JetBrains Mono', monospace; transition: 0.3s;
+            border: 1px solid #e53935; font-size: 1.1rem;
         }
-        
-        .diagrama-placeholder img {
-            max-width: 100%;
-            height: auto;
-            border: 1px solid #333;
-            margin-top: 1rem;
-        }
+        .btn-exportar:hover { background: #d32f2f; box-shadow: 0 0 20px rgba(229, 57, 53, 0.4); transform: scale(1.02); }
 
-        /* Tarjetas de Impacto (CIA Triad) */
-        .grid-impacto {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .card-impacto {
-            background: #111;
-            padding: 1.5rem;
-            border-top: 3px solid #333;
-            transition: transform 0.3s;
-        }
-        
-        .card-impacto:hover { transform: translateY(-5px); }
-        .card-impacto.confidencialidad { border-color: #00ff41; }
-        .card-impacto.integridad { border-color: #ffcc00; }
-        .card-impacto.disponibilidad { border-color: #ff0055; }
-
-        .card-impacto h4 { margin-top: 0; color: #fff; font-family: 'JetBrains Mono', monospace; }
-        .metric { font-size: 1.2rem; font-weight: bold; margin: 0.5rem 0; display: block; }
-
-        /* Referencias */
-        .referencias-lista {
-            background-color: #0f0f0f;
-            padding: 2rem;
-            font-size: 0.85rem;
-            border-left: 2px solid #333;
-            list-style: none;
-        }
-        .referencias-lista li { margin-bottom: 1rem; word-break: break-all; }
-        .referencias-lista li::before { content: "[REF] "; color: #00ff41; font-family: monospace; }
-
-        /* BOTÓN DE EXPORTACIÓN (Requerimiento Crítico) */
-        .zona-exportacion {
-            margin-top: 5rem;
-            background: linear-gradient(180deg, rgba(20,20,20,0) 0%, rgba(20,20,20,1) 100%);
-            padding: 3rem 1rem;
-            text-align: center;
-            border-top: 1px solid #333;
-        }
-
-        .btn-pdf {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background-color: #e53935; /* Rojo PDF */
-            color: white;
-            padding: 1rem 2.5rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: bold;
-            text-decoration: none;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            font-size: 1.1rem;
-            border: 1px solid #b71c1c;
-            box-shadow: 0 4px 15px rgba(229, 57, 53, 0.3);
-        }
-
-        .btn-pdf:hover {
-            background-color: #ff5252;
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(229, 57, 53, 0.5);
-        }
-
-        /* Navegación básica */
-        .nav-bread { margin-top: 100px; padding: 0 1rem; max-width: 900px; margin-left: auto; margin-right: auto; }
-        .nav-bread a { color: #888; text-decoration: none; font-family: monospace; }
-        .nav-bread a:hover { color: #00ff41; }
-        .nav-bread span { color: #444; margin: 0 10px; }
+        .referencias-lista { list-style: none; padding: 0; background: #111; padding: 1.5rem; border-left: 2px solid #555; }
+        .referencias-lista li { margin-bottom: 1rem; font-size: 0.9rem; color: #bbb; word-break: break-all; }
+        .referencias-lista li::before { content: ">> "; color: #00ff41; }
 
     </style>
 </head>
@@ -235,195 +73,195 @@
     <header class="cabecera-principal">
         <div class="contenedor contenido-cabecera">
             <div class="logo-terminal">
-                <span class="simbolo">></span> Ángel González<span class="cursor">_</span>
+                <span class="simbolo">></span> Ángel Josué González Delgado<span class="cursor">_</span>
+                <br>
+                <span class="simbolo">></span> VenusWatch<span class="cursor">_</span>
             </div>
             <div class="info-materia">
-                <p><span class="simbolo">></span> Seguridad Informática</p>
+                <p><span class="simbolo">></span> CNO V - Seguridad Informática <span class="cursor">_</span></p>
+                <p><span class="simbolo">></span> Universidad Politécnica de San Luis Potosí <span class="cursor">_</span></p>
+                <p><span class="simbolo">></span> Octavo semestre <span class="cursor">_</span></p>
             </div>
         </div>
+        
         <nav class="barra-navegacion">
             <ul class="enlaces">
                 <li><a href="index.html">/Inicio</a></li>
                 <li><a href="actividades.html" class="activo">/Actividades</a></li>
+                <li><a href="#" class="deshabilitado">/Parcial 1</a></li>
+                <li><a href="#" class="deshabilitado">/Parcial 2</a></li>
+                <li><a href="#" class="deshabilitado">/Parcial 3</a></li>
+                <li><a href="#" class="deshabilitado">/Proyecto Final</a></li>
+                <li><a href="#" class="deshabilitado">/Software</a></li>
             </ul>
         </nav>
     </header>
 
-    <div class="nav-bread">
-        <a href="index.html">HOME</a> <span>/</span> <a href="actividades.html">ACTIVIDADES</a> <span>/</span> <span style="color:#fff;">ACT_01</span>
-    </div>
-
-    <section class="seccion-contenido">
-        <div class="articulo-container scroll-element">
+    <div class="contenedor-articulo">
+        
+        <div class="header-section scroll-element">
+            <h1>REPORTE TÉCNICO: NOTPETYA - MAERSK</h1>
+            <p style="color: #00ff41; font-family: 'JetBrains Mono'; margin-top: 0;">Actividad 01 | Análisis de Ciberataque Real</p>
             
-            <div class="header-articulo">
-                <span class="etiqueta-rubrica">REPORTE TÉCNICO</span>
-                <h1 class="titulo-articulo">ANÁLISIS DE CASO: NOTPETYA - MAERSK</h1>
-                <p class="subtitulo-articulo">Impacto global, análisis forense y consecuencias estratégicas.</p>
-                
-                <div class="caja-meta-datos">
-                    <h4 style="color:#fff; margin-top:0;">// EQUIPO 2 - PARTICIPANTES:</h4>
-                    <div class="grid-integrantes">
-                        <div class="integrante-item"><i class="fas fa-user-shield"></i> Diego López Castro (Líder)</div>
-                        <div class="integrante-item"><i class="fas fa-user"></i> Ángel Josué González Delgado</div>
-                        <div class="integrante-item"><i class="fas fa-user"></i> Hazel Mario Ávalos Rangel</div>
-                        <div class="integrante-item"><i class="fas fa-user"></i> Jorge Alejandro Cabrera Meza</div>
-                        <div class="integrante-item"><i class="fas fa-user"></i> Jorge Emmanuel López Monsiváis</div>
-                    </div>
-                    <p style="margin-top: 1rem; color: #666; font-size: 0.8rem;">
-                        <strong>Fecha:</strong> 30-Enero-2026 | <strong>Materia:</strong> CNO V
-                    </p>
-                </div>
+            <div class="box-metadata">
+                <h4 style="margin-top:0; color:#fff;">// EQUIPO 2 - PARTICIPANTES:</h4>
+                <ul>
+                    <li><i class="fas fa-user-shield"></i> López Castro Diego (Líder) - 182032</li>
+                    <li><i class="fas fa-user"></i> Ávalos Rangel Hazel Mario - 181801</li>
+                    <li><i class="fas fa-user"></i> Cabrera Meza Jorge Alejandro - 181591</li>
+                    <li><i class="fas fa-user"></i> González Delgado Ángel Josué - 182837</li>
+                    <li><i class="fas fa-user"></i> López Monsiváis Jorge Emmanuel - 179842</li>
+                </ul>
+                <p style="font-size: 0.8rem; margin-bottom: 0; margin-top: 1rem; border-top: 1px solid #333; padding-top: 10px;">
+                    Profesor: Mtro. Servando López Contreras | Fecha: 30-Enero-2026
+                </p>
             </div>
+        </div>
 
-            <span class="etiqueta-rubrica">REQ. 01: INTRODUCCIÓN CONTEXTUAL</span>
-            <h2 class="seccion-titulo"><span>01.</span> Contexto del Ataque</h2>
-            <p>
-                En junio de 2017, en medio de un tenso contexto geopolítico entre Rusia y Ucrania, se desató uno de los ciberataques más devastadores de la historia. Un malware denominado <strong>NotPetya</strong> (inicialmente confundido con ransomware) comenzó a propagarse globalmente, afectando a cerca de 2,000 organizaciones.
-            </p>
-            <p>
-                La empresa naviera <strong>Maersk</strong> fue una de las víctimas más críticas. Sus sistemas operaban con serias deficiencias de seguridad: servidores con <em>Windows 2000</em>, falta de parches y una red plana sin segmentación. Esto permitió que, lo que comenzó como un ataque dirigido a Ucrania, escalara hasta paralizar la logística marítima mundial.
-            </p>
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">01</span> Introducción Contextual al Tema</h2>
+        <div class="scroll-element">
+            <h3>Introducción</h3>
+            <p>En junio de 2017, un ransomware relacionado con Petya, denominado NotPetya por Kaspersky, comenzó a propagarse a nivel mundial, afectando a cerca de 2000 organizaciones, principalmente en Ucrania. Entre las más impactadas se encontró la empresa naviera Maersk, cuyos sistemas críticos fueron comprometidos, provocando la interrupción total de sus operaciones y generando graves consecuencias operativas y económicas.</p>
+            <p>El presente documento analiza de forma crítica el ataque de ransomware NotPetya que afectó a Maersk, evaluando las condiciones de ciberseguridad previas, los factores que facilitaron el incidente y su impacto, así como su relación con marcos normativos.</p>
 
-            <span class="etiqueta-rubrica">REQ. 02: DESARROLLO TÉCNICO</span>
-            <h2 class="seccion-titulo"><span>02.</span> Análisis Técnico y Cronología</h2>
+            <h3>Contexto general del ataque</h3>
+            <p>En 2017, el ciberataque NotPetya, originado en el contexto del conflicto geopolítico entre Rusia y Ucrania, provocó un impacto global sin precedentes al paralizar la logística y el transporte marítimo de la multinacional Maersk. Este desastre fue facilitado por una postura de ciberseguridad interna sumamente debilitada, donde destacaba el uso de sistemas operativos obsoletos y sin soporte, como servidores con Windows 2000, sumado a una nula segmentación de red.</p>
+            <p>El éxito del ataque se basó en una combinación crítica de fallas: técnicamente, el malware explotó la vulnerabilidad EternalBlue para propagarse velozmente; a nivel humano, la infección se activó en la filial ucraniana mediante el software fiscal comprometido M.E.Doc.</p>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">02</span> Desarrollo Técnico de la Actividad</h2>
+        <div class="scroll-element">
             
-            <p>El ataque no utilizó ingeniería social clásica (phishing), sino que comprometió la cadena de suministro de software.</p>
+            <h3>Línea del tiempo</h3>
+            <p>Antes del ataque, Ucrania ya se encontraba en un contexto de alta tensión geopolítica. En 2010, Viktor Yanukovych asumió la presidencia del país, pero tras la Revolución de Euromaidán en febrero de 2014 huyó de Ucrania. A nivel técnico, el escenario se agravó cuando en abril de 2017 el grupo Shadow Brokers filtró EternalBlue.</p>
+            <p>La preparación del ataque NotPetya ocurrió de forma silenciosa. Antes de junio de 2017, el software fiscal ucraniano M.E.Doc ya había sido comprometido mediante un backdoor. El ataque se ejecutó el 27 de junio de 2017 a las 10:30 UTC, cuando se liberó la actualización maliciosa. Entre 13:00 y 14:00 UTC, NotPetya alcanzó a A.P. Moller-Maersk a través de su oficina en Odesa.</p>
+            <p>Aproximadamente dos horas después del inicio del ataque, la empresa tomó la decisión crítica de desconectar completamente su red global. La fase de recuperación fue extensa; en aproximadamente 10 días, Maersk logró reconstruir desde cero cerca de 4,000 servidores y 45,000 PCs.</p>
 
-            <div class="tabla-terminal-wrapper">
-                <table class="tabla-terminal">
-                    <thead>
-                        <tr>
-                            <th colspan="2">MATRIZ DE ANÁLISIS (MITRE ATT&CK)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Actor (Threat Actor)</strong></td>
-                            <td>Grupo <em>Sandworm</em> (Vinculado al GRU - Inteligencia Militar Rusa).</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Vector de Acceso Inicial</strong></td>
-                            <td>Compromiso de Cadena de Suministro (Supply Chain). Se inyectó código malicioso en la actualización del software contable ucraniano <strong>M.E.Doc</strong>.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Ejecución y Propagación</strong></td>
-                            <td>
-                                1. Explotación de vulnerabilidad <strong>EternalBlue (CVE-2017-0144)</strong> en protocolo SMBv1.<br>
-                                2. Uso de herramientas administrativas como <em>PsExec</em> y <em>WMIC</em>.<br>
-                                3. Robo de credenciales de memoria RAM usando <strong>Mimikatz</strong>.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Impacto (Payload)</strong></td>
-                            <td>Wiper destructivo: Cifrado de la Master File Table (MFT) y sobrescritura del Master Boot Record (MBR). El objetivo era destruir datos, no pedir rescate.</td>
-                        </tr>
-                    </tbody>
+            <h3>Tabla Técnica del Ataque (MITRE ATT&CK)</h3>
+            <div class="tabla-container">
+                <table>
+                    <tr><th>Elemento</th><th>Descripción</th></tr>
+                    <tr><td>Tipo de ataque</td><td>Malware destructivo (wiper) disfrazado de ransomware. Sobreescribe el MBR y cifra la MFT.</td></tr>
+                    <tr><td>Actor</td><td>Sandworm (Grupo de hackers militares rusos vinculados al GRU).</td></tr>
+                    <tr><td>Vector de entrada</td><td>Actualización de software comprometida del programa M.E.Doc.</td></tr>
+                    <tr><td>Vulnerabilidad</td><td>CVE-2017-0144 (EternalBlue, SMBv1), Mimikatz (LSASS).</td></tr>
+                    <tr><td>Etapas (MITRE)</td><td>
+                        Acceso Inicial (T1190), Ejecución (T1059), Persistencia (T1547), Escalada de Privilegios (T1134), Acceso a Credenciales (T1003), Movimiento Lateral (T1210), Impacto (T1486).
+                    </td></tr>
+                    <tr><td>Sistemas afectados</td><td>Servidores Windows, 45,000 PCs, 1,200 aplicaciones críticas, terminales portuarias (17 de 76).</td></tr>
                 </table>
             </div>
 
-            <span class="etiqueta-rubrica">REQ. 03: MATERIAL MULTIMEDIA</span>
-            <h2 class="seccion-titulo"><span>03.</span> Evidencias Multimedia</h2>
-
-            <p><strong>Video Documental Relacionado:</strong> Análisis del impacto global de NotPetya.</p>
-            <div class="contenedor-multimedia">
-                <div class="video-responsive">
-                    <iframe src="https://www.youtube.com/embed/V5MxeFvj99U" title="NotPetya Attack Explained" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
+            <h3>Evaluación del Impacto (CIA Triad)</h3>
+            <div class="tabla-container">
+                <table>
+                    <tr><th>Principio</th><th>Descripción del impacto</th></tr>
+                    <tr><td>Confidencialidad</td><td>No se expuso información sensible. El impacto fue mínimo, centrado en destrucción.</td></tr>
+                    <tr><td>Integridad</td><td>Datos y sistemas irreversiblemente alterados. MFT corrompida y MBR sobrescrito.</td></tr>
+                    <tr><td>Disponibilidad</td><td>Servicios interrumpidos globalmente. Operaciones manuales por 10 días.</td></tr>
+                </table>
             </div>
 
-            <p style="margin-top: 2rem;"><strong>Esquema del Flujo de Infección:</strong></p>
-            <div class="diagrama-placeholder">
-                <i class="fas fa-network-wired" style="font-size: 3rem; margin-bottom: 1rem; color: #444;"></i>
-                <h4 style="color: #fff; margin:0;">[ESPACIO PARA DIAGRAMA TÉCNICO]</h4>
-                <p style="font-size: 0.9rem;">
-                    Insertar aquí diagrama que muestre: <br>
-                    <em>Servidor M.E.Doc (Ucrania) -> Túnel VPN -> Red Maersk -> Propagación Lateral (EternalBlue)</em>
-                </p>
+            <h3>Relación con Marcos Normativos</h3>
+            <p>El incidente no fue una falla aislada, sino una cascada de fallos en controles preventivos.</p>
+            <div class="tabla-container">
+                <table>
+                    <tr><th>Riesgo</th><th>Control Faltante (ISO/NIST)</th><th>Recomendación</th></tr>
+                    <tr><td>Cadena de Suministro</td><td>ISO 27001 A.15.1: Política con proveedores.</td><td>Entornos de prueba para updates.</td></tr>
+                    <tr><td>Movimiento Lateral</td><td>NIST CSF PR.AC-5: Segmentación de red.</td><td>Micro-segmentación por riesgo.</td></tr>
+                    <tr><td>Escalamiento Privilegios</td><td>ISO 27001 A.9.4: Gestión de acceso.</td><td>Implementar PAM.</td></tr>
+                    <tr><td>Parcheo (SMBv1)</td><td>NIST CSF PR.IP-12: Gestión de vulnerabilidades.</td><td>SLAs de parcheo de emergencia.</td></tr>
+                </table>
             </div>
-
-            <span class="etiqueta-rubrica">REQ. 04: OPINIÓN Y REFLEXIÓN TÉCNICA</span>
-            <h2 class="seccion-titulo"><span>04.</span> Evaluación de Impacto y Reflexión</h2>
-            
-            <p>
-                Como estudiantes de Seguridad Informática, el análisis de este caso revela que la seguridad perimetral tradicional es insuficiente. El impacto en la triada CIA fue catastrófico:
-            </p>
-
-            <div class="grid-impacto">
-                <div class="card-impacto confidencialidad">
-                    <h4 style="color:#00ff41;">CONFIDENCIALIDAD</h4>
-                    <span class="metric">BAJO</span>
-                    <p style="font-size:0.8rem; color:#888;">No hubo exfiltración masiva de datos confirmada; el objetivo era sabotaje, no espionaje.</p>
-                </div>
-                <div class="card-impacto integridad">
-                    <h4 style="color:#ffcc00;">INTEGRIDAD</h4>
-                    <span class="metric">CRÍTICO</span>
-                    <p style="font-size:0.8rem; color:#888;">Datos alterados irreversiblemente. MFT y MBR corruptos sin posibilidad de recuperación real.</p>
-                </div>
-                <div class="card-impacto disponibilidad">
-                    <h4 style="color:#ff0055;">DISPONIBILIDAD</h4>
-                    <span class="metric">CRÍTICO</span>
-                    <p style="font-size:0.8rem; color:#888;">Parálisis total de 17 puertos internacionales y sistemas de logística durante semanas.</p>
-                </div>
-            </div>
-
-            <p>
-                <strong>Reflexión Final:</strong> El caso Maersk nos enseña que la ciberseguridad es un pilar estratégico y no solo un gasto de TI. La pérdida estimada de <strong>$300 Millones de USD</strong> supera por mucho cualquier presupuesto preventivo que se hubiera podido invertir. <br><br>
-                En escenarios reales actuales, la lección clave es la <strong>Resiliencia</strong>: Maersk se salvó únicamente gracias a un controlador de dominio en Ghana que estaba desconectado por un apagón. Esto subraya la necesidad de respaldos <em>offline</em> (regla 3-2-1) y la segmentación de redes para evitar que un fallo local se convierta en un colapso global.
-            </p>
-
-            <span class="etiqueta-rubrica">REQ. 05: REFERENCIAS</span>
-            <h2 class="seccion-titulo"><span>05.</span> Referencias Bibliográficas</h2>
-            <ul class="referencias-lista">
-                <li>Columbia University. (2022). <em>NotPetya: A case study of a state-sponsored cyberattack</em>. SIPA.</li>
-                <li>Cybersecurity & Infrastructure Security Agency (CISA). (2017). <em>Petya ransomware (Alert ICS-17-181-01C)</em>. U.S. Dept of Homeland Security.</li>
-                <li>IBM X-Force. (s.f.). <em>Petya-NotPetya ransomware campaign collection</em>. IBM Cloud.</li>
-                <li>National Institute of Standards and Technology (NIST). (2024). <em>The NIST Cybersecurity Framework (CSF) 2.0</em>.</li>
-                <li>Diario Oficial de la Federación. (2017). <em>Tipo de cambio y tasas de interés</em>.</li>
-            </ul>
-
-            <div class="zona-exportacion">
-                <h3 style="color:#fff; margin-bottom: 1rem;">Documentación Formal</h3>
-                <p style="margin-bottom: 2rem; color: #ccc;">
-                    Descarga el reporte académico completo validado para esta actividad. <br>
-                    <small>Formato PDF | Versión Entregable</small>
-                </p>
-                
-                <a href="Act01-Equipo2.pdf" class="btn-pdf" download>
-                    <i class="fas fa-file-pdf"></i> EXPORTAR A PDF
-                </a>
-            </div>
-
         </div>
-    </section>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">03</span> Material Multimedia</h2>
+        <div class="scroll-element">
+            <p>A continuación se presentan los recursos visuales que apoyan la comprensión del incidente.</p>
+            
+            <div class="multimedia-area">
+                <h4 style="color:#00ff41; margin-top:0;">1. Video Informativo</h4>
+                <p style="font-size:0.9rem;">Análisis documental del ataque NotPetya y sus consecuencias globales.</p>
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/watch?v=7EGfxPa4nmg" title="NotPetya Attack" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div class="multimedia-area">
+                <h4 style="color:#00ff41; margin-top:0;">2. Como funciona NotPetya</h4>
+                <p style="font-size:0.9rem;">Imagen explicativa sobre como funciona NotPetya.</p>
+                <div style="margin-top: 1rem; text-align: center;">
+                    <img src="petya1.png" alt="Diagrama de Infección NotPetya" style="max-width: 100%; height: auto; border: 2px solid #333;">
+                </div>
+                
+                <p style="font-size: 0.8rem; color: #666; margin-top: 5px;">
+                    Figura 1: Diagrama de la topología de red y cadena de ataque.
+                </p>
+            </div>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">04</span> Opinión y Reflexión Técnica del Estudiante</h2>
+        <div class="scroll-element">
+            
+            <h3>Lecciones aprendidas</h3>
+            <p>El ataque a Maersk demostró que debilidades técnicas como sistemas obsoletos (Windows 2000) y redes no segmentadas pueden escalar hasta un colapso sistémico global. Fallas críticas como la nula gestión de parches y el abuso de credenciales privilegiadas convirtieron una actualización de software en un vector de entrada masivo.</p>
+            <p>En México y Latinoamérica, ante presupuestos limitados, es urgente priorizar la actualización de sistemas bajo marcos internacionales como el NIST. El caso Maersk redefine la ciberseguridad como un pilar estratégico indispensable, y no un gasto.</p>
+
+            <h3>Conclusiones y Escenarios Reales</h3>
+            <p>El caso NotPetya-Maersk confirma que la ciberseguridad es vital para la continuidad operativa en un mundo interconectado. En América Latina, donde la brecha digital y el uso de sistemas desactualizados son retos comunes, la resiliencia no debe ser opcional.</p>
+            <p>Para fortalecer nuestra región, es imperativo implementar acciones como modernizar la infraestructura crítica y la gestión de parches; así como la segmentación y respaldos offline (regla 3-2-1). En definitiva, la estabilidad de las organizaciones depende de entender que la prevención y la resiliencia son determinantes.</p>
+
+            <div style="background: #222; padding: 1rem; border-left: 3px solid #ff0055; margin-top: 1rem;">
+                <strong>Impacto Económico Real:</strong> La pérdida estimada ronda entre los <strong>$250 y $300 millones de USD</strong>. El costo técnico de recuperación ($1,714 MDP) triplicó lo que la empresa habría invertido en protección anual.
+            </div>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">05</span> Referencias Técnicas</h2>
+        <div class="scroll-element">
+            <ul class="referencias-lista">
+                <li>Columbia University. (2022). NotPetya: A case study of a state-sponsored cyberattack. SIPA.</li>
+                <li>Cybersecurity & Infrastructure Security Agency. (2017). Petya ransomware (Alert ICS-17-181-01C).</li>
+                <li>IBM X-Force. (s.f.). Petya-NotPetya ransomware campaign. IBM Cloud.</li>
+                <li>National Institute of Standards and Technology. (2024). The NIST Cybersecurity Framework (CSF) 2.0.</li>
+                <li>Diario Oficial de la Federación. (2017). Tipo de cambio y tasas de interés: Valor del dólar 2017.</li>
+            </ul>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">06</span> Exportación</h2>
+        <div class="scroll-element" style="text-align: center;">
+            <p>Descarga la versión formal del documento correspondiente a esta actividad (Respaldo Académico).</p>
+            
+            <a href="Act01-Equipo2.pdf" class="btn-exportar" download>
+                <i class="fas fa-file-pdf" style="margin-right: 10px;"></i> EXPORTAR A PDF
+            </a>
+            
+            <p style="font-size: 0.8rem; color: #666;">Archivo: Act01-Equipo2.pdf</p>
+        </div>
+
+    </div>
 
     <footer>
         <div class="contenedor contenido-footer">
             <p>&copy; 2026 Ángel Josué González Delgado. Todos los derechos reservados.</p>
-            <p class="ssl-badge"><i class="fas fa-lock"></i> SSL Secured</p>
         </div>
     </footer>
 
     <script>
-        window.onload = function() {
-            const elements = document.querySelectorAll('.scroll-element');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = 1;
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
+        // Animación de entrada al hacer scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
             });
-            
-            elements.forEach((el) => {
-                el.style.opacity = 0;
-                el.style.transform = 'translateY(30px)';
-                el.style.transition = 'all 0.8s ease';
-                observer.observe(el);
-            });
-        }
+        });
+        document.querySelectorAll('.scroll-element').forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
     </script>
-
 </body>
 </html>
