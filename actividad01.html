@@ -279,7 +279,7 @@
         <div class="scroll-element" style="text-align: center;">
             <p>Descarga la versión formal del documento correspondiente a esta actividad (Respaldo Académico).</p>
             
-            <a href="Act01-Equipo2.pdf" class="btn-exportar" download>
+            <a href="./Parcial1/Act01-Equipo2.pdf" class="btn-exportar" download>
                 <i class="fas fa-file-pdf" style="margin-right: 10px;"></i> EXPORTAR A PDF
             </a>
             
@@ -293,23 +293,5 @@
             <p>&copy; 2026 Ángel Josué González Delgado. Todos los derechos reservados.</p>
         </div>
     </footer>
-
-    <script>
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = 1;
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        });
-        document.querySelectorAll('.scroll-element').forEach(el => {
-            el.style.opacity = 0;
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'all 0.6s ease';
-            observer.observe(el);
-        });
-    </script>
 </body>
 </html>
