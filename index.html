@@ -9,21 +9,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
-        /* Estado inicial: invisible y desplazado hacia abajo */
+
         .scroll-element {
             opacity: 0;
-            transform: translateY(50px); /* Se mueve 50px abajo */
+            transform: translateY(50px); 
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
             will-change: opacity, transform;
         }
 
-        /* Estado visible: opacidad total y posición original */
+
         .scroll-element.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* Retrasos escalonados para las tarjetas (opcional, para que aparezcan una por una) */
         .delay-100 { transition-delay: 100ms; }
         .delay-200 { transition-delay: 200ms; }
         .delay-300 { transition-delay: 300ms; }
@@ -48,6 +47,7 @@
         <nav class="barra-navegacion">
             <ul class="enlaces">
                 <li><a href="#inicio" class="activo">/Inicio</a></li>
+                <li><a href="actividades.html">/Actividades</a></li>
                 <li><a href="#" class="deshabilitado">/Parcial 1</a></li>
                 <li><a href="#" class="deshabilitado">/Parcial 2</a></li>
                 <li><a href="#" class="deshabilitado">/Parcial 3</a></li>
@@ -212,3 +212,4 @@
 
 </body>
 </html>
+
