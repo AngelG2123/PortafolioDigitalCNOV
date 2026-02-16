@@ -9,16 +9,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
-
+        /* ESTILOS GENERALES (TERMINAL/HACKER) */
         body { background-color: #050505; color: #e0e0e0; font-family: 'Inter', sans-serif; }
         .contenedor-articulo { max-width: 950px; margin: 0 auto; padding: 2rem 1rem; }
-
+        
         h1 { font-size: 2.2rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
 
         .rubrica-titulo {
             font-family: 'JetBrains Mono', monospace;
             font-size: 1.3rem;
-            color: #00ff41;
+            color: #00ff41; /* Verde Terminal */
             border-bottom: 2px solid #333;
             padding-bottom: 0.5rem;
             margin-top: 4rem;
@@ -32,7 +32,7 @@
 
         p { line-height: 1.8; margin-bottom: 1.2rem; text-align: justify; font-size: 1rem; color: #d1d1d1; }
         strong { color: #fff; }
-        h3 { color: #fff; margin-top: 2rem; margin-bottom: 1rem; font-size: 1.1rem; }
+        h3 { color: #fff; margin-top: 2rem; margin-bottom: 1rem; font-size: 1.1rem; border-left: 3px solid #00ff41; padding-left: 10px; }
 
         .box-metadata {
             background: #111; border: 1px solid #333; padding: 1.5rem; margin-bottom: 3rem; border-left: 4px solid #00ff41;
@@ -41,30 +41,63 @@
         .box-metadata li { font-size: 0.9rem; color: #aaa; }
         .box-metadata li i { color: #00ff41; margin-right: 8px; }
 
-        .tabla-container { overflow-x: auto; margin-bottom: 2rem; border: 1px solid #333; }
+        /* Tablas */
+        .tabla-container { overflow-x: auto; margin-bottom: 2rem; border: 1px solid #333; border-radius: 4px; }
         table { width: 100%; border-collapse: collapse; font-size: 0.9rem; font-family: 'JetBrains Mono', monospace; }
         th { background: #1a1a1a; color: #00ff41; padding: 12px; text-align: left; border-bottom: 2px solid #444; min-width: 150px; }
         td { padding: 12px; border: 1px solid #333; vertical-align: top; background: rgba(255,255,255,0.02); }
         tr:nth-child(even) td { background: rgba(255,255,255,0.04); }
 
+        /* Multimedia y Placeholders */
         .multimedia-area {
-            background: #0a0a0a; border: 1px dashed #444; padding: 1.5rem; text-align: center; margin: 2rem 0;
+            background: #0a0a0a; border: 1px dashed #444; padding: 1.5rem; text-align: center; margin: 2rem 0; border-radius: 6px;
         }
-        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 1rem; }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 1rem; border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
         .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 1px solid #333; }
 
+        /* Estilo para los Espacios de Imagen (Placeholders) */
+        .espacio-imagen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #0f0f0f;
+            border: 2px dashed #333;
+            color: #555;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            min-height: 200px;
+        }
+        .espacio-imagen:hover {
+            border-color: #00ff41;
+            color: #888;
+        }
+        .espacio-imagen i { font-size: 2.5rem; margin-bottom: 1rem; color: #333; }
+        .espacio-imagen img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #333;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+        .caption-imagen { font-size: 0.8rem; color: #666; margin-top: 10px; font-style: italic; }
+
+        /* Botón Exportar */
         .btn-exportar {
             display: block; width: 100%; max-width: 350px; margin: 3rem auto; 
             padding: 1.2rem; background: #b71c1c; color: white; text-align: center; 
             text-decoration: none; font-weight: bold; border-radius: 4px; 
             font-family: 'JetBrains Mono', monospace; transition: 0.3s;
             border: 1px solid #e53935; font-size: 1.1rem;
+            box-shadow: 0 4px 10px rgba(183, 28, 28, 0.3);
         }
-        .btn-exportar:hover { background: #d32f2f; box-shadow: 0 0 20px rgba(229, 57, 53, 0.4); transform: scale(1.02); }
+        .btn-exportar:hover { background: #d32f2f; box-shadow: 0 0 20px rgba(229, 57, 53, 0.6); transform: translateY(-2px); }
 
-        .referencias-lista { list-style: none; padding: 0; background: #111; padding: 1.5rem; border-left: 2px solid #555; }
+        /* Referencias */
+        .referencias-lista { list-style: none; padding: 0; background: #111; padding: 1.5rem; border-left: 2px solid #555; border-radius: 0 4px 4px 0; }
         .referencias-lista li { margin-bottom: 1rem; font-size: 0.9rem; color: #bbb; word-break: break-all; }
-        .referencias-lista li::before { content: ">> "; color: #00ff41; }
+        .referencias-lista li::before { content: ">> "; color: #00ff41; font-weight: bold; }
 
     </style>
 </head>
@@ -80,7 +113,6 @@
             <div class="info-materia">
                 <p><span class="simbolo">></span> CNO V - Seguridad Informática <span class="cursor">_</span></p>
                 <p><span class="simbolo">></span> Universidad Politécnica de San Luis Potosí <span class="cursor">_</span></p>
-                <p><span class="simbolo">></span> Octavo semestre <span class="cursor">_</span></p>
             </div>
         </div>
         
@@ -92,7 +124,6 @@
                 <li><a href="#" class="deshabilitado">/Parcial 2</a></li>
                 <li><a href="#" class="deshabilitado">/Parcial 3</a></li>
                 <li><a href="#" class="deshabilitado">/Proyecto Final</a></li>
-                <li><a href="#" class="deshabilitado">/Software</a></li>
             </ul>
         </nav>
     </header>
@@ -121,8 +152,15 @@
         <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">01</span> Introducción Contextual al Tema</h2>
         <div class="scroll-element">
             <h3>Introducción</h3>
-            <p>En junio de 2017, un ransomware relacionado con Petya, denominado NotPetya por Kaspersky, comenzó a propagarse a nivel mundial, afectando a cerca de 2000 organizaciones, principalmente en Ucrania. Entre las más impactadas se encontró la empresa naviera Maersk, cuyos sistemas críticos fueron comprometidos, provocando la interrupción total de sus operaciones y generando graves consecuencias operativas y económicas.</p>
+            <p>En junio de 2017, un ransomware relacionado con Petya, denominado <strong>NotPetya</strong> por Kaspersky, comenzó a propagarse a nivel mundial, afectando a cerca de 2000 organizaciones, principalmente en Ucrania. Entre las más impactadas se encontró la empresa naviera <strong>Maersk</strong>, cuyos sistemas críticos fueron comprometidos, provocando la interrupción total de sus operaciones y generando graves consecuencias operativas y económicas.</p>
             <p>El presente documento analiza de forma crítica el ataque de ransomware NotPetya que afectó a Maersk, evaluando las condiciones de ciberseguridad previas, los factores que facilitaron el incidente y su impacto, así como su relación con marcos normativos.</p>
+
+            <div style="margin: 2rem 0; text-align: center;">
+    <img src="./Parcial1/petya01.png" alt="Contexto Maersk NotPetya" style="max-width: 100%; height: auto; border: 2px solid #333; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 4px;">
+    <p style="font-size: 0.8rem; color: #666; margin-top: 5px; font-style: italic;">
+        Figura 1: Maersk.
+    </p>
+</div>
 
             <h3>Contexto general del ataque</h3>
             <p>En 2017, el ciberataque NotPetya, originado en el contexto del conflicto geopolítico entre Rusia y Ucrania, provocó un impacto global sin precedentes al paralizar la logística y el transporte marítimo de la multinacional Maersk. Este desastre fue facilitado por una postura de ciberseguridad interna sumamente debilitada, donde destacaba el uso de sistemas operativos obsoletos y sin soporte, como servidores con Windows 2000, sumado a una nula segmentación de red.</p>
@@ -133,7 +171,7 @@
         <div class="scroll-element">
             
             <h3>Línea del tiempo</h3>
-            <p>Antes del ataque, Ucrania ya se encontraba en un contexto de alta tensión geopolítica. En 2010, Viktor Yanukovych asumió la presidencia del país, pero tras la Revolución de Euromaidán en febrero de 2014 huyó de Ucrania. A nivel técnico, el escenario se agravó cuando en abril de 2017 el grupo Shadow Brokers filtró EternalBlue.</p>
+            <p>Antes del ataque, Ucrania ya se encontraba en un contexto de alta tensión geopolítica. En 2010, Viktor Yanukovych asumió la presidencia del país, pero tras la Revolución de Euromaidán en febrero de 2014 huyó de Ucrania. A nivel técnico, el escenario se agravó cuando en abril de 2017 el grupo Shadow Brokers filtró <strong>EternalBlue</strong>.</p>
             <p>La preparación del ataque NotPetya ocurrió de forma silenciosa. Antes de junio de 2017, el software fiscal ucraniano M.E.Doc ya había sido comprometido mediante un backdoor. El ataque se ejecutó el 27 de junio de 2017 a las 10:30 UTC, cuando se liberó la actualización maliciosa. Entre 13:00 y 14:00 UTC, NotPetya alcanzó a A.P. Moller-Maersk a través de su oficina en Odesa.</p>
             <p>Aproximadamente dos horas después del inicio del ataque, la empresa tomó la decisión crítica de desconectar completamente su red global. La fase de recuperación fue extensa; en aproximadamente 10 días, Maersk logró reconstruir desde cero cerca de 4,000 servidores y 45,000 PCs.</p>
 
@@ -141,7 +179,7 @@
             <div class="tabla-container">
                 <table>
                     <tr><th>Elemento</th><th>Descripción</th></tr>
-                    <tr><td>Tipo de ataque</td><td>Malware destructivo (wiper) disfrazado de ransomware. Sobreescribe el MBR y cifra la MFT.</td></tr>
+                    <tr><td>Tipo de ataque</td><td>Malware destructivo (wiper) disfrazado de ransomware. Sobrescribe el MBR y cifra la MFT.</td></tr>
                     <tr><td>Actor</td><td>Sandworm (Grupo de hackers militares rusos vinculados al GRU).</td></tr>
                     <tr><td>Vector de entrada</td><td>Actualización de software comprometida del programa M.E.Doc.</td></tr>
                     <tr><td>Vulnerabilidad</td><td>CVE-2017-0144 (EternalBlue, SMBv1), Mimikatz (LSASS).</td></tr>
@@ -152,7 +190,14 @@
                 </table>
             </div>
 
-            <h3>Evaluación del Impacto (CIA Triad)</h3>
+            <div style="margin: 2rem 0; text-align: center;">
+                <img src="./Parcial1/petya2.png" alt="Contexto Maersk NotPetya" style="max-width: 100%; height: auto; border: 2px solid #333; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 4px;">
+                <p style="font-size: 0.8rem; color: #666; margin-top: 5px; font-style: italic;">
+                    Figura 2: Mensaje Rescate NotPetya.
+                </p>
+            </div>
+
+            <h3>Evaluación del Impacto (Triada CIA)</h3>
             <div class="tabla-container">
                 <table>
                     <tr><th>Principio</th><th>Descripción del impacto</th></tr>
@@ -183,19 +228,20 @@
                 <h4 style="color:#00ff41; margin-top:0;">1. Video Informativo</h4>
                 <p style="font-size:0.9rem;">Análisis documental del ataque NotPetya y sus consecuencias globales.</p>
                 <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/watch?v=7EGfxPa4nmg" title="NotPetya Attack" frameborder="0" allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/7EGfxPa4nmg" title="NotPetya Attack" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </div>
 
             <div class="multimedia-area">
-                <h4 style="color:#00ff41; margin-top:0;">2. Como funciona NotPetya</h4>
-                <p style="font-size:0.9rem;">Imagen explicativa sobre como funciona NotPetya.</p>
+                <h4 style="color:#00ff41; margin-top:0;">2. Cómo funciona NotPetya</h4>
+                <p style="font-size:0.9rem;">Esquema explicativo del funcionamiento del malware.</p>
+                
                 <div style="margin-top: 1rem; text-align: center;">
-                    <img src="petya1.png" alt="Diagrama de Infección NotPetya" style="max-width: 100%; height: auto; border: 2px solid #333;">
+                    <img src="petya1.png" alt="Diagrama de Infección NotPetya" style="max-width: 100%; height: auto; border: 2px solid #333; box-shadow: 0 0 10px #000;">
                 </div>
                 
-                <p style="font-size: 0.8rem; color: #666; margin-top: 5px;">
-                    Figura 1: Diagrama de la topología de red y cadena de ataque.
+                <p class="caption-imagen">
+                    Figura 1: Diagrama de funcionamiento de NotPetya.
                 </p>
             </div>
         </div>
@@ -211,8 +257,9 @@
             <p>El caso NotPetya-Maersk confirma que la ciberseguridad es vital para la continuidad operativa en un mundo interconectado. En América Latina, donde la brecha digital y el uso de sistemas desactualizados son retos comunes, la resiliencia no debe ser opcional.</p>
             <p>Para fortalecer nuestra región, es imperativo implementar acciones como modernizar la infraestructura crítica y la gestión de parches; así como la segmentación y respaldos offline (regla 3-2-1). En definitiva, la estabilidad de las organizaciones depende de entender que la prevención y la resiliencia son determinantes.</p>
 
-            <div style="background: #222; padding: 1rem; border-left: 3px solid #ff0055; margin-top: 1rem;">
-                <strong>Impacto Económico Real:</strong> La pérdida estimada ronda entre los <strong>$250 y $300 millones de USD</strong>. El costo técnico de recuperación ($1,714 MDP) triplicó lo que la empresa habría invertido en protección anual.
+            <div style="background: #151515; padding: 1.5rem; border-left: 3px solid #b71c1c; margin-top: 2rem; border-radius: 4px;">
+                <strong style="color: #ff5252;">Impacto Económico Real:</strong> 
+                <p style="margin-bottom: 0; margin-top: 0.5rem;">La pérdida estimada ronda entre los <strong>$250 y $300 millones de USD</strong>. El costo técnico de recuperación ($1,714 MDP) triplicó lo que la empresa habría invertido en protección anual.</p>
             </div>
         </div>
 
@@ -247,7 +294,7 @@
     </footer>
 
     <script>
-        // Animación de entrada al hacer scroll
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
