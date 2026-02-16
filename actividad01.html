@@ -100,11 +100,18 @@
         .referencias-lista li::before { content: ">> "; color: #00ff41; font-weight: bold; }
 
         .info-materia p {
-            margin-bottom: 5px;   /* Quita el margen gigante */
-            line-height: 1.2;     /* Reduce la altura de línea */
-            text-align: right;    /* Alinea a la derecha como el original */
-            font-size: 0.8rem;    /* Tamaño de letra original */
-            color: #fff;          /* Color blanco */
+            margin: 0 !important;        
+            padding: 2px 0 !important;    
+            line-height: 1.2 !important; 
+            text-align: right !important;
+            font-size: 0.85rem !important; 
+            color: #ccc !important;       
+            display: block !important;     
+        }
+
+        .info-materia span.simbolo, 
+        .info-materia span.cursor {
+            color: #00ff41 !important;    
         }
 
     </style>
