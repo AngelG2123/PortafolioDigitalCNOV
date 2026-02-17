@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 02 | Servicios de Seguridad</title>
+    <link rel="stylesheet" href="style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        body { 
+            background-color: #050505; /* Negro sólido */
+            color: #e0e0e0; 
+            font-family: 'Inter', sans-serif; 
+            margin: 0;
+        }
+
+        /* --- 2. CORRECCIÓN CRÍTICA DE CABECERA (INFO-MATERIA) --- */
+        .info-materia p {
+            margin: 0 !important;
+            padding: 1px 0 !important;
+            line-height: 1.1 !important;
+            text-align: right !important;
+            font-size: 0.85rem !important;
+            color: #ffffff !important; /* Letras blancas */
+            font-family: 'JetBrains Mono', monospace !important;
+            display: block !important;
+        }
+        .info-materia span.simbolo, 
+        .info-materia span.cursor {
+            color: #00ff41 !important; /* Símbolos verdes */
+        }
+
+        /* --- 3. ESTILOS DEL ARTÍCULO --- */
+        .contenedor-articulo { max-width: 950px; margin: 0 auto; padding: 2rem 1rem; position: relative; z-index: 1; }
+        
+        h1 { font-size: 2.2rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
+
+        .rubrica-titulo {
+            font-family: 'JetBrains Mono', monospace; font-size: 1.3rem; color: #00ff41; 
+            border-bottom: 2px solid #333; padding-bottom: 0.5rem; margin-top: 4rem; margin-bottom: 1.5rem; text-transform: uppercase;
+        }
+        .rubrica-tag { background: #222; color: #aaa; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; margin-right: 10px; vertical-align: middle; }
+        
+        /* Párrafos */
+        .contenedor-articulo p { line-height: 1.8; margin-bottom: 1.2rem; text-align: justify; font-size: 1rem; color: #d1d1d1; }
+        strong { color: #fff; }
+        
+        /* Títulos de Escenarios */
+        h3 { color: #fff; margin-top: 3rem; margin-bottom: 1rem; font-size: 1.2rem; border-left: 4px solid #00ff41; padding-left: 10px; padding-top: 5px; padding-bottom: 5px;}
+
+        /* --- 4. COMPONENTES --- */
+        .box-metadata { background: #111; border: 1px solid #333; padding: 1.5rem; margin-bottom: 3rem; border-left: 4px solid #00ff41; }
+        .box-metadata ul { list-style: none; padding: 0; }
+        .box-metadata li { font-size: 0.9rem; color: #aaa; margin-bottom: 5px;}
+        .box-metadata li i { color: #00ff41; margin-right: 8px; }
+
+        .tabla-container { background: #0a0a0a; overflow-x: auto; margin-bottom: 2rem; border: 1px solid #333; border-radius: 4px; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; font-family: 'JetBrains Mono', monospace; }
+        th { background: #1a1a1a; color: #00ff41; padding: 12px; text-align: left; border-bottom: 2px solid #444; min-width: 180px; }
+        td { padding: 12px; border: 1px solid #333; vertical-align: top; color: #ccc; }
+        tr:nth-child(even) td { background: rgba(255,255,255,0.03); }
+
+        .multimedia-area { background: #0f0f0f; border: 1px dashed #444; padding: 1.5rem; text-align: center; margin: 2rem 0; border-radius: 6px; }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 1rem; border: 1px solid #333; }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+        .espacio-imagen {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background-color: #0f0f0f; border: 2px dashed #333; color: #555; padding: 2rem; margin: 1.5rem 0; border-radius: 6px; min-height: 200px; transition: 0.3s;
+        }
+        .espacio-imagen:hover { border-color: #00ff41; color: #888; }
+        .espacio-imagen i { font-size: 2.5rem; margin-bottom: 1rem; }
+        .espacio-imagen img { max-width: 100%; height: auto; border: 1px solid #333; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .caption-imagen { font-size: 0.8rem; color: #666; margin-top: 10px; font-style: italic; }
+
+        .btn-exportar {
+            display: block; width: 100%; max-width: 350px; margin: 3rem auto; padding: 1.2rem; background: #b71c1c; 
+            color: white; text-align: center; text-decoration: none; font-weight: bold; border-radius: 4px; font-family: 'JetBrains Mono', monospace; 
+            transition: 0.3s; border: 1px solid #e53935; box-shadow: 0 4px 10px rgba(183, 28, 28, 0.3);
+        }
+        .btn-exportar:hover { background: #d32f2f; box-shadow: 0 0 20px rgba(229, 57, 53, 0.6); transform: translateY(-2px); }
+
+        .referencias-lista { list-style: none; padding: 0; background: #111; padding: 1.5rem; border-left: 2px solid #555; }
+        .referencias-lista li { margin-bottom: 1rem; font-size: 0.9rem; color: #bbb; word-break: break-all; }
+        .referencias-lista li::before { content: ">> "; color: #00ff41; font-weight: bold; }
+
+    </style>
+</head>
+<body>
+
+    <header class="cabecera-principal">
+        <div class="contenedor contenido-cabecera">
+            <div class="logo-terminal">
+                <span class="simbolo">></span> Ángel Josué González Delgado<span class="cursor">_</span>
+                <br>
+                <span class="simbolo">></span> VenusWatch<span class="cursor">_</span>
+            </div>
+            <div class="info-materia">
+                <p><span class="simbolo">></span> CNO V - Seguridad Informática <span class="cursor">_</span></p>
+                <p><span class="simbolo">></span> Universidad Politécnica de San Luis Potosí <span class="cursor">_</span></p>
+                <p><span class="simbolo">></span> Octavo semestre <span class="cursor">_</span></p>
+            </div>
+        </div>
+        
+        <nav class="barra-navegacion">
+            <ul class="enlaces">
+                <li><a href="index.html">/Inicio</a></li>
+                <li><a href="actividades.html" class="activo">/Actividades</a></li>
+                <li><a href="#" class="deshabilitado">/Parcial 1</a></li>
+                <li><a href="#" class="deshabilitado">/Parcial 2</a></li>
+                <li><a href="#" class="deshabilitado">/Parcial 3</a></li>
+                <li><a href="#" class="deshabilitado">/Proyecto Final</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="contenedor-articulo">
+        
+        <div class="header-section scroll-element">
+            <h1>ANÁLISIS DE SERVICIOS DE SEGURIDAD</h1>
+            <p style="color: #00ff41; font-family: 'JetBrains Mono'; margin-top: 0;">Actividad 02 | X.800 y RFC 4949</p>
+            
+            <div class="box-metadata">
+                [cite_start]<h4 style="margin-top:0; color:#fff;">// FICHA TÉCNICA: [cite: 72]</h4>
+                <ul>
+                    <li><i class="fas fa-user"></i> Estudiante: González Delgado Ángel Josué - 182837</li>
+                    <li><i class="fas fa-chalkboard-teacher"></i> Profesor: Servando López Contreras</li>
+                    <li><i class="fas fa-calendar-alt"></i> Fecha de entrega: 27-Enero-2026</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">01</span> Introducción Contextual al Tema</h2>
+        <div class="scroll-element">
+            <p>Al realizar un análisis de servicios de seguridad es necesario utilizar ciertas recomendaciones como lo son la aplicación de los seis servicios de seguridad los cuales son definidos en el <strong>ITU-T X.800</strong>. [cite_start]La recomendación X.800 tiene como objetivo proporcionar una serie de conceptos la cual sirve para lograr entender, planificar y además implementar la seguridad en redes de comunicación y sistemas interconectados relacionados con la seguridad OSI[cite: 74, 75].</p>
+            [cite_start]<p>Por otro lado, es capaz de definir principios, servicios, mecanismos y poder ser base para normas como lo son la ISO/IEC 7498-2 y la serie de normas ISO 27000. Sus objetivos principales son proteger datos contra diferentes tipos de amenazas, asegurar la autenticidad, garantizar disponibilidad de servicios de red y ofrecer una estructura de referencia para el diseño e implementación de controles de seguridad en las capas del modelo OSI[cite: 76].</p>
+            
+            <div class="espacio-imagen">
+                <i class="fas fa-network-wired"></i>
+                <span>[IMAGEN 1: DIAGRAMA DE SEGURIDAD OSI / X.800]</span>
+                <span style="font-size: 0.8rem; margin-top: 5px;">Sugerencia: Inserta aquí un diagrama de la arquitectura X.800 o capas OSI.</span>
+                </div>
+
+            <p>La segunda recomendación es la utilización de <strong>RFC 4949</strong> el cual es un glosario oficial y uno de los documentos más importantes en materia de la terminología y fundamentos conceptuales de seguridad informática, además de ser emitido por la IETF (Internet Engineering Task Force). [cite_start]Durante esta actividad se realizará el análisis de diversos escenarios utilizando X.800 y RFC 4949 para identificar, explicar y documentar vulnerabilidades en contextos reales[cite: 78].</p>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">02</span> Desarrollo Técnico de la Actividad</h2>
+        <div class="scroll-element">
+            
+            <h3>Escenario 01: Ataque LockBit</h3>
+            <p>En múltiples incidentes atribuidos al grupo LockBit, organizaciones públicas y privadas han sufrido el cifrado masivo de servidores tras un acceso inicial no autorizado. [cite_start]Antes de ejecutar el ransomware, los atacantes exfiltraron información sensible y posteriormente amenazaron con su publicación[cite: 81].</p>
+            <div class="tabla-container">
+                <table>
+                    <tr><th>Elemento</th><th>Respuesta</th></tr>
+                    [cite_start]<tr><td>Servicios X.800 comprometidos</td><td>Confidencialidad, integridad de datos y disponibilidad[cite: 84].</td></tr>
+                    [cite_start]<tr><td>Definición(es) RFC 4949</td><td><strong>Attack:</strong> Ataque real derivado de una amenaza inteligente.<br><strong>Data confidentiality:</strong> Propiedad de no divulgación no autorizada.<br><strong>Availability:</strong> Accesible bajo demanda.<br><strong>Malicious logic:</strong> Hardware/software con fines nocivos[cite: 84].</td></tr>
+                    [cite_start]<tr><td>Tipo de amenaza</td><td>Externa (Acceso no autorizado)[cite: 84].</td></tr>
+                    [cite_start]<tr><td>Vector de ataque</td><td>Acceso no autorizado, modificación y destrucción de servidores[cite: 84].</td></tr>
+                    [cite_start]<tr><td>Impacto técnico</td><td>Exposición de datos sensibles, indisponibilidad del sistema[cite: 84].</td></tr>
+                    [cite_start]<tr><td>Control recomendado</td><td>Respaldos constantes, educación anti-phishing, uso de MFA, monitoreo de red[cite: 84].</td></tr>
+                </table>
+            </div>
+
+            <h3>Escenario 02: Bases de datos públicas (Nube)</h3>
+            <p>Bases de datos completas quedaron accesibles públicamente debido a errores de configuración en servicios de almacenamiento en la nube. [cite_start]No existió explotación técnica sofisticada, sino una falla en el control de acceso[cite: 85, 86].</p>
+            <div class="tabla-container">
+                <table>
+                    <tr><th>Elemento</th><th>Respuesta</th></tr>
+                    [cite_start]<tr><td>Servicios X.800 comprometidos</td><td>Control de acceso, confidencialidad de los datos[cite: 89].</td></tr>
+                    [cite_start]<tr><td>Definición(es) RFC 4949</td><td><strong>Exposure:</strong> Datos sensibles liberados de forma no autorizada.<br><strong>Access control:</strong> Protección contra acceso no autorizado[cite: 89].</td></tr>
+                    [cite_start]<tr><td>Tipo de amenaza</td><td>Interna (Accidental)[cite: 89].</td></tr>
+                    [cite_start]<tr><td>Vector de ataque</td><td>Exposición pública debido a fallo de configuración (bucket S3, etc.)[cite: 89].</td></tr>
+                    [cite_start]<tr><td>Impacto técnico</td><td>Pérdida de confidencialidad y daño reputacional[cite: 89].</td></tr>
+                    [cite_start]<tr><td>Control recomendado</td><td>Auditorías constantes de configuración y capacitación en protección de datos[cite: 89].</td></tr>
+                </table>
+            </div>
+
+            <h3>Escenario 03: Supply Chain Attack</h3>
+            [cite_start]<p>Un proveedor legítimo de software fue comprometido y distribuyó una actualización que incluía código malicioso (ej. caso SolarWinds), rompiendo el supuesto de legitimidad del software firmado[cite: 90].</p>
+            <div class="tabla-container">
+                <table>
+                    <tr><th>Elemento</th><th>Respuesta</th></tr>
+                    [cite_start]<tr><td>Servicios X.800 comprometidos</td><td>Integridad de los sistemas, confidencialidad[cite: 94].</td></tr>
+                    [cite_start]<tr><td>Definición(es) RFC 4949</td><td><strong>Data integrity:</strong> Datos no modificados/destruidos sin autorización.<br><strong>System integrity:</strong> Sistema libre de manipulaciones no autorizadas[cite: 94].</td></tr>
+                    [cite_start]<tr><td>Tipo de amenaza</td><td>Externa (Supply Chain Attack / Trojan Horse)[cite: 94].</td></tr>
+                    [cite_start]<tr><td>Vector de ataque</td><td>Inyección de código malicioso en software legal para su distribución[cite: 94].</td></tr>
+                    [cite_start]<tr><td>Impacto técnico</td><td>Gran daño en la confianza de legitimidad, accesos no autorizados[cite: 94].</td></tr>
+                    [cite_start]<tr><td>Control recomendado</td><td>Verificar firmas digitales de actualizaciones, monitoreo de comportamiento[cite: 96].</td></tr>
+                </table>
+            </div>
+
+            <h3>Escenario 04: Compromiso de Credenciales (Phishing)</h3>
+            <p>Mediante campañas de phishing, atacantes obtuvieron credenciales válidas y accedieron a sistemas corporativos durante meses. [cite_start]El servicio de autenticación fue comprometido al basarse en credenciales robadas[cite: 97, 98].</p>
+            <div class="tabla-container">
+                <table>
+                    <tr><th>Elemento</th><th>Respuesta</th></tr>
+                    [cite_start]<tr><td>Servicios X.800 comprometidos</td><td>Autenticación, control de acceso[cite: 101].</td></tr>
+                    [cite_start]<tr><td>Definición(es) RFC 4949</td><td><strong>Authentication:</strong> Verificación de identidad.<br><strong>Compromise:</strong> Uso no autorizado de datos sensibles.<br><strong>Phishing:</strong> Técnica de suplantación para adquirir datos[cite: 101].</td></tr>
+                    [cite_start]<tr><td>Tipo de amenaza</td><td>Externa (Phishing)[cite: 101].</td></tr>
+                    [cite_start]<tr><td>Vector de ataque</td><td>Robo de credenciales válidas mediante engaño[cite: 101].</td></tr>
+                    [cite_start]<tr><td>Impacto técnico</td><td>Acceso no detectado y no autorizado a sistemas[cite: 101].</td></tr>
+                    [cite_start]<tr><td>Control recomendado</td><td>Implementación de MFA, cambio frecuente de contraseñas[cite: 101].</td></tr>
+                </table>
+            </div>
+
+            <h3>Escenario 05: Destrucción de Respaldos</h3>
+            [cite_start]<p>En ataques de ransomware avanzados, los atacantes eliminaron o cifraron los respaldos antes de afectar los sistemas productivos, comprometiendo la disponibilidad[cite: 102, 103].</p>
+            <div class="tabla-container">
+                <table>
+                    <tr><th>Elemento</th><th>Respuesta</th></tr>
+                    [cite_start]<tr><td>Servicios X.800 comprometidos</td><td>Disponibilidad, integridad[cite: 106].</td></tr>
+                    [cite_start]<tr><td>Definición(es) RFC 4949</td><td><strong>Data integrity:</strong> Datos no destruidos sin autorización.<br><strong>Availability:</strong> Recurso accesible bajo demanda.<br><strong>Malicious logic:</strong> Software con fines nocivos[cite: 106, 108].</td></tr>
+                    [cite_start]<tr><td>Tipo de amenaza</td><td>Externa (Data destruction)[cite: 108].</td></tr>
+                    [cite_start]<tr><td>Vector de ataque</td><td>Destrucción de respaldos antes del cifrado principal[cite: 108].</td></tr>
+                    [cite_start]<tr><td>Impacto técnico</td><td>Imposibilidad de recuperación, costos altos de rescate[cite: 108].</td></tr>
+                    [cite_start]<tr><td>Control recomendado</td><td>Crear respaldos offline (fuera de línea) e inmutables[cite: 108].</td></tr>
+                </table>
+            </div>
+
+            <h3>Escenario 06: Insider Threat</h3>
+            <p>Un empleado con acceso legítimo extrajo bases de datos completas y las vendió a terceros. [cite_start]Fallas en el control de acceso por exceso de privilegios[cite: 109, 110].</p>
+            <div class="tabla-container">
+                <table>
+                    <tr><th>Elemento</th><th>Respuesta</th></tr>
+                    [cite_start]<tr><td>Servicios X.800 comprometidos</td><td>Confidencialidad, control de acceso[cite: 113].</td></tr>
+                    [cite_start]<tr><td>Definición(es) RFC 4949</td><td><strong>Insider:</strong> Usuario dentro del perímetro de seguridad.<br><strong>Access control:</strong> Protección contra uso no autorizado[cite: 113].</td></tr>
+                    [cite_start]<tr><td>Tipo de amenaza</td><td>Interna (Ataque malicioso)[cite: 113].</td></tr>
+                    [cite_start]<tr><td>Vector de ataque</td><td>Abuso de privilegios legítimos[cite: 113].</td></tr>
+                    [cite_start]<tr><td>Impacto técnico</td><td>Filtración de bases de datos sin uso de vulnerabilidades técnicas[cite: 113].</td></tr>
+                    [cite_start]<tr><td>Control recomendado</td><td>Monitoreo de accesos internos, principio de mínimos privilegios[cite: 113].</td></tr>
+                </table>
+            </div>
+
+            <h3>Escenario 07: Alteración de Logs (Audit Trail)</h3>
+            [cite_start]<p>Tras un ataque, los registros del sistema quedaron cifrados o alterados, impidiendo reconstruir la secuencia de eventos y comprometiendo el no repudio[cite: 114, 115].</p>
+            <div class="tabla-container">
+                <table>
+                    <tr><th>Elemento</th><th>Respuesta</th></tr>
+                    [cite_start]<tr><td>Servicios X.800 comprometidos</td><td>Integridad de los datos, no repudio[cite: 118].</td></tr>
+                    [cite_start]<tr><td>Definición(es) RFC 4949</td><td><strong>Non-repudiation service:</strong> Servicio contra la negación falsa de un evento.<br><strong>Data integrity:</strong> Protección contra modificación no autorizada[cite: 120].</td></tr>
+                    [cite_start]<tr><td>Tipo de amenaza</td><td>Externa (Violación a la integridad)[cite: 120].</td></tr>
+                    [cite_start]<tr><td>Vector de ataque</td><td>Cifrado/borrado de logs para eliminar huellas[cite: 120].</td></tr>
+                    [cite_start]<tr><td>Impacto técnico</td><td>Imposibilidad de análisis forense y atribución[cite: 120].</td></tr>
+                    [cite_start]<tr><td>Control recomendado</td><td>Logs en servidor remoto (Syslog) con protección contra escritura[cite: 120].</td></tr>
+                </table>
+            </div>
+
+            <h3>Escenario 08: Fallo Operativo (Actualización)</h3>
+            <p>Una actualización mal ejecutada provocó la caída simultánea de múltiples servicios críticos (ej. CrowdStrike). [cite_start]Falla en disponibilidad por error interno[cite: 121, 122].</p>
+            <div class="tabla-container">
+                <table>
+                    <tr><th>Elemento</th><th>Respuesta</th></tr>
+                    [cite_start]<tr><td>Servicios X.800 comprometidos</td><td>Disponibilidad[cite: 125].</td></tr>
+                    [cite_start]<tr><td>Definición(es) RFC 4949</td><td><strong>Availability:</strong> Sistema utilizable bajo demanda.<br><strong>Failure control:</strong> Metodología de recuperación a prueba de fallos[cite: 125].</td></tr>
+                    [cite_start]<tr><td>Tipo de amenaza</td><td>Interna (Fallo en proceso)[cite: 125].</td></tr>
+                    [cite_start]<tr><td>Vector de ataque</td><td>Actualización defectuosa sin pruebas suficientes[cite: 125].</td></tr>
+                    [cite_start]<tr><td>Impacto técnico</td><td>Interrupción global de servicios críticos[cite: 125].</td></tr>
+                    [cite_start]<tr><td>Control recomendado</td><td>Entornos de staging (pruebas) y planes de rollback[cite: 125].</td></tr>
+                </table>
+            </div>
+
+            <h3>Escenario 09: Masquerade (Sitios Falsos)</h3>
+            <p>Atacantes replicaron sitios y correos oficiales para engañar a ciudadanos. [cite_start]Afecta la autenticación al suplantar identidades legítimas[cite: 126, 127].</p>
+            <div class="tabla-container">
+                <table>
+                    <tr><th>Elemento</th><th>Respuesta</th></tr>
+                    [cite_start]<tr><td>Servicios X.800 comprometidos</td><td>Autenticación, confidencialidad[cite: 130].</td></tr>
+                    [cite_start]<tr><td>Definición(es) RFC 4949</td><td><strong>Masquerade:</strong> Entidad que se hace pasar por otra autorizada.<br><strong>Phishing:</strong> Técnica de ingeniería social[cite: 132].</td></tr>
+                    [cite_start]<tr><td>Tipo de amenaza</td><td>Externa (Masquerade)[cite: 132].</td></tr>
+                    [cite_start]<tr><td>Vector de ataque</td><td>Clonación de sitios web/correos para robo de datos[cite: 132].</td></tr>
+                    [cite_start]<tr><td>Impacto técnico</td><td>Robo de credenciales y engaño a usuarios[cite: 132].</td></tr>
+                    [cite_start]<tr><td>Control recomendado</td><td>Autenticación de dominio (DMARC/SPF) y concientización[cite: 132].</td></tr>
+                </table>
+            </div>
+
+            <h3>Escenario 10: Ataque Destructivo (Wiper)</h3>
+            <p>Tras exfiltrar información, los atacantes borraron sistemas completos. [cite_start]Compromiso total de la triada CIA (Confidencialidad, Integridad, Disponibilidad)[cite: 133, 134].</p>
+            <div class="tabla-container">
+                <table>
+                    <tr><th>Elemento</th><th>Respuesta</th></tr>
+                    [cite_start]<tr><td>Servicios X.800 comprometidos</td><td>Confidencialidad, integridad, disponibilidad[cite: 137].</td></tr>
+                    [cite_start]<tr><td>Definición(es) RFC 4949</td><td><strong>Data confidentiality/integrity/availability:</strong> Compromiso total.<br><strong>Destructive attack:</strong> Daño irreversible como objetivo[cite: 137].</td></tr>
+                    [cite_start]<tr><td>Tipo de amenaza</td><td>Externa (Destrucción de sistemas)[cite: 137].</td></tr>
+                    [cite_start]<tr><td>Vector de ataque</td><td>Ejecución de malware tipo Wiper[cite: 137].</td></tr>
+                    [cite_start]<tr><td>Impacto técnico</td><td>Daño irreversible y eliminación de rastros[cite: 137].</td></tr>
+                    [cite_start]<tr><td>Control recomendado</td><td>Detección temprana (EDR) y planes de recuperación ante desastres[cite: 137].</td></tr>
+                </table>
+            </div>
+
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">03</span> Material Multimedia</h2>
+        <div class="scroll-element">
+            <p>Recursos visuales y audiovisuales para reforzar los conceptos de los servicios de seguridad X.800.</p>
+            
+            <div class="multimedia-area">
+                <h4 style="color:#00ff41; margin-top:0;">1. Video Explicativo: Modelo OSI y Seguridad</h4>
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/PysxJ5XIX9M" title="OSI Security Architecture" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div class="espacio-imagen">
+                <i class="fas fa-shield-alt"></i>
+                <span>[IMAGEN 2: AMENAZAS COMUNES]</span>
+                <span style="font-size: 0.8rem; margin-top: 5px;">Sugerencia: Inserta un gráfico de estadísticas de Ransomware o Phishing.</span>
+                </div>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">04</span> Conclusiones y Reflexión Técnica</h2>
+        <div class="scroll-element">
+            <p>Se puede concluir que la gestión de la seguridad informática requiere obligatoriamente de una base estandarizada para ser efectiva. [cite_start]La aplicación práctica de la recomendación <strong>ITU-T X.800</strong> demostró ser una herramienta de diagnóstico fundamental, permitiendo identificar qué servicios de seguridad (como la integridad, confidencialidad o disponibilidad) fueron vulnerados en cada caso, independientemente de si la causa raíz fue un ataque malicioso externo o un error operativo interno[cite: 138, 139, 140].</p>
+            <p>Trabajar con <strong>RFC 4949</strong> fue de mucha ayuda al poder obtener distintas definiciones de manera precisa y con la confianza de saber que son definiciones avaladas por personas expertas. Al utilizar definiciones estandarizadas por la IETF, se logró categorizar las amenazas, diferenciando conceptos críticos como "failure" de "attack", o "masquerade" de "exposure". [cite_start]Esto fue muy importante para evitar confusiones en la comunicación[cite: 141, 142, 143].</p>
+            <div style="background: #151515; padding: 1.5rem; border-left: 3px solid #00ff41; margin-top: 1rem;">
+                [cite_start]<strong>Reflexión Final:</strong> La ciberseguridad es todo un proceso entre marcos normativos, ya que esto es la base para poder documentar vulnerabilidades en contextos reales y diseñar estrategias que protejan los activos de una organización[cite: 144].
+            </div>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">05</span> Referencias Técnicas</h2>
+        <div class="scroll-element">
+            <ul class="referencias-lista">
+                <li>RFC 4949: Internet Security Glossary, Version 2. (s. f.). [cite_start]IETF Datatracker[cite: 146].</li>
+                <li>ITU: Connecting the world and beyond. (s. f.). [cite_start]ITU[cite: 147].</li>
+                <li>ISO/IEC 7498-2: Information processing systems — Open Systems Interconnection — Security Architecture.</li>
+            </ul>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">06</span> Exportación</h2>
+        <div class="scroll-element" style="text-align: center;">
+            <p>Descarga la versión formal del documento correspondiente a esta actividad.</p>
+            
+            <a href="182837-act02.pdf" class="btn-exportar" download type="application/pdf">
+                <i class="fas fa-file-pdf" style="margin-right: 10px;"></i> EXPORTAR A PDF
+            </a>
+            
+            <p style="font-size: 0.8rem; color: #666;">Archivo: 182837-act02.pdf</p>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="contenedor contenido-footer">
+            <p>&copy; 2026 Ángel Josué González Delgado. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+        document.querySelectorAll('.scroll-element').forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
