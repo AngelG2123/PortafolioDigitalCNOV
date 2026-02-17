@@ -10,13 +10,12 @@
 
     <style>
         body { 
-            background-color: #050505; /* Negro sólido */
+            background-color: #050505;
             color: #e0e0e0; 
             font-family: 'Inter', sans-serif; 
             margin: 0;
         }
 
-        /* --- 2. CORRECCIÓN CRÍTICA DE CABECERA (INFO-MATERIA) --- */
         .info-materia p {
             margin: 0 !important;
             padding: 1px 0 !important;
@@ -31,8 +30,6 @@
         .info-materia span.cursor {
             color: #00ff41 !important; /* Símbolos verdes */
         }
-
-        /* --- 3. ESTILOS DEL ARTÍCULO --- */
         .contenedor-articulo { max-width: 950px; margin: 0 auto; padding: 2rem 1rem; position: relative; z-index: 1; }
         
         h1 { font-size: 2.2rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
@@ -123,7 +120,7 @@
             <p style="color: #00ff41; font-family: 'JetBrains Mono'; margin-top: 0;">Actividad 02 | X.800 y RFC 4949</p>
             
             <div class="box-metadata">
-                [cite_start]<h4 style="margin-top:0; color:#fff;">// FICHA TÉCNICA: [cite: 72]</h4>
+                <h4 style="margin-top:0; color:#fff;">// FICHA TÉCNICA:</h4>
                 <ul>
                     <li><i class="fas fa-user"></i> Estudiante: González Delgado Ángel Josué - 182837</li>
                     <li><i class="fas fa-chalkboard-teacher"></i> Profesor: Servando López Contreras</li>
@@ -134,8 +131,8 @@
 
         <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">01</span> Introducción Contextual al Tema</h2>
         <div class="scroll-element">
-            <p>Al realizar un análisis de servicios de seguridad es necesario utilizar ciertas recomendaciones como lo son la aplicación de los seis servicios de seguridad los cuales son definidos en el <strong>ITU-T X.800</strong>. [cite_start]La recomendación X.800 tiene como objetivo proporcionar una serie de conceptos la cual sirve para lograr entender, planificar y además implementar la seguridad en redes de comunicación y sistemas interconectados relacionados con la seguridad OSI[cite: 74, 75].</p>
-            [cite_start]<p>Por otro lado, es capaz de definir principios, servicios, mecanismos y poder ser base para normas como lo son la ISO/IEC 7498-2 y la serie de normas ISO 27000. Sus objetivos principales son proteger datos contra diferentes tipos de amenazas, asegurar la autenticidad, garantizar disponibilidad de servicios de red y ofrecer una estructura de referencia para el diseño e implementación de controles de seguridad en las capas del modelo OSI[cite: 76].</p>
+            <p>Al realizar un análisis de servicios de seguridad es necesario utilizar ciertas recomendaciones como lo son la aplicación de los seis servicios de seguridad los cuales son definidos en el <strong>ITU-T X.800</strong>. La recomendación X.800 tiene como objetivo proporcionar una serie de conceptos la cual sirve para lograr entender, planificar y además implementar la seguridad en redes de comunicación y sistemas interconectados relacionados con la seguridad OSI.</p>
+            <p>Por otro lado, es capaz de definir principios, servicios, mecanismos y poder ser base para normas como lo son la ISO/IEC 7498-2 y la serie de normas ISO 27000. Sus objetivos principales son proteger datos contra diferentes tipos de amenazas, asegurar la autenticidad, garantizar disponibilidad de servicios de red y ofrecer una estructura de referencia para el diseño e implementación de controles de seguridad en las capas del modelo OSI.</p>
             
             <div class="espacio-imagen">
                 <i class="fas fa-network-wired"></i>
@@ -143,149 +140,149 @@
                 <span style="font-size: 0.8rem; margin-top: 5px;">Sugerencia: Inserta aquí un diagrama de la arquitectura X.800 o capas OSI.</span>
                 </div>
 
-            <p>La segunda recomendación es la utilización de <strong>RFC 4949</strong> el cual es un glosario oficial y uno de los documentos más importantes en materia de la terminología y fundamentos conceptuales de seguridad informática, además de ser emitido por la IETF (Internet Engineering Task Force). [cite_start]Durante esta actividad se realizará el análisis de diversos escenarios utilizando X.800 y RFC 4949 para identificar, explicar y documentar vulnerabilidades en contextos reales[cite: 78].</p>
+            <p>La segunda recomendación es la utilización de <strong>RFC 4949</strong> el cual es un glosario oficial y uno de los documentos más importantes en materia de la terminología y fundamentos conceptuales de seguridad informática, además de ser emitido por la IETF (Internet Engineering Task Force). Durante esta actividad se realizará el análisis de diversos escenarios utilizando X.800 y RFC 4949 para identificar, explicar y documentar vulnerabilidades en contextos reales.</p>
         </div>
 
         <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">02</span> Desarrollo Técnico de la Actividad</h2>
         <div class="scroll-element">
             
             <h3>Escenario 01: Ataque LockBit</h3>
-            <p>En múltiples incidentes atribuidos al grupo LockBit, organizaciones públicas y privadas han sufrido el cifrado masivo de servidores tras un acceso inicial no autorizado. [cite_start]Antes de ejecutar el ransomware, los atacantes exfiltraron información sensible y posteriormente amenazaron con su publicación[cite: 81].</p>
+            <p>En múltiples incidentes atribuidos al grupo LockBit, organizaciones públicas y privadas han sufrido el cifrado masivo de servidores tras un acceso inicial no autorizado. Antes de ejecutar el ransomware, los atacantes exfiltraron información sensible y posteriormente amenazaron con su publicación.</p>
             <div class="tabla-container">
                 <table>
                     <tr><th>Elemento</th><th>Respuesta</th></tr>
-                    [cite_start]<tr><td>Servicios X.800 comprometidos</td><td>Confidencialidad, integridad de datos y disponibilidad[cite: 84].</td></tr>
-                    [cite_start]<tr><td>Definición(es) RFC 4949</td><td><strong>Attack:</strong> Ataque real derivado de una amenaza inteligente.<br><strong>Data confidentiality:</strong> Propiedad de no divulgación no autorizada.<br><strong>Availability:</strong> Accesible bajo demanda.<br><strong>Malicious logic:</strong> Hardware/software con fines nocivos[cite: 84].</td></tr>
-                    [cite_start]<tr><td>Tipo de amenaza</td><td>Externa (Acceso no autorizado)[cite: 84].</td></tr>
-                    [cite_start]<tr><td>Vector de ataque</td><td>Acceso no autorizado, modificación y destrucción de servidores[cite: 84].</td></tr>
-                    [cite_start]<tr><td>Impacto técnico</td><td>Exposición de datos sensibles, indisponibilidad del sistema[cite: 84].</td></tr>
-                    [cite_start]<tr><td>Control recomendado</td><td>Respaldos constantes, educación anti-phishing, uso de MFA, monitoreo de red[cite: 84].</td></tr>
+                    <tr><td>Servicios X.800 comprometidos</td><td>Confidencialidad, integridad de datos y disponibilidad.</td></tr>
+                    <tr><td>Definición(es) RFC 4949</td><td><strong>Attack:</strong> Ataque real derivado de una amenaza inteligente.<br><strong>Data confidentiality:</strong> Propiedad de no divulgación no autorizada.<br><strong>Availability:</strong> Accesible bajo demanda.<br><strong>Malicious logic:</strong> Hardware/software con fines nocivos.</td></tr>
+                    <tr><td>Tipo de amenaza</td><td>Externa (Acceso no autorizado).</td></tr>
+                    <tr><td>Vector de ataque</td><td>Acceso no autorizado, modificación y destrucción de servidores.</td></tr>
+                    <tr><td>Impacto técnico</td><td>Exposición de datos sensibles, indisponibilidad del sistema.</td></tr>
+                    <tr><td>Control recomendado</td><td>Respaldos constantes, educación anti-phishing, uso de MFA, monitoreo de red.</td></tr>
                 </table>
             </div>
 
             <h3>Escenario 02: Bases de datos públicas (Nube)</h3>
-            <p>Bases de datos completas quedaron accesibles públicamente debido a errores de configuración en servicios de almacenamiento en la nube. [cite_start]No existió explotación técnica sofisticada, sino una falla en el control de acceso[cite: 85, 86].</p>
+            <p>Bases de datos completas quedaron accesibles públicamente debido a errores de configuración en servicios de almacenamiento en la nube. No existió explotación técnica sofisticada, sino una falla en el control de acceso.</p>
             <div class="tabla-container">
                 <table>
                     <tr><th>Elemento</th><th>Respuesta</th></tr>
-                    [cite_start]<tr><td>Servicios X.800 comprometidos</td><td>Control de acceso, confidencialidad de los datos[cite: 89].</td></tr>
-                    [cite_start]<tr><td>Definición(es) RFC 4949</td><td><strong>Exposure:</strong> Datos sensibles liberados de forma no autorizada.<br><strong>Access control:</strong> Protección contra acceso no autorizado[cite: 89].</td></tr>
-                    [cite_start]<tr><td>Tipo de amenaza</td><td>Interna (Accidental)[cite: 89].</td></tr>
-                    [cite_start]<tr><td>Vector de ataque</td><td>Exposición pública debido a fallo de configuración (bucket S3, etc.)[cite: 89].</td></tr>
-                    [cite_start]<tr><td>Impacto técnico</td><td>Pérdida de confidencialidad y daño reputacional[cite: 89].</td></tr>
-                    [cite_start]<tr><td>Control recomendado</td><td>Auditorías constantes de configuración y capacitación en protección de datos[cite: 89].</td></tr>
+                    <tr><td>Servicios X.800 comprometidos</td><td>Control de acceso, confidencialidad de los datos.</td></tr>
+                    <tr><td>Definición(es) RFC 4949</td><td><strong>Exposure:</strong> Datos sensibles liberados de forma no autorizada.<br><strong>Access control:</strong> Protección contra acceso no autorizado.</td></tr>
+                    <tr><td>Tipo de amenaza</td><td>Interna (Accidental).</td></tr>
+                    <tr><td>Vector de ataque</td><td>Exposición pública debido a fallo de configuración (bucket S3, etc.).</td></tr>
+                    <tr><td>Impacto técnico</td><td>Pérdida de confidencialidad y daño reputacional.</td></tr>
+                    <tr><td>Control recomendado</td><td>Auditorías constantes de configuración y capacitación en protección de datos.</td></tr>
                 </table>
             </div>
 
             <h3>Escenario 03: Supply Chain Attack</h3>
-            [cite_start]<p>Un proveedor legítimo de software fue comprometido y distribuyó una actualización que incluía código malicioso (ej. caso SolarWinds), rompiendo el supuesto de legitimidad del software firmado[cite: 90].</p>
+            <p>Un proveedor legítimo de software fue comprometido y distribuyó una actualización que incluía código malicioso (ej. caso SolarWinds), rompiendo el supuesto de legitimidad del software firmado.</p>
             <div class="tabla-container">
                 <table>
                     <tr><th>Elemento</th><th>Respuesta</th></tr>
-                    [cite_start]<tr><td>Servicios X.800 comprometidos</td><td>Integridad de los sistemas, confidencialidad[cite: 94].</td></tr>
-                    [cite_start]<tr><td>Definición(es) RFC 4949</td><td><strong>Data integrity:</strong> Datos no modificados/destruidos sin autorización.<br><strong>System integrity:</strong> Sistema libre de manipulaciones no autorizadas[cite: 94].</td></tr>
-                    [cite_start]<tr><td>Tipo de amenaza</td><td>Externa (Supply Chain Attack / Trojan Horse)[cite: 94].</td></tr>
-                    [cite_start]<tr><td>Vector de ataque</td><td>Inyección de código malicioso en software legal para su distribución[cite: 94].</td></tr>
-                    [cite_start]<tr><td>Impacto técnico</td><td>Gran daño en la confianza de legitimidad, accesos no autorizados[cite: 94].</td></tr>
-                    [cite_start]<tr><td>Control recomendado</td><td>Verificar firmas digitales de actualizaciones, monitoreo de comportamiento[cite: 96].</td></tr>
+                    <tr><td>Servicios X.800 comprometidos</td><td>Integridad de los sistemas, confidencialidad.</td></tr>
+                    <tr><td>Definición(es) RFC 4949</td><td><strong>Data integrity:</strong> Datos no modificados/destruidos sin autorización.<br><strong>System integrity:</strong> Sistema libre de manipulaciones no autorizadas.</td></tr>
+                    <tr><td>Tipo de amenaza</td><td>Externa (Supply Chain Attack / Trojan Horse).</td></tr>
+                    <tr><td>Vector de ataque</td><td>Inyección de código malicioso en software legal para su distribución.</td></tr>
+                    <tr><td>Impacto técnico</td><td>Gran daño en la confianza de legitimidad, accesos no autorizados.</td></tr>
+                    <tr><td>Control recomendado</td><td>Verificar firmas digitales de actualizaciones, monitoreo de comportamiento.</td></tr>
                 </table>
             </div>
 
             <h3>Escenario 04: Compromiso de Credenciales (Phishing)</h3>
-            <p>Mediante campañas de phishing, atacantes obtuvieron credenciales válidas y accedieron a sistemas corporativos durante meses. [cite_start]El servicio de autenticación fue comprometido al basarse en credenciales robadas[cite: 97, 98].</p>
+            <p>Mediante campañas de phishing, atacantes obtuvieron credenciales válidas y accedieron a sistemas corporativos durante meses. El servicio de autenticación fue comprometido al basarse en credenciales robadas.</p>
             <div class="tabla-container">
                 <table>
                     <tr><th>Elemento</th><th>Respuesta</th></tr>
-                    [cite_start]<tr><td>Servicios X.800 comprometidos</td><td>Autenticación, control de acceso[cite: 101].</td></tr>
-                    [cite_start]<tr><td>Definición(es) RFC 4949</td><td><strong>Authentication:</strong> Verificación de identidad.<br><strong>Compromise:</strong> Uso no autorizado de datos sensibles.<br><strong>Phishing:</strong> Técnica de suplantación para adquirir datos[cite: 101].</td></tr>
-                    [cite_start]<tr><td>Tipo de amenaza</td><td>Externa (Phishing)[cite: 101].</td></tr>
-                    [cite_start]<tr><td>Vector de ataque</td><td>Robo de credenciales válidas mediante engaño[cite: 101].</td></tr>
-                    [cite_start]<tr><td>Impacto técnico</td><td>Acceso no detectado y no autorizado a sistemas[cite: 101].</td></tr>
-                    [cite_start]<tr><td>Control recomendado</td><td>Implementación de MFA, cambio frecuente de contraseñas[cite: 101].</td></tr>
+                    <tr><td>Servicios X.800 comprometidos</td><td>Autenticación, control de acceso.</td></tr>
+                    <tr><td>Definición(es) RFC 4949</td><td><strong>Authentication:</strong> Verificación de identidad.<br><strong>Compromise:</strong> Uso no autorizado de datos sensibles.<br><strong>Phishing:</strong> Técnica de suplantación para adquirir datos.</td></tr>
+                    <tr><td>Tipo de amenaza</td><td>Externa (Phishing).</td></tr>
+                    <tr><td>Vector de ataque</td><td>Robo de credenciales válidas mediante engaño.</td></tr>
+                    <tr><td>Impacto técnico</td><td>Acceso no detectado y no autorizado a sistemas.</td></tr>
+                    <tr><td>Control recomendado</td><td>Implementación de MFA, cambio frecuente de contraseñas.</td></tr>
                 </table>
             </div>
 
             <h3>Escenario 05: Destrucción de Respaldos</h3>
-            [cite_start]<p>En ataques de ransomware avanzados, los atacantes eliminaron o cifraron los respaldos antes de afectar los sistemas productivos, comprometiendo la disponibilidad[cite: 102, 103].</p>
+            <p>En ataques de ransomware avanzados, los atacantes eliminaron o cifraron los respaldos antes de afectar los sistemas productivos, comprometiendo la disponibilidad.</p>
             <div class="tabla-container">
                 <table>
                     <tr><th>Elemento</th><th>Respuesta</th></tr>
-                    [cite_start]<tr><td>Servicios X.800 comprometidos</td><td>Disponibilidad, integridad[cite: 106].</td></tr>
-                    [cite_start]<tr><td>Definición(es) RFC 4949</td><td><strong>Data integrity:</strong> Datos no destruidos sin autorización.<br><strong>Availability:</strong> Recurso accesible bajo demanda.<br><strong>Malicious logic:</strong> Software con fines nocivos[cite: 106, 108].</td></tr>
-                    [cite_start]<tr><td>Tipo de amenaza</td><td>Externa (Data destruction)[cite: 108].</td></tr>
-                    [cite_start]<tr><td>Vector de ataque</td><td>Destrucción de respaldos antes del cifrado principal[cite: 108].</td></tr>
-                    [cite_start]<tr><td>Impacto técnico</td><td>Imposibilidad de recuperación, costos altos de rescate[cite: 108].</td></tr>
-                    [cite_start]<tr><td>Control recomendado</td><td>Crear respaldos offline (fuera de línea) e inmutables[cite: 108].</td></tr>
+                    <tr><td>Servicios X.800 comprometidos</td><td>Disponibilidad, integridad.</td></tr>
+                    <tr><td>Definición(es) RFC 4949</td><td><strong>Data integrity:</strong> Datos no destruidos sin autorización.<br><strong>Availability:</strong> Recurso accesible bajo demanda.<br><strong>Malicious logic:</strong> Software con fines nocivos.</td></tr>
+                    <tr><td>Tipo de amenaza</td><td>Externa (Data destruction).</td></tr>
+                    <tr><td>Vector de ataque</td><td>Destrucción de respaldos antes del cifrado principal.</td></tr>
+                    <tr><td>Impacto técnico</td><td>Imposibilidad de recuperación, costos altos de rescate.</td></tr>
+                    <tr><td>Control recomendado</td><td>Crear respaldos offline (fuera de línea) e inmutables.</td></tr>
                 </table>
             </div>
 
             <h3>Escenario 06: Insider Threat</h3>
-            <p>Un empleado con acceso legítimo extrajo bases de datos completas y las vendió a terceros. [cite_start]Fallas en el control de acceso por exceso de privilegios[cite: 109, 110].</p>
+            <p>Un empleado con acceso legítimo extrajo bases de datos completas y las vendió a terceros. Fallas en el control de acceso por exceso de privilegios.</p>
             <div class="tabla-container">
                 <table>
                     <tr><th>Elemento</th><th>Respuesta</th></tr>
-                    [cite_start]<tr><td>Servicios X.800 comprometidos</td><td>Confidencialidad, control de acceso[cite: 113].</td></tr>
-                    [cite_start]<tr><td>Definición(es) RFC 4949</td><td><strong>Insider:</strong> Usuario dentro del perímetro de seguridad.<br><strong>Access control:</strong> Protección contra uso no autorizado[cite: 113].</td></tr>
-                    [cite_start]<tr><td>Tipo de amenaza</td><td>Interna (Ataque malicioso)[cite: 113].</td></tr>
-                    [cite_start]<tr><td>Vector de ataque</td><td>Abuso de privilegios legítimos[cite: 113].</td></tr>
-                    [cite_start]<tr><td>Impacto técnico</td><td>Filtración de bases de datos sin uso de vulnerabilidades técnicas[cite: 113].</td></tr>
-                    [cite_start]<tr><td>Control recomendado</td><td>Monitoreo de accesos internos, principio de mínimos privilegios[cite: 113].</td></tr>
+                    <tr><td>Servicios X.800 comprometidos</td><td>Confidencialidad, control de acceso.</td></tr>
+                    <tr><td>Definición(es) RFC 4949</td><td><strong>Insider:</strong> Usuario dentro del perímetro de seguridad.<br><strong>Access control:</strong> Protección contra uso no autorizado.</td></tr>
+                    <tr><td>Tipo de amenaza</td><td>Interna (Ataque malicioso).</td></tr>
+                    <tr><td>Vector de ataque</td><td>Abuso de privilegios legítimos.</td></tr>
+                    <tr><td>Impacto técnico</td><td>Filtración de bases de datos sin uso de vulnerabilidades técnicas.</td></tr>
+                    <tr><td>Control recomendado</td><td>Monitoreo de accesos internos, principio de mínimos privilegios.</td></tr>
                 </table>
             </div>
 
             <h3>Escenario 07: Alteración de Logs (Audit Trail)</h3>
-            [cite_start]<p>Tras un ataque, los registros del sistema quedaron cifrados o alterados, impidiendo reconstruir la secuencia de eventos y comprometiendo el no repudio[cite: 114, 115].</p>
+            <p>Tras un ataque, los registros del sistema quedaron cifrados o alterados, impidiendo reconstruir la secuencia de eventos y comprometiendo el no repudio.</p>
             <div class="tabla-container">
                 <table>
                     <tr><th>Elemento</th><th>Respuesta</th></tr>
-                    [cite_start]<tr><td>Servicios X.800 comprometidos</td><td>Integridad de los datos, no repudio[cite: 118].</td></tr>
-                    [cite_start]<tr><td>Definición(es) RFC 4949</td><td><strong>Non-repudiation service:</strong> Servicio contra la negación falsa de un evento.<br><strong>Data integrity:</strong> Protección contra modificación no autorizada[cite: 120].</td></tr>
-                    [cite_start]<tr><td>Tipo de amenaza</td><td>Externa (Violación a la integridad)[cite: 120].</td></tr>
-                    [cite_start]<tr><td>Vector de ataque</td><td>Cifrado/borrado de logs para eliminar huellas[cite: 120].</td></tr>
-                    [cite_start]<tr><td>Impacto técnico</td><td>Imposibilidad de análisis forense y atribución[cite: 120].</td></tr>
-                    [cite_start]<tr><td>Control recomendado</td><td>Logs en servidor remoto (Syslog) con protección contra escritura[cite: 120].</td></tr>
+                    <tr><td>Servicios X.800 comprometidos</td><td>Integridad de los datos, no repudio.</td></tr>
+                    <tr><td>Definición(es) RFC 4949</td><td><strong>Non-repudiation service:</strong> Servicio contra la negación falsa de un evento.<br><strong>Data integrity:</strong> Protección contra modificación no autorizada.</td></tr>
+                    <tr><td>Tipo de amenaza</td><td>Externa (Violación a la integridad).</td></tr>
+                    <tr><td>Vector de ataque</td><td>Cifrado/borrado de logs para eliminar huellas.</td></tr>
+                    <tr><td>Impacto técnico</td><td>Imposibilidad de análisis forense y atribución.</td></tr>
+                    <tr><td>Control recomendado</td><td>Logs en servidor remoto (Syslog) con protección contra escritura.</td></tr>
                 </table>
             </div>
 
             <h3>Escenario 08: Fallo Operativo (Actualización)</h3>
-            <p>Una actualización mal ejecutada provocó la caída simultánea de múltiples servicios críticos (ej. CrowdStrike). [cite_start]Falla en disponibilidad por error interno[cite: 121, 122].</p>
+            <p>Una actualización mal ejecutada provocó la caída simultánea de múltiples servicios críticos (ej. CrowdStrike). Falla en disponibilidad por error interno.</p>
             <div class="tabla-container">
                 <table>
                     <tr><th>Elemento</th><th>Respuesta</th></tr>
-                    [cite_start]<tr><td>Servicios X.800 comprometidos</td><td>Disponibilidad[cite: 125].</td></tr>
-                    [cite_start]<tr><td>Definición(es) RFC 4949</td><td><strong>Availability:</strong> Sistema utilizable bajo demanda.<br><strong>Failure control:</strong> Metodología de recuperación a prueba de fallos[cite: 125].</td></tr>
-                    [cite_start]<tr><td>Tipo de amenaza</td><td>Interna (Fallo en proceso)[cite: 125].</td></tr>
-                    [cite_start]<tr><td>Vector de ataque</td><td>Actualización defectuosa sin pruebas suficientes[cite: 125].</td></tr>
-                    [cite_start]<tr><td>Impacto técnico</td><td>Interrupción global de servicios críticos[cite: 125].</td></tr>
-                    [cite_start]<tr><td>Control recomendado</td><td>Entornos de staging (pruebas) y planes de rollback[cite: 125].</td></tr>
+                    <tr><td>Servicios X.800 comprometidos</td><td>Disponibilidad.</td></tr>
+                    <tr><td>Definición(es) RFC 4949</td><td><strong>Availability:</strong> Sistema utilizable bajo demanda.<br><strong>Failure control:</strong> Metodología de recuperación a prueba de fallos.</td></tr>
+                    <tr><td>Tipo de amenaza</td><td>Interna (Fallo en proceso).</td></tr>
+                    <tr><td>Vector de ataque</td><td>Actualización defectuosa sin pruebas suficientes.</td></tr>
+                    <tr><td>Impacto técnico</td><td>Interrupción global de servicios críticos.</td></tr>
+                    <tr><td>Control recomendado</td><td>Entornos de staging (pruebas) y planes de rollback.</td></tr>
                 </table>
             </div>
 
             <h3>Escenario 09: Masquerade (Sitios Falsos)</h3>
-            <p>Atacantes replicaron sitios y correos oficiales para engañar a ciudadanos. [cite_start]Afecta la autenticación al suplantar identidades legítimas[cite: 126, 127].</p>
+            <p>Atacantes replicaron sitios y correos oficiales para engañar a ciudadanos. Afecta la autenticación al suplantar identidades legítimas.</p>
             <div class="tabla-container">
                 <table>
                     <tr><th>Elemento</th><th>Respuesta</th></tr>
-                    [cite_start]<tr><td>Servicios X.800 comprometidos</td><td>Autenticación, confidencialidad[cite: 130].</td></tr>
-                    [cite_start]<tr><td>Definición(es) RFC 4949</td><td><strong>Masquerade:</strong> Entidad que se hace pasar por otra autorizada.<br><strong>Phishing:</strong> Técnica de ingeniería social[cite: 132].</td></tr>
-                    [cite_start]<tr><td>Tipo de amenaza</td><td>Externa (Masquerade)[cite: 132].</td></tr>
-                    [cite_start]<tr><td>Vector de ataque</td><td>Clonación de sitios web/correos para robo de datos[cite: 132].</td></tr>
-                    [cite_start]<tr><td>Impacto técnico</td><td>Robo de credenciales y engaño a usuarios[cite: 132].</td></tr>
-                    [cite_start]<tr><td>Control recomendado</td><td>Autenticación de dominio (DMARC/SPF) y concientización[cite: 132].</td></tr>
+                    <tr><td>Servicios X.800 comprometidos</td><td>Autenticación, confidencialidad.</td></tr>
+                    <tr><td>Definición(es) RFC 4949</td><td><strong>Masquerade:</strong> Entidad que se hace pasar por otra autorizada.<br><strong>Phishing:</strong> Técnica de ingeniería social.</td></tr>
+                    <tr><td>Tipo de amenaza</td><td>Externa (Masquerade).</td></tr>
+                    <tr><td>Vector de ataque</td><td>Clonación de sitios web/correos para robo de datos.</td></tr>
+                    <tr><td>Impacto técnico</td><td>Robo de credenciales y engaño a usuarios.</td></tr>
+                    <tr><td>Control recomendado</td><td>Autenticación de dominio (DMARC/SPF) y concientización.</td></tr>
                 </table>
             </div>
 
             <h3>Escenario 10: Ataque Destructivo (Wiper)</h3>
-            <p>Tras exfiltrar información, los atacantes borraron sistemas completos. [cite_start]Compromiso total de la triada CIA (Confidencialidad, Integridad, Disponibilidad)[cite: 133, 134].</p>
+            <p>Tras exfiltrar información, los atacantes borraron sistemas completos. Compromiso total de la triada CIA (Confidencialidad, Integridad, Disponibilidad).</p>
             <div class="tabla-container">
                 <table>
                     <tr><th>Elemento</th><th>Respuesta</th></tr>
-                    [cite_start]<tr><td>Servicios X.800 comprometidos</td><td>Confidencialidad, integridad, disponibilidad[cite: 137].</td></tr>
-                    [cite_start]<tr><td>Definición(es) RFC 4949</td><td><strong>Data confidentiality/integrity/availability:</strong> Compromiso total.<br><strong>Destructive attack:</strong> Daño irreversible como objetivo[cite: 137].</td></tr>
-                    [cite_start]<tr><td>Tipo de amenaza</td><td>Externa (Destrucción de sistemas)[cite: 137].</td></tr>
-                    [cite_start]<tr><td>Vector de ataque</td><td>Ejecución de malware tipo Wiper[cite: 137].</td></tr>
-                    [cite_start]<tr><td>Impacto técnico</td><td>Daño irreversible y eliminación de rastros[cite: 137].</td></tr>
-                    [cite_start]<tr><td>Control recomendado</td><td>Detección temprana (EDR) y planes de recuperación ante desastres[cite: 137].</td></tr>
+                    <tr><td>Servicios X.800 comprometidos</td><td>Confidencialidad, integridad, disponibilidad.</td></tr>
+                    <tr><td>Definición(es) RFC 4949</td><td><strong>Data confidentiality/integrity/availability:</strong> Compromiso total.<br><strong>Destructive attack:</strong> Daño irreversible como objetivo.</td></tr>
+                    <tr><td>Tipo de amenaza</td><td>Externa (Destrucción de sistemas).</td></tr>
+                    <tr><td>Vector de ataque</td><td>Ejecución de malware tipo Wiper.</td></tr>
+                    <tr><td>Impacto técnico</td><td>Daño irreversible y eliminación de rastros.</td></tr>
+                    <tr><td>Control recomendado</td><td>Detección temprana (EDR) y planes de recuperación ante desastres.</td></tr>
                 </table>
             </div>
 
@@ -311,18 +308,18 @@
 
         <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">04</span> Conclusiones y Reflexión Técnica</h2>
         <div class="scroll-element">
-            <p>Se puede concluir que la gestión de la seguridad informática requiere obligatoriamente de una base estandarizada para ser efectiva. [cite_start]La aplicación práctica de la recomendación <strong>ITU-T X.800</strong> demostró ser una herramienta de diagnóstico fundamental, permitiendo identificar qué servicios de seguridad (como la integridad, confidencialidad o disponibilidad) fueron vulnerados en cada caso, independientemente de si la causa raíz fue un ataque malicioso externo o un error operativo interno[cite: 138, 139, 140].</p>
-            <p>Trabajar con <strong>RFC 4949</strong> fue de mucha ayuda al poder obtener distintas definiciones de manera precisa y con la confianza de saber que son definiciones avaladas por personas expertas. Al utilizar definiciones estandarizadas por la IETF, se logró categorizar las amenazas, diferenciando conceptos críticos como "failure" de "attack", o "masquerade" de "exposure". [cite_start]Esto fue muy importante para evitar confusiones en la comunicación[cite: 141, 142, 143].</p>
+            <p>Se puede concluir que la gestión de la seguridad informática requiere obligatoriamente de una base estandarizada para ser efectiva. La aplicación práctica de la recomendación <strong>ITU-T X.800</strong> demostró ser una herramienta de diagnóstico fundamental, permitiendo identificar qué servicios de seguridad (como la integridad, confidencialidad o disponibilidad) fueron vulnerados en cada caso, independientemente de si la causa raíz fue un ataque malicioso externo o un error operativo interno.</p>
+            <p>Trabajar con <strong>RFC 4949</strong> fue de mucha ayuda al poder obtener distintas definiciones de manera precisa y con la confianza de saber que son definiciones avaladas por personas expertas. Al utilizar definiciones estandarizadas por la IETF, se logró categorizar las amenazas, diferenciando conceptos críticos como "failure" de "attack", o "masquerade" de "exposure". Esto fue muy importante para evitar confusiones en la comunicación.</p>
             <div style="background: #151515; padding: 1.5rem; border-left: 3px solid #00ff41; margin-top: 1rem;">
-                [cite_start]<strong>Reflexión Final:</strong> La ciberseguridad es todo un proceso entre marcos normativos, ya que esto es la base para poder documentar vulnerabilidades en contextos reales y diseñar estrategias que protejan los activos de una organización[cite: 144].
+                <strong>Reflexión Final:</strong> La ciberseguridad es todo un proceso entre marcos normativos, ya que esto es la base para poder documentar vulnerabilidades en contextos reales y diseñar estrategias que protejan los activos de una organización.
             </div>
         </div>
 
         <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">05</span> Referencias Técnicas</h2>
         <div class="scroll-element">
             <ul class="referencias-lista">
-                <li>RFC 4949: Internet Security Glossary, Version 2. (s. f.). [cite_start]IETF Datatracker[cite: 146].</li>
-                <li>ITU: Connecting the world and beyond. (s. f.). [cite_start]ITU[cite: 147].</li>
+                <li>RFC 4949: Internet Security Glossary, Version 2. (s. f.). IETF Datatracker.</li>
+                <li>ITU: Connecting the world and beyond. (s. f.). ITU.</li>
                 <li>ISO/IEC 7498-2: Information processing systems — Open Systems Interconnection — Security Architecture.</li>
             </ul>
         </div>
