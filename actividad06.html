@@ -54,7 +54,7 @@
         .box-metadata li { font-size: 0.9rem; color: #aaa; margin-bottom: 5px;}
         .box-metadata li i { color: #00ff41; margin-right: 8px; }
 
-        /* ESTILO PARA CÓDIGO DE ROUTER (CONSOLE STYLE) */
+        /* ESTILO PARA CÓDIGO DE ROUTER */
         .console-block {
             background: #000;
             border: 1px solid #333;
@@ -65,23 +65,19 @@
             font-size: 0.85rem;
             color: #ccc;
             overflow-x: auto;
+            white-space: pre-wrap; /* Mantiene formato original */
         }
-        .console-prompt { color: #00ff41; font-weight: bold; }
-        .console-cmd { color: #fff; font-weight: bold; }
-        .console-comment { color: #666; font-style: italic; }
 
-        .multimedia-area { background: #0f0f0f; border: 1px dashed #444; padding: 1.5rem; text-align: center; margin: 2rem 0; border-radius: 6px; }
-        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 1rem; border: 1px solid #333; }
-        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-
+        /* ESPACIOS PARA IMAGEN (PLACEHOLDERS) */
         .espacio-imagen {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            background-color: #0f0f0f; border: 2px dashed #333; color: #555; padding: 2rem; margin: 1.5rem 0; border-radius: 6px; min-height: 200px; transition: 0.3s;
+            background-color: #0f0f0f; border: 2px dashed #333; color: #555; padding: 2rem; margin: 1.5rem 0; border-radius: 6px; min-height: 150px; transition: 0.3s;
         }
         .espacio-imagen:hover { border-color: #00ff41; color: #888; }
-        .espacio-imagen i { font-size: 2.5rem; margin-bottom: 1rem; }
+        .espacio-imagen i { font-size: 2rem; margin-bottom: 1rem; }
         .espacio-imagen img { max-width: 100%; height: auto; border: 1px solid #333; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
-        
+        .caption-imagen { font-size: 0.8rem; color: #666; margin-top: 10px; font-style: italic; }
+
         .btn-exportar {
             display: block; width: 100%; max-width: 350px; margin: 3rem auto; padding: 1.2rem; background: #b71c1c; 
             color: white; text-align: center; text-decoration: none; font-weight: bold; border-radius: 4px; font-family: 'JetBrains Mono', monospace; 
@@ -141,104 +137,197 @@
 
         <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">01</span> Introducción Contextual al Tema</h2>
         <div class="scroll-element">
-            <p>En esta actividad se realizó la implementación de una red utilizando una <strong>VPN (Virtual Private Network)</strong> con el protocolo <strong>IPSec</strong>. El objetivo principal fue conectar dos redes locales diferentes a través de una red pública (simulada por un router ISP), asegurando que la información viaje encriptada y segura.</p>
-            <p>Para lograr esto, se configuraron dos routers de borde (R1 y R2) para establecer un túnel por donde pasarán los datos de una PC a otra. Este mecanismo garantiza los principios de confidencialidad e integridad: si alguien intercepta el tráfico en el medio (Man-in-the-Middle), no podrá leerlo a menos que posea la clave privada correspondiente.</p>
+            <p>En esta actividad se realizó la implementación de una red utilizando una VPN con el protocolo IPSec. El objetivo principal fue conectar dos redes locales diferentes a través de una red pública, la cual fue simulada por el router ISP de manera que la información viaje encriptada y segura. Para esto, se configuraron dos routers (R1 y R2) para crear un túnel por donde pasarán los datos de una PC a otra, asegurando que si alguien intercepta el tráfico en medio, no pueda leerlo a menos que conozca la llave privada.</p>
         </div>
 
         <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">02</span> Desarrollo Técnico de la Actividad</h2>
         <div class="scroll-element">
             
-            <h3>1. Configuración Inicial y Enrutamiento</h3>
-            <p>Se configuraron las interfaces y rutas estáticas apuntando al ISP para permitir la conectividad básica antes de establecer el túnel.</p>
+            <h3>1. Configuración Inicial</h3>
+            <p>Durante la configuración inicial se configuraron los routers, las interfaces G0/0 y G0/1 dando direcciones IP. Se agregaron IPs estáticas las cuales apuntaban al ISP para poder realizar correctamente la transferencia de datos. Además, se asignaron IPs a las 2 PC utilizadas.</p>
+            
             <div class="console-block">
-                <span class="console-comment">! Configuración Router ISP (Simulación de Internet)</span><br>
-                <span class="console-prompt">ISP(config)#</span> <span class="console-cmd">ip route 0.0.0.0 0.0.0.0 209.165.200.1</span><br><br>
-                <span class="console-comment">! Configuración R1 (Lado A)</span><br>
-                <span class="console-prompt">R1(config)#</span> <span class="console-cmd">ip route 0.0.0.0 0.0.0.0 209.165.100.2</span><br><br>
-                <span class="console-comment">! Configuración R2 (Lado B)</span><br>
-                <span class="console-prompt">R2(config)#</span> <span class="console-cmd">ip route 0.0.0.0 0.0.0.0 209.165.200.2</span>
+Router>EN
+Router>ENable
+Router conf t
+Router(config)#interface G0/0
+Router(config-if)#hostname ISP
+ISP (config)#ip address 209.165.100.2 255.255.255.0
+ISP (config)#interface G0/0
+ISP (config-if)#ip address 209.165.100.2 255.255.255.0
+ISP (config-if)#no shut
+ISP (config-if)#interface G0/1
+ISP (config-if)#ip address 209.165.200.2 255.255.255.0
+ISP (config-if)#no shut
+ISP (config-if)#ip route 0.0.0.0 0.0.0.0 209.165.200.1
+ISP (config)#exit
+
+R1(config-if)#interface G0/0
+R1(config-if)#IP ADDress 209.165.100.1 255.255.255.0
+R1(config-if)#no shut
+R1 (config-if)#ip route 0.0.0.0 0.0.0.0 209.165.100.2
+
+Router(config)#hostname R2
+R2 (config)#interface G0/1
+R2 (config-if)#ip address 192.168.3.1 255.255.255.0
+R2 (config-if)#no shut
+R2 (config-if)#interface G0/0
+R2 (config-if)#ip address 209.165.200.1 255.255.255.0
+R2(config-if)#no shut
+R2 (config-if)#ip route 0.0.0.0 0.0.0.0 209.165.200.2
             </div>
 
-            <h3>2. Habilitación de Licencia de Seguridad</h3>
-            <p>Para utilizar las funciones criptográficas en los routers Cisco serie 1900, fue necesario activar el paquete de tecnología <code>securityk9</code>.</p>
-            <div class="console-block">
-                <span class="console-prompt">R1(config)#</span> <span class="console-cmd">license boot module c1900 technology-package securityk9</span><br>
-                <span class="console-comment">ACCEPT? [yes/no]: yes</span><br>
-                <span class="console-prompt">R1#</span> <span class="console-cmd">reload</span>
+            <div class="espacio-imagen">
+                <i class="fas fa-image"></i>
+                <span>[IMAGEN PASO 1: Configuración Inicial]</span>
+                <span style="font-size: 0.8rem; margin-top: 5px;">Inserta aquí tu captura de la configuración de IPs.</span>
             </div>
 
-            <h3>3. Definición de Tráfico Interesante (ACL)</h3>
-            <p>Se configuraron Listas de Control de Acceso (ACL 100) para identificar qué tráfico debe ser encriptado y enviado por el túnel VPN.</p>
+            <h3>2. Licencia de seguridad habilitada</h3>
+            <p>Se utilizo el comando: license boot module c1900 technology-package securityk9. Esto con el fin de activar el paquete de seguridad que permite el uso de comandos de criptografia, posteriormente se reiniciaron los router R1 y R2 para su correcta implementación.</p>
+            
             <div class="console-block">
-                <span class="console-prompt">R1(config)#</span> <span class="console-cmd">access-list 100 permit ip 192.168.1.0 0.0.0.255 192.168.3.0 0.0.0.255</span><br>
-                <span class="console-prompt">R2(config)#</span> <span class="console-cmd">access-list 100 permit ip 192.168.3.0 0.0.0.255 192.168.1.0 0.0.0.255</span>
+R1(config)#license boot module c1900 technology-package securityk9
+ACCEPT? [yes/no]: yes
+R1 copy run start
+R1#reload
+
+R2 (config)#license boot module c1900 technology-package securityk9
+ACCEPT? [yes/no]: yes
             </div>
 
-            <h3>4. Configuración de Políticas ISAKMP (Fase 1)</h3>
-            <p>Se establecieron los parámetros para la negociación inicial: encriptación AES-256, autenticación Pre-Shared Key y grupo Diffie-Hellman 5.</p>
-            <div class="console-block">
-                <span class="console-prompt">R1(config)#</span> <span class="console-cmd">crypto isakmp policy 10</span><br>
-                <span class="console-prompt">R1(config-isakmp)#</span> <span class="console-cmd">encryption aes 256</span><br>
-                <span class="console-prompt">R1(config-isakmp)#</span> <span class="console-cmd">authentication pre-share</span><br>
-                <span class="console-prompt">R1(config-isakmp)#</span> <span class="console-cmd">group 5</span><br>
-                <span class="console-prompt">R1(config)#</span> <span class="console-cmd">crypto isakmp key secretkey address 209.165.200.1</span>
+            <div class="espacio-imagen">
+                <i class="fas fa-image"></i>
+                <span>[IMAGEN PASO 2: Licencia Securityk9]</span>
+                <span style="font-size: 0.8rem; margin-top: 5px;">Inserta aquí la captura de la activación de la licencia.</span>
             </div>
 
-            <h3>5. Configuración IPSec Transform-Set (Fase 2)</h3>
-            <p>Se definió el conjunto de transformación para encriptar los datos del usuario.</p>
+            <h3>3. Implementación de ACLs</h3>
+            <p>Aquí se utilizo el comando Access-list 100 permit ip. Este comando es muy importante ya que si la IP coincide lo que hará será atrapar el mensaje y mandarlo a través de la VPN con el fin de asegurarlo y dificultar que otras personas puedan interceptarlo.</p>
+            
             <div class="console-block">
-                <span class="console-prompt">R1(config)#</span> <span class="console-cmd">crypto ipsec transform-set R1->R2 esp-aes 256 esp-sha-hmac</span>
+R1(config) #access-list 100 permit ip 192.168.1.0 0.0.0.255 192.168.3.0 0.0.0.255
+
+R2 (config)#access-list 100 permit ip 192.168.3.0 0.0.0.255 192.168.1.0 0.0.0.255
             </div>
 
-            <h3>6. Creación y Aplicación del Mapa Criptográfico</h3>
-            <p>Finalmente, se vinculan todas las configuraciones en un <code>crypto map</code> y se aplica a la interfaz de salida.</p>
-            <div class="console-block">
-                <span class="console-prompt">R1(config)#</span> <span class="console-cmd">crypto map IPSEC-MAP 10 ipsec-isakmp</span><br>
-                <span class="console-prompt">R1(config-crypto-map)#</span> <span class="console-cmd">set peer 209.165.200.1</span><br>
-                <span class="console-prompt">R1(config-crypto-map)#</span> <span class="console-cmd">set transform-set R1->R2</span><br>
-                <span class="console-prompt">R1(config-crypto-map)#</span> <span class="console-cmd">match address 100</span><br>
-                <span class="console-prompt">R1(config)#</span> <span class="console-cmd">interface g0/0</span><br>
-                <span class="console-prompt">R1(config-if)#</span> <span class="console-cmd">crypto map IPSEC-MAP</span><br>
-                <span class="console-comment">*Jan 3 07:16:26.785: CRYPTO-6-ISAKMP ON OFF: ISAKMP is ON</span>
+            <div class="espacio-imagen">
+                <i class="fas fa-image"></i>
+                <span>[IMAGEN PASO 3: Access Lists]</span>
+                <span style="font-size: 0.8rem; margin-top: 5px;">Inserta aquí la captura de las ACLs.</span>
             </div>
-        </div>
 
-        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">03</span> Material Multimedia</h2>
-        <div class="scroll-element">
-            <p>Evidencia de la implementación exitosa de la topología y la prueba de conectividad.</p>
+            <h3>4. ISAKMP policy</h3>
+            <p>encryption aes 256: Se utiliza para cifrar los datos de forma robusta.<br>
+            authentication pre-share: Da el permiso a poder usar una llave compartida.<br>
+            group 5: Intercambio de claves Diffie-Hellman.<br>
+            crypto isakmp key: Se coloco la contraseña ("secretkey") y la dirección IP del router vecino para que se puedan reconocer al tener esta misma llave.</p>
+            
+            <div class="console-block">
+R1(config)#crypto isakmp policy 10
+R1(config-isakmp) #encryption aes 256
+R1(config-isakmp) #authentication pre-share
+R1(config-isakmp) #group 5
+R1(config-isakmp)#exit
+R1(config)#crypto isakmp key secretkey address 209.165.200.1
+
+R2 (config)#crypto isakmp policy 10
+R2 (config-isakmp) #encryption aes 256
+R2 (config-isakmp) #authentication pre-share
+R2 (config-isakmp) #group 5
+R2 (config-isakmp)#exit
+R2 (config)#crypto isakmp key secretkey address 209.165.100.1
+            </div>
+
+            <div class="espacio-imagen">
+                <i class="fas fa-image"></i>
+                <span>[IMAGEN PASO 4: ISAKMP Policy]</span>
+                <span style="font-size: 0.8rem; margin-top: 5px;">Inserta aquí la captura de la política ISAKMP.</span>
+            </div>
+
+            <h3>5. IPSec transform-set</h3>
+            <p>Se define como se encriptarán los datos. Se utiliza crypto ipsec transform-set definiendo esp-aes 256 para el cifrado de los datos y esp-sha-hmac para la integridad de estos mismos.</p>
+            
+            <div class="console-block">
+R1(config)#crypto ipsec transform-set R1->R2 esp-aes 256 esp-sha-hmac
+
+R2 (config)#crypto ipsec transform-set R2->R1 esp-aes 256 esp-sha-hmac
+            </div>
+
+            <div class="espacio-imagen">
+                <i class="fas fa-image"></i>
+                <span>[IMAGEN PASO 5: Transform-set]</span>
+                <span style="font-size: 0.8rem; margin-top: 5px;">Inserta aquí la captura del transform-set.</span>
+            </div>
+
+            <h3>6. Crear el mapa criptográfico</h3>
+            <p>Aquí se junta todo lo anterior para crear un mapa en el cual solo las personas identificadas y con acceso podrán recibir los datos de la otra computadora. Se define el destino con peer, se asignan las reglas de encriptación (transform-set) y se identifica el trafico especifico utilizando match address 100.</p>
+            
+            <div class="console-block">
+R1(config)#crypto map IPSEC-MAP 10 ipsec-isakmp
+R1(config-crypto-map) #set peer 209.165.200.1
+R1(config-crypto-map) #set pfs group5
+R1(config-crypto-map) #set transform-set R1->R2
+R1(config-crypto-map) #match address 100
+
+R2 (config)#crypto map IPSEC-MAP 10 ipsec-isakmp
+R2 (config-crypto-map) #set peer 209.165.100.1
+R2 (config-crypto-map) #set pfs group5
+R2(config-crypto-map) #set security-association lifetime seconds 86400
+R2 (config-crypto-map) #set transform-set R2->R1
+R2 (config-crypto-map) #match address 100
+            </div>
+
+            <div class="espacio-imagen">
+                <i class="fas fa-image"></i>
+                <span>[IMAGEN PASO 6: Crypto Map]</span>
+                <span style="font-size: 0.8rem; margin-top: 5px;">Inserta aquí la captura del mapa criptográfico.</span>
+            </div>
+
+            <h3>7. Aplicar el mapa criptográfico</h3>
+            <p>Se activan las interfaces de salida, todo lo que salga por G0/0 se revisara y si coincide se encriptara y se mandara hacia el otro lado.</p>
+            
+            <div class="console-block">
+R1(config)#int g0/0
+R1(config-if)#crypto map IPSEC-MAP
+*Jan 3 07:16:26.785: CRYPTO-6-ISAKMP ON OFF: ISAKMP is ON
+
+R2 (config)#int g0/0
+R2 (config-if)#crypto map IPSEC-MAP
+*Jan 3 07:16:26.785: CRYPTO-6-ISAKMP ON OFF: ISAKMP is ON
+            </div>
+
+            <div class="espacio-imagen">
+                <i class="fas fa-image"></i>
+                <span>[IMAGEN PASO 7: Aplicación en Interfaz]</span>
+                <span style="font-size: 0.8rem; margin-top: 5px;">Inserta aquí la captura aplicando el mapa a la interfaz.</span>
+            </div>
+
+            <h3>8. Prueba de recibimiento de paquetes: PC-A PC-B</h3>
+            <p>Se realizó la prueba de conectividad entre los dispositivos finales para verificar el funcionamiento del túnel.</p>
             
             <div class="espacio-imagen">
-                <i class="fas fa-network-wired"></i>
-                <span>[IMAGEN 1: TOPOLOGÍA Y PING EXITOSO]</span>
-                <span style="font-size: 0.8rem; margin-top: 5px;">Sugerencia: Inserta la captura de Packet Tracer donde se ve el ping de PC-A a PC-B.</span>
-                </div>
-
-            <div class="multimedia-area">
-                <h4 style="color:#00ff41; margin-top:0;">1. Video de Referencia: Configuración Site-to-Site VPN</h4>
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/5H-j6fT2Gv0" title="Cisco IPSec VPN Configuration" frameborder="0" allowfullscreen></iframe>
-                </div>
+                <i class="fas fa-check-circle"></i>
+                <span>[IMAGEN PASO 8: PING EXITOSO]</span>
+                <span style="font-size: 0.8rem; margin-top: 5px;">Inserta aquí la captura del Ping exitoso entre PC-A y PC-B.</span>
             </div>
+
         </div>
 
-        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">04</span> Conclusiones y Resultados</h2>
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">03</span> Conclusiones y Resultados</h2>
         <div class="scroll-element">
-            <p>La implementación de la VPN Site-to-Site fue exitosa. Como se muestra en la evidencia multimedia (Paso 8), la prueba de conectividad (PING) entre la PC-A (Red 192.168.1.0/24) y la PC-B (Red 192.168.3.0/24) fue correcta, lo que confirma que el túnel IPSec se estableció y el tráfico está fluyendo de manera encriptada a través de la red pública simulada.</p>
-            <div style="background: #151515; padding: 1.5rem; border-left: 3px solid #00ff41; margin-top: 1rem;">
-                <strong>Resultado Técnico:</strong> Se logró confidencialidad mediante AES-256 e integridad mediante SHA-HMAC, cumpliendo con los estándares de seguridad requeridos para interconectar sucursales.
-            </div>
+            <p>La implementación de la VPN Site-to-Site fue exitosa. Como se muestra en la evidencia del paso 8, la prueba de conectividad (PING) entre la PC-A y la PC-B fue correcta, lo que confirma que el túnel IPSec se estableció y el tráfico está fluyendo de manera encriptada a través de la red pública simulada. Se logró confidencialidad mediante AES-256 e integridad mediante SHA-HMAC, cumpliendo con los estándares de seguridad requeridos.</p>
         </div>
 
-        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">05</span> Referencias Técnicas</h2>
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">04</span> Referencias Técnicas</h2>
         <div class="scroll-element">
             <ul class="referencias-lista">
                 <li>Cisco Systems. (2024). <em>Configuring IPSec Network Security</em>. Cisco IOS Security Configuration Guide.</li>
-                <li>RFC 2409. (1998). <em>The Internet Key Exchange (IKE)</em>. IETF.</li>
                 <li>Academy, C. N. (2023). <em>CCNA Security: Site-to-Site VPNs</em>. Cisco Press.</li>
             </ul>
         </div>
 
-        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">06</span> Exportación</h2>
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">05</span> Exportación</h2>
         <div class="scroll-element" style="text-align: center;">
             <p>Descarga la versión formal del documento correspondiente a esta actividad.</p>
             
