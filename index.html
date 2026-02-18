@@ -9,14 +9,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
-
+        /* --- ESTILOS DE ANIMACIÓN --- */
         .scroll-element {
             opacity: 0;
             transform: translateY(50px); 
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
             will-change: opacity, transform;
         }
-
 
         .scroll-element.visible {
             opacity: 1;
@@ -26,6 +25,23 @@
         .delay-100 { transition-delay: 100ms; }
         .delay-200 { transition-delay: 200ms; }
         .delay-300 { transition-delay: 300ms; }
+
+        /* --- CORRECCIÓN DE CABECERA (LETRAS BLANCAS) --- */
+        /* Igual que en las actividades */
+        .info-materia p {
+            margin: 0 !important;
+            padding: 1px 0 !important;
+            line-height: 1.1 !important;
+            text-align: right !important;
+            font-size: 0.85rem !important;
+            color: #ffffff !important; /* AQUI ESTÁ EL CAMBIO A BLANCO */
+            font-family: 'JetBrains Mono', monospace !important;
+            display: block !important;
+        }
+        .info-materia span.simbolo, 
+        .info-materia span.cursor {
+            color: #00ff41 !important; /* Los símbolos se quedan verdes */
+        }
     </style>
 </head>
 <body>
@@ -212,4 +228,3 @@
 
 </body>
 </html>
-
