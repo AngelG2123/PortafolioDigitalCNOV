@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 03 - Seguridad Informática</title>
+    <style>
+        /* ESTILOS GENERALES (Mismo diseño que actividades anteriores) */
+        body {
+            background-color: #0d1117; /* Fondo oscuro */
+            color: #c9d1d9; /* Texto claro */
+            font-family: 'Consolas', 'Courier New', monospace; /* Fuente tipo terminal */
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            background-color: #161b22;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        /* ENCABEZADO */
+        header {
+            border-bottom: 2px solid #238636; /* Verde terminal */
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #238636;
+            font-size: 24px;
+            margin-top: 0;
+        }
+
+        .info-alumno {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            font-size: 14px;
+            color: #8b949e;
+        }
+
+        /* TÍTULOS DE SECCIÓN */
+        h2 {
+            color: #58a6ff; /* Azul suave */
+            border-left: 4px solid #58a6ff;
+            padding-left: 10px;
+            margin-top: 40px;
+            font-size: 18px;
+        }
+
+        h3 {
+            color: #d2a8ff; /* Lila suave */
+            font-size: 16px;
+            margin-top: 25px;
+        }
+
+        /* CAJAS DE CÓDIGO */
+        .code-box {
+            background-color: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 15px;
+            font-family: 'Consolas', monospace;
+            overflow-x: auto;
+            color: #e6edf3;
+            margin-bottom: 15px;
+        }
+
+        .code-comment {
+            color: #8b949e;
+            font-style: italic;
+        }
+
+        /* TABLAS */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        th, td {
+            border: 1px solid #30363d;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #21262d;
+            color: #58a6ff;
+        }
+
+        /* EVIDENCIAS */
+        .evidence-container {
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .evidence-img {
+            max-width: 100%;
+            border: 2px solid #30363d;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Act.03 - Interpretación y traducción de políticas de filtrado en iptables</h1>
+            <div class="info-alumno">
+                <p><strong>Materia:</strong> CNO V. Seguridad Informática</p>
+                <p><strong>Alumno:</strong> González Delgado Ángel Josué</p>
+                <p><strong>Fecha:</strong> 3 de febrero del 2026</p>
+            </div>
+        </header>
+
+        <section>
+            <h2>1. Flujo del Paquete</h2>
+            <p>Cuando un paquete llega al sistema, sigue el siguiente orden jerárquico:</p>
+            <div class="code-box">
+                1. TABLA &nbsp; -> &nbsp; 2. CADENA &nbsp; -> &nbsp; 3. ACCIÓN
+            </div>
+
+            <h2>2. Tablas y Propósitos</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tabla</th>
+                        <th>Propósito Principal</th>
+                        <th>Ejemplo de Uso</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>FILTER</td>
+                        <td>Filtrar paquetes</td>
+                        <td>Accesos en tráfico de red</td>
+                    </tr>
+                    <tr>
+                        <td>NAT</td>
+                        <td>Traducción de direcciones</td>
+                        <td>Modificar las IP</td>
+                    </tr>
+                    <tr>
+                        <td>MANGLE</td>
+                        <td>Modificación de paquetes</td>
+                        <td>Colocar marcas a los cabezales</td>
+                    </tr>
+                    <tr>
+                        <td>RAW</td>
+                        <td>Excepciones de conexiones</td>
+                        <td>Paquetes sin ser inspeccionados</td>
+                    </tr>
+                    <tr>
+                        <td>SECURITY</td>
+                        <td>Aplicar etiquetas de seguridad</td>
+                        <td>Políticas de seguridad (SELinux)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>3. Anatomía y Análisis de Comandos</h2>
+            
+            <h3>Comando Básico</h3>
+            <div class="code-box">
+                iptables -A INPUT -p tcp -m multiport --dports 80,443 -j ACCEPT
+            </div>
+            <p><strong>Interpretación:</strong> Permite el tráfico TCP entrante hacia los puertos de destino 80 y 443.</p>
+
+            <h3>Variables y Opciones Comunes</h3>
+            <div class="code-box">
+                <span class="code-comment"># a) Limitar intentos por minuto</span><br>
+                iptables -m limit --limit 5/minute<br><br>
+                <span class="code-comment"># b) Filtrar por IP de origen</span><br>
+                iptables -s 192.168.1.0/24<br><br>
+                <span class="code-comment"># c) Ver solo números (sin DNS)</span><br>
+                iptables -L -n<br><br>
+                <span class="code-comment"># d) Ver reglas con contadores</span><br>
+                iptables -L -v
+            </div>
+
+            <h3>Análisis de Regla Compuesta</h3>
+            <div class="code-box">
+                iptables -A INPUT -i eth0 -p tcp -m multiport --dports 22,80,443 -m state --state NEW,ESTABLISHED -j ACCEPT
+            </div>
+            <p><strong>Explicación:</strong> Permite tráfico TCP entrante por la interfaz <code>eth0</code> a los puertos 22, 80 y 443, solo si la conexión es nueva o establecida.</p>
+        </section>
+
+        <section>
+            <h2>4. Traducción de Reglas (Ejercicios)</h2>
+
+            <h3>7. Permitir tráfico HTTP entrante</h3>
+            <div class="code-box">iptables -A INPUT -p tcp --dport 80 -j ACCEPT</div>
+
+            <h3>8. Permitir todo el tráfico saliente</h3>
+            <div class="code-box">iptables -A OUTPUT -j ACCEPT</div>
+
+            <h3>9. Permitir SSH solo desde la IP 192.168.1.50</h3>
+            <div class="code-box">iptables -A INPUT -p tcp --dport 22 -s 192.168.1.50 -j ACCEPT</div>
+
+            <h3>10. Permitir tráfico TCP entrante a puertos 80 y 443 (Establecidas)</h3>
+            <div class="code-box">iptables -A INPUT -p tcp -m multiport --dports 80,443 -m state --state ESTABLISHED,RELATED -j ACCEPT</div>
+
+            <h3>11. Registrar intentos y luego permitir</h3>
+            <div class="code-box">
+<span class="code-comment"># Primero: Registrar (LOG)</span>
+iptables -A INPUT -i eth0 -p tcp -m multiport --dports 22,80,443 -m state --state NEW,ESTABLISHED -j LOG --log-prefix "Intento: "
+
+<span class="code-comment"># Segundo: Aceptar (ACCEPT)</span>
+iptables -A INPUT -i eth0 -p tcp -m multiport --dports 22,80,443 -m state --state NEW,ESTABLISHED -j ACCEPT
+            </div>
+        </section>
+
+        <section class="evidence-container">
+            <h2>5. Evidencias</h2>
+            <p>Capturas de la actividad realizada a mano:</p>
+            <img src="imagen1.jpg" alt="Evidencia Hoja 1" class="evidence-img">
+            <img src="imagen2.jpg" alt="Evidencia Hoja 2" class="evidence-img">
+        </section>
+
+    </div>
+
+</body>
+</html>
