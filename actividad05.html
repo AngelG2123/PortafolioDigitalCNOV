@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 05 | Metodologías de Pentesting</title>
+    <link rel="stylesheet" href="style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- 1. ESTILOS GENERALES (FONDO NEGRO PURO) --- */
+        body { 
+            background-color: #050505; 
+            color: #e0e0e0; 
+            font-family: 'Inter', sans-serif; 
+            margin: 0;
+        }
+
+        /* --- 2. CABECERA (LETRAS BLANCAS Y COMPACTAS) --- */
+        .info-materia p {
+            margin: 0 !important;
+            padding: 1px 0 !important;
+            line-height: 1.1 !important;
+            text-align: right !important;
+            font-size: 0.85rem !important;
+            color: #ffffff !important; 
+            font-family: 'JetBrains Mono', monospace !important;
+            display: block !important;
+        }
+        .info-materia span.simbolo, 
+        .info-materia span.cursor {
+            color: #00ff41 !important; 
+        }
+
+        /* --- 3. ESTILOS DEL ARTÍCULO --- */
+        .contenedor-articulo { max-width: 1100px; /* Un poco más ancho para la tabla grande */ margin: 0 auto; padding: 2rem 1rem; position: relative; z-index: 1; }
+        
+        h1 { font-size: 2.2rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
+
+        .rubrica-titulo {
+            font-family: 'JetBrains Mono', monospace; font-size: 1.3rem; color: #00ff41; 
+            border-bottom: 2px solid #333; padding-bottom: 0.5rem; margin-top: 4rem; margin-bottom: 1.5rem; text-transform: uppercase;
+        }
+        .rubrica-tag { background: #222; color: #aaa; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; margin-right: 10px; vertical-align: middle; }
+        
+        .contenedor-articulo p { line-height: 1.8; margin-bottom: 1.2rem; text-align: justify; font-size: 1rem; color: #d1d1d1; }
+        strong { color: #fff; }
+        h3 { color: #fff; margin-top: 2rem; margin-bottom: 1rem; font-size: 1.1rem; border-left: 3px solid #00ff41; padding-left: 10px; }
+
+        /* --- 4. COMPONENTES --- */
+        .box-metadata { background: #111; border: 1px solid #333; padding: 1.5rem; margin-bottom: 3rem; border-left: 4px solid #00ff41; }
+        .box-metadata ul { list-style: none; padding: 0; }
+        .box-metadata li { font-size: 0.9rem; color: #aaa; margin-bottom: 5px;}
+        .box-metadata li i { color: #00ff41; margin-right: 8px; }
+
+        /* TABLA COMPARATIVA (Optimizada para muchas columnas) */
+        .tabla-container { background: #0a0a0a; overflow-x: auto; margin-bottom: 2rem; border: 1px solid #333; border-radius: 4px; box-shadow: 0 0 10px rgba(0,0,0,0.5); }
+        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; font-family: 'JetBrains Mono', monospace; min-width: 1200px; /* Fuerza scroll si es necesario */ }
+        th { background: #151515; color: #00ff41; padding: 15px; text-align: left; border-bottom: 2px solid #444; border-right: 1px solid #333; position: sticky; left: 0; z-index: 10; }
+        /* La primera columna (Categoría) se queda fija al hacer scroll */
+        td:first-child, th:first-child { position: sticky; left: 0; background: #111; border-right: 2px solid #00ff41; font-weight: bold; color: #fff; z-index: 20; box-shadow: 2px 0 5px rgba(0,0,0,0.5); }
+        td { padding: 12px; border: 1px solid #333; vertical-align: top; color: #ccc; line-height: 1.6; }
+        tr:nth-child(even) td { background: rgba(255,255,255,0.03); }
+        tr:nth-child(even) td:first-child { background: #1a1a1a; }
+
+        .multimedia-area { background: #0f0f0f; border: 1px dashed #444; padding: 1.5rem; text-align: center; margin: 2rem 0; border-radius: 6px; }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 1rem; border: 1px solid #333; }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+        .espacio-imagen {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background-color: #0f0f0f; border: 2px dashed #333; color: #555; padding: 2rem; margin: 1.5rem 0; border-radius: 6px; min-height: 200px; transition: 0.3s;
+        }
+        .espacio-imagen:hover { border-color: #00ff41; color: #888; }
+        .espacio-imagen i { font-size: 2.5rem; margin-bottom: 1rem; }
+        .espacio-imagen img { max-width: 100%; height: auto; border: 1px solid #333; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        
+        .btn-exportar {
+            display: block; width: 100%; max-width: 350px; margin: 3rem auto; padding: 1.2rem; background: #b71c1c; 
+            color: white; text-align: center; text-decoration: none; font-weight: bold; border-radius: 4px; font-family: 'JetBrains Mono', monospace; 
+            transition: 0.3s; border: 1px solid #e53935; box-shadow: 0 4px 10px rgba(183, 28, 28, 0.3);
+        }
+        .btn-exportar:hover { background: #d32f2f; box-shadow: 0 0 20px rgba(229, 57, 53, 0.6); transform: translateY(-2px); }
+
+        .referencias-lista { list-style: none; padding: 0; background: #111; padding: 1.5rem; border-left: 2px solid #555; }
+        .referencias-lista li { margin-bottom: 1rem; font-size: 0.9rem; color: #bbb; word-break: break-all; }
+        .referencias-lista li::before { content: ">> "; color: #00ff41; font-weight: bold; }
+
+    </style>
+</head>
+<body>
+
+    <header class="cabecera-principal">
+        <div class="contenedor contenido-cabecera">
+            <div class="logo-terminal">
+                <span class="simbolo">></span> Ángel Josué González Delgado<span class="cursor">_</span>
+                <br>
+                <span class="simbolo">></span> VenusWatch<span class="cursor">_</span>
+            </div>
+            <div class="info-materia">
+                <p><span class="simbolo">></span> CNO V - Seguridad Informática <span class="cursor">_</span></p>
+                <p><span class="simbolo">></span> Universidad Politécnica de San Luis Potosí <span class="cursor">_</span></p>
+                <p><span class="simbolo">></span> Octavo semestre <span class="cursor">_</span></p>
+            </div>
+        </div>
+        
+        <nav class="barra-navegacion">
+            <ul class="enlaces">
+                <li><a href="index.html">/Inicio</a></li>
+                <li><a href="actividades.html" class="activo">/Actividades</a></li>
+                <li><a href="#" class="deshabilitado">/Parcial 1</a></li>
+                <li><a href="#" class="deshabilitado">/Parcial 2</a></li>
+                <li><a href="#" class="deshabilitado">/Parcial 3</a></li>
+                <li><a href="#" class="deshabilitado">/Proyecto Final</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="contenedor-articulo">
+        
+        <div class="header-section scroll-element">
+            <h1>CARTOGRAFIANDO EL PENTESTING</h1>
+            <p style="color: #00ff41; font-family: 'JetBrains Mono'; margin-top: 0;">Actividad 05 | Metodologías de Seguridad Informática</p>
+            
+            <div class="box-metadata">
+                <h4 style="margin-top:0; color:#fff;">// FICHA TÉCNICA:</h4>
+                <ul>
+                    <li><i class="fas fa-user"></i> Estudiante: González Delgado Ángel Josué - 182837</li>
+                    <li><i class="fas fa-chalkboard-teacher"></i> Profesor: Servando López Contreras</li>
+                    <li><i class="fas fa-calendar-alt"></i> Fecha de entrega: 16-Febrero-2026</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">01</span> Introducción Contextual al Tema</h2>
+        <div class="scroll-element">
+            <p>La ejecución de pruebas de seguridad y tests de penetración (pentesting) no puede ser un proceso caótico o improvisado. Para garantizar resultados consistentes, reproducibles y profesionales, la industria ha desarrollado diversos marcos de trabajo y metodologías estandarizadas.</p>
+            <p>El objetivo de esta actividad es "cartografiar" el ecosistema actual de metodologías de ciberseguridad, realizando un análisis comparativo entre los estándares más reconocidos: <strong>MITRE ATT&CK</strong>, <strong>OWASP WSTG</strong>, <strong>NIST SP 800-115</strong>, <strong>OSSTMM</strong>, <strong>PTES</strong> e <strong>ISSAF</strong>. Cada uno de estos marcos posee una orientación específica (ofensiva, defensiva, auditoría o gestión de riesgos), y comprender sus diferencias es vital para seleccionar la herramienta adecuada según el escenario operativo.</p>
+            
+            <div class="espacio-imagen">
+                <i class="fas fa-project-diagram"></i>
+                <span>[IMAGEN 1: LOGOS DE METODOLOGÍAS]</span>
+                <span style="font-size: 0.8rem; margin-top: 5px;">Sugerencia: Inserta una imagen que muestre los logos de MITRE, OWASP, NIST, etc.</span>
+            </div>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">02</span> Análisis Comparativo (Matriz Técnica)</h2>
+        <div class="scroll-element">
+            <p>A continuación, se presenta la matriz comparativa detallada de las metodologías analizadas, desglosando sus fases, objetivos, escenarios de uso y certificaciones asociadas.</p>
+
+            <div class="tabla-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>CATEGORÍA / METODOLOGÍA</th>
+                            <th>MITRE ATT&CK</th>
+                            <th>OWASP WSTG</th>
+                            <th>NIST SP 800-115</th>
+                            <th>OSSTMM</th>
+                            <th>PTES</th>
+                            <th>ISSAF</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Descripción</td>
+                            <td>Base de conocimiento de tácticas y técnicas basadas en observaciones del mundo real. Se utiliza como base para modelos de amenaza y defensa.</td>
+                            <td>Guía principal para pruebas de seguridad en aplicaciones web. Incluye el OWASP Top 10 de riesgos críticos.</td>
+                            <td>Guía técnica estándar de EE.UU. para realizar evaluaciones de seguridad de la información. Diseñada para planificación federal y organizacional.</td>
+                            <td>Metodología científica para pruebas de seguridad. Se centra en métricas operacionales para construir defensas basadas en hechos.</td>
+                            <td>Estándar que cubre todo el ciclo de vida de un pentest, desde el acuerdo inicial (pre-engagement) hasta el reporte técnico.</td>
+                            <td>Marco estructurado y detallado para evaluar seguridad en red, sistemas y aplicaciones. Ofrece guías paso a paso específicas.</td>
+                        </tr>
+                        <tr>
+                            <td>Fases de Implementación</td>
+                            <td>1. Reconocimiento<br>2. Desarrollo de Recursos<br>3. Acceso Inicial<br>4. Ejecución<br>5. Persistencia<br>... (Matriz completa de tácticas).</td>
+                            <td>1. Recopilación de información<br>2. Gestión de configuración<br>3. Identidad y Autenticación<br>4. Validación de entrada<br>5. Criptografía<br>6. Lógica de negocio.</td>
+                            <td>1. Planificación<br>2. Descubrimiento<br>3. Ataque/Evaluación<br>4. Reporte.</td>
+                            <td>1. Inducción<br>2. Interacción<br>3. Investigación<br>4. Intervención.</td>
+                            <td>1. Pre-acuerdo<br>2. Inteligencia (OSINT)<br>3. Modelado de amenazas<br>4. Análisis de vulnerabilidades<br>5. Explotación<br>6. Post-explotación<br>7. Reporte.</td>
+                            <td>1. Planificación y preparación<br>2. Evaluación<br>3. Reporte<br>4. Limpieza y destrucción de artefactos.</td>
+                        </tr>
+                        <tr>
+                            <td>Objetivo Principal</td>
+                            <td>Resolver problemas de detección de amenazas enfocándose en el comportamiento del atacante.</td>
+                            <td>Permitir que las organizaciones tomen decisiones sobre sus aplicaciones mediante pruebas de seguridad web.</td>
+                            <td>Evaluar la eficiencia de controles de seguridad técnica y descubrir vulnerabilidades en entornos federales/empresariales.</td>
+                            <td>Ofrecer datos concretos sobre la eficacia de las defensas mediante valores de riesgo (RAV) y superficie de ataque.</td>
+                            <td>Estandarizar lo que debe ser un pentest para asegurar una validación manual correcta y comunicar impacto.</td>
+                            <td>Proporcionar una referencia detallada para evaluaciones técnicas profundas en tecnologías específicas.</td>
+                        </tr>
+                        <tr>
+                            <td>Escenarios de Uso</td>
+                            <td>Caza de amenazas (Threat Hunting), simulación de adversarios, mejora de SOC.</td>
+                            <td>Desarrollo seguro de software (SDLC), auditoría de aplicaciones web.</td>
+                            <td>Cumplimiento normativo, auditorías internas y gubernamentales.</td>
+                            <td>Auditorías que requieren datos métricos exactos para justificar inversión en seguridad.</td>
+                            <td>Pentesting en redes corporativas, aplicaciones web y servicios en nube.</td>
+                            <td>Evaluaciones donde se requiere un alto nivel de detalle técnico paso a paso.</td>
+                        </tr>
+                        <tr>
+                            <td>Orientación</td>
+                            <td><strong>Defensa y Evaluación:</strong> Se enfoca en entender el ataque para mejorar la defensa.</td>
+                            <td><strong>Defensa y Evaluación:</strong> Enseña a atacar para asegurar el código.</td>
+                            <td><strong>Evaluación:</strong> Busca mejorar la postura defensiva mediante hallazgos.</td>
+                            <td><strong>Evaluación y Defensa:</strong> Utiliza técnicas de ataque para medir eficacia defensiva.</td>
+                            <td><strong>Ataque (Ofensiva):</strong> Simula el comportamiento real de un atacante.</td>
+                            <td><strong>Evaluación:</strong> Marco de calidad para validar configuraciones defensivas.</td>
+                        </tr>
+                        <tr>
+                            <td>Autores</td>
+                            <td>The MITRE Corporation (Financiado por EE.UU.).</td>
+                            <td>OWASP Foundation.</td>
+                            <td>NIST (Karen Scarfone, Murugiah Souppaya).</td>
+                            <td>ISECOM (Peter Vincent Herzog).</td>
+                            <td>Grupo de expertos (Chris Nickerson, Dave Kennedy, Eric Smith).</td>
+                            <td>OISSG (Open Information Systems Security Group).</td>
+                        </tr>
+                        <tr>
+                            <td>URL Oficial</td>
+                            <td>attack.mitre.org</td>
+                            <td>owasp.org</td>
+                            <td>csrc.nist.gov</td>
+                            <td>isecom.org</td>
+                            <td>pentest-standard.org</td>
+                            <td>(OISSG Archivada)</td>
+                        </tr>
+                        <tr>
+                            <td>Certificaciones</td>
+                            <td>MITRE ATT&CK Fundamentals, CTI.</td>
+                            <td>OCSSD (Certified Secure Software Developer).</td>
+                            <td>Relacionado con CISM, CISSP (Gestión).</td>
+                            <td>OPST, OPSA, OSSTMM Professional.</td>
+                            <td>CEH, OSCP, GPEN (Alineadas a sus fases).</td>
+                            <td>CompTIA PenTest+, OSWE.</td>
+                        </tr>
+                        <tr>
+                            <td>Versión Vigente</td>
+                            <td>v14.1 (Actualización constante).</td>
+                            <td>WSTG v4.2 / Top 10 2025.</td>
+                            <td>SP 800-115 (2008, vigente).</td>
+                            <td>v3 (v4 en desarrollo).</td>
+                            <td>v1.0 (v2 en borrador).</td>
+                            <td>Draft 0.2.1.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">03</span> Material Multimedia</h2>
+        <div class="scroll-element">
+            <p>Recursos visuales para complementar el entendimiento de las fases del Pentesting y los marcos de trabajo.</p>
+            
+            <div class="multimedia-area">
+                <h4 style="color:#00ff41; margin-top:0;">1. Video: ¿Qué es el PTES?</h4>
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/3yJqI5o-C4Y" title="Penetration Testing Methodologies" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div class="espacio-imagen">
+                <i class="fas fa-chart-pie"></i>
+                <span>[IMAGEN 2: CICLO DE VIDA DEL PENTESTING]</span>
+                <span style="font-size: 0.8rem; margin-top: 5px;">Sugerencia: Inserta un gráfico circular de las 7 fases del PTES.</span>
+            </div>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">04</span> Opinión y Reflexión Técnica</h2>
+        <div class="scroll-element">
+            <p>El análisis comparativo realizado evidencia que no existe una "bala de plata" o metodología única superior a las demás; la elección depende estrictamente del objetivo de la evaluación. Mientras que <strong>PTES</strong> es ideal para estructurar una prueba de penetración técnica y ofensiva "de principio a fin", marcos como <strong>OSSTMM</strong> aportan un valor incalculable al traducir hallazgos técnicos en métricas de negocio cuantificables (RAV), algo crucial para justificar presupuestos ante la dirección.</p>
+            <p>Por otro lado, la relevancia de <strong>MITRE ATT&CK</strong> ha crecido exponencialmente al cambiar el enfoque de "buscar vulnerabilidades" a "entender comportamientos" (TTPs), lo cual es fundamental para los equipos de Blue Team modernos. En conclusión, un profesional de seguridad integral no debe casarse con una sola metodología, sino dominar la capacidad de hibridarlas: usar PTES para la ejecución, OSSTMM para la medición y MITRE para el mapeo de amenazas.</p>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">05</span> Referencias Técnicas</h2>
+        <div class="scroll-element">
+            <ul class="referencias-lista">
+                <li>The Penetration Testing Execution Standard. (s. f.). http://www.pentest-standard.org/</li>
+                <li>CSRC Content Editor. (s. f.). Home | CSRC. https://csrc.nist.gov/</li>
+                <li>MITRE ATT&CK. (s. f.). https://attack.mitre.org/</li>
+                <li>OWASP Foundation. (s. f.). https://owasp.org/</li>
+                <li>ISECOM. (s. f.). OSSTMM. https://www.isecom.org/</li>
+                <li>Admin. (2024). Guía OSSTMM. Tu Consultor TI.</li>
+            </ul>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">06</span> Exportación</h2>
+        <div class="scroll-element" style="text-align: center;">
+            <p>Descarga la versión formal del documento correspondiente a esta actividad.</p>
+            
+            <a href="182837-act05.pdf" class="btn-exportar" download type="application/pdf">
+                <i class="fas fa-file-pdf" style="margin-right: 10px;"></i> EXPORTAR A PDF
+            </a>
+            
+            <p style="font-size: 0.8rem; color: #666;">Archivo: 182837-act05.pdf</p>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="contenedor contenido-footer">
+            <p>&copy; 2026 Ángel Josué González Delgado. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+        document.querySelectorAll('.scroll-element').forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
