@@ -3,127 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actividades | Seguridad Informática</title>
+    <title>Parcial 1 | Seguridad Informática</title>
     <link rel="stylesheet" href="style.css"> 
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
+        /* FONDO NEGRO PURO */
+        body { background-color: #050505; color: #e0e0e0; font-family: 'Inter', sans-serif; margin: 0; }
 
-        .scroll-element {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-            will-change: opacity, transform;
+        /* --- CORRECCIÓN CABECERA (LETRAS BLANCAS) --- */
+        .info-materia p {
+            margin: 0 !important;
+            padding: 1px 0 !important;
+            line-height: 1.1 !important;
+            text-align: right !important;
+            font-size: 0.85rem !important;
+            color: #ffffff !important; /* BLANCO PURO */
+            font-family: 'JetBrains Mono', monospace !important;
+            display: block !important;
         }
-        .scroll-element.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .info-materia span.simbolo, .info-materia span.cursor { color: #00ff41 !important; }
+
+        /* Estilos de Animación y Tarjetas */
+        .scroll-element { opacity: 0; transform: translateY(50px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; will-change: opacity, transform; }
+        .scroll-element.visible { opacity: 1; transform: translateY(0); }
         .delay-100 { transition-delay: 100ms; }
         .delay-200 { transition-delay: 200ms; }
         .delay-300 { transition-delay: 300ms; }
 
-        .grid-actividades {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-            margin-bottom: 4rem;
-        }
+        .seccion-actividades { padding-top: 50px; min-height: 100vh; padding-bottom: 4rem; }
+        
+        .encabezado-seccion { margin-bottom: 3rem; text-align: left; }
+        .titulo-principal { font-size: 2rem; color: #fff; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 2px; }
+        .subtitulo { color: #00ff41; font-family: 'JetBrains Mono', monospace; font-size: 1rem; }
+
+        .grid-actividades { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-top: 2rem; }
 
         .tarjeta-actividad {
-            background-color: rgba(10, 10, 10, 0.8); 
-            border: 1px solid #333;
-            border-radius: 8px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            position: relative;
+            background-color: #0f0f0f; border: 1px solid #333; border-radius: 8px; overflow: hidden;
+            transition: all 0.3s ease; display: flex; flex-direction: column; position: relative;
         }
+        .tarjeta-actividad:hover { transform: translateY(-5px); border-color: #00ff41; box-shadow: 0 5px 15px rgba(0, 255, 65, 0.15); }
 
-        .tarjeta-actividad:hover {
-            transform: translateY(-5px);
-            border-color: #00ff41;
-            box-shadow: 0 5px 15px rgba(0, 255, 65, 0.15);
-        }
+        .imagen-actividad { width: 100%; height: 180px; overflow: hidden; border-bottom: 1px solid #333; }
+        .imagen-actividad img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; filter: grayscale(40%); }
+        .tarjeta-actividad:hover .imagen-actividad img { transform: scale(1.05); filter: grayscale(0%); }
 
-        .imagen-actividad {
-            width: 100%;
-            height: 180px;
-            overflow: hidden;
-            border-bottom: 1px solid #333;
-        }
-
-        .imagen-actividad img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-            filter: grayscale(40%);
-        }
-
-        .tarjeta-actividad:hover .imagen-actividad img {
-            transform: scale(1.05);
-            filter: grayscale(0%);
-        }
-
-        .contenido-card {
-            padding: 1.5rem;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .tag-numero {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            color: #00ff41;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        .titulo-card {
-            font-family: 'Inter', sans-serif;
-            font-size: 1.25rem;
-            color: #fff;
-            margin-bottom: 0.8rem;
-            font-weight: 700;
-        }
-
-        .desc-card {
-            color: #ccc;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            margin-bottom: 1.5rem;
-            flex-grow: 1;
-        }
+        .contenido-card { padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; }
+        .tag-numero { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: #00ff41; margin-bottom: 0.5rem; display: block; }
+        .titulo-card { font-family: 'Inter', sans-serif; font-size: 1.25rem; color: #fff; margin-bottom: 0.8rem; font-weight: 700; }
+        .desc-card { color: #ccc; font-size: 0.9rem; line-height: 1.5; margin-bottom: 1.5rem; flex-grow: 1; }
 
         .btn-acceder {
-            display: inline-block;
-            padding: 0.6rem 1.2rem;
-            background: transparent;
-            border: 1px solid #00ff41;
-            color: #00ff41;
-            font-family: 'JetBrains Mono', monospace;
-            text-decoration: none;
-            font-size: 0.9rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            margin-top: auto;
+            display: inline-block; padding: 0.6rem 1.2rem; background: transparent; border: 1px solid #00ff41;
+            color: #00ff41; font-family: 'JetBrains Mono', monospace; text-decoration: none; font-size: 0.9rem;
+            text-align: center; transition: all 0.3s ease; margin-top: auto;
         }
-
-        .btn-acceder:hover {
-            background: #00ff41;
-            color: #000;
-            font-weight: bold;
-        }
-
-        .seccion-actividades {
-            padding-top: 120px; 
-            min-height: 100vh;
-        }
+        .btn-acceder:hover { background: #00ff41; color: #000; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -145,12 +82,11 @@
         <nav class="barra-navegacion">
             <ul class="enlaces">
                 <li><a href="index.html">/Inicio</a></li>
-                <li><a href="actividades.html" class="activo">/Actividades</a></li>
-                <li><a href="#" class="deshabilitado">/Parcial 1</a></li>
+                <li><a href="actividades.html">/Actividades</a></li>
+                <li><a href="parcial1.html" class="activo">/Parcial 1</a></li>
                 <li><a href="#" class="deshabilitado">/Parcial 2</a></li>
                 <li><a href="#" class="deshabilitado">/Parcial 3</a></li>
                 <li><a href="#" class="deshabilitado">/Proyecto Final</a></li>
-                <li><a href="#" class="deshabilitado">/Software</a></li>
             </ul>
         </nav>
     </header>
@@ -159,8 +95,11 @@
         <div class="contenedor">
             
             <div class="encabezado-seccion scroll-element">
-                <h1 class="titulo-principal">ÍNDICE DE ACTIVIDADES</h1>
-                <p class="subtitulo">Prácticas y análisis técnico</p>
+                <a href="actividades.html" style="color: #666; text-decoration: none; font-size: 0.9rem; margin-bottom: 10px; display: inline-block;">
+                    <i class="fas fa-arrow-left"></i> Volver a Parciales
+                </a>
+                <h1 class="titulo-principal">PARCIAL 1</h1>
+                <p class="subtitulo">Bitácora de Actividades y Prácticas</p>
                 <hr style="border-color: #333; margin-top: 1rem;">
             </div>
 
@@ -172,10 +111,8 @@
                     </div>
                     <div class="contenido-card">
                         <span class="tag-numero">// ACT_01</span>
-                        <h3 class="titulo-card">Análisis en grupo de un ciberataque real y su impacto empresarial</h3>
-                        <p class="desc-card">
-                            Investigación profunda sobre un ciberataque llamado NotPetya, realizando un gran impacto negativo empresarial, financiero y reputacional en la organización afectada.
-                        </p>
+                        <h3 class="titulo-card">Análisis de ciberataque real (NotPetya)</h3>
+                        <p class="desc-card">Investigación profunda sobre el ataque NotPetya y su impacto empresarial en Maersk.</p>
                         <a href="actividad01.html" class="btn-acceder">>> LEER ARTÍCULO</a>
                     </div>
                 </article>
@@ -187,9 +124,7 @@
                     <div class="contenido-card">
                         <span class="tag-numero">// ACT_02</span>
                         <h3 class="titulo-card">Servicios de Seguridad (X.800)</h3>
-                        <p class="desc-card">
-                            Análisis detallado de la arquitectura de seguridad OSI (X.800) y el glosario de seguridad RFC 4949, definiendo los servicios y mecanismos principales.
-                        </p>
+                        <p class="desc-card">Análisis detallado de la arquitectura de seguridad OSI (X.800) y RFC 4949.</p>
                         <a href="actividad02.html" class="btn-acceder">>> LEER ARTÍCULO</a>
                     </div>
                 </article>
@@ -201,9 +136,7 @@
                     <div class="contenido-card">
                         <span class="tag-numero">// ACT_03</span>
                         <h3 class="titulo-card">Políticas de filtrado en Iptables</h3>
-                        <p class="desc-card">
-                            Interpretación técnica y traducción de reglas de firewall en Linux utilizando Iptables. Análisis de tráfico permitido y denegado.
-                        </p>
+                        <p class="desc-card">Interpretación técnica y traducción de reglas de firewall en Linux utilizando Iptables.</p>
                         <a href="actividad03.html" class="btn-acceder">>> LEER ARTÍCULO</a>
                     </div>
                 </article>
@@ -215,9 +148,7 @@
                     <div class="contenido-card">
                         <span class="tag-numero">// ACT_04</span>
                         <h3 class="titulo-card">Mecanismos de defensa en red</h3>
-                        <p class="desc-card">
-                            Estudio de herramientas y estrategias para la protección perimetral, incluyendo IDS, IPS y Firewalls de Nueva Generación.
-                        </p>
+                        <p class="desc-card">Estudio de estrategias de protección perimetral, IDS/IPS y Firewalls.</p>
                         <a href="actividad04.html" class="btn-acceder">>> LEER ARTÍCULO</a>
                     </div>
                 </article>
@@ -229,9 +160,7 @@
                     <div class="contenido-card">
                         <span class="tag-numero">// ACT_05</span>
                         <h3 class="titulo-card">Cartografiando el Pentesting</h3>
-                        <p class="desc-card">
-                            Análisis comparativo de las principales metodologías de seguridad informática (PTES, OSSTMM, ISSAF) y sus fases de ejecución.
-                        </p>
+                        <p class="desc-card">Comparativa de metodologías de seguridad (PTES, OSSTMM, ISSAF).</p>
                         <a href="actividad05.html" class="btn-acceder">>> LEER ARTÍCULO</a>
                     </div>
                 </article>
@@ -243,9 +172,7 @@
                     <div class="contenido-card">
                         <span class="tag-numero">// ACT_06</span>
                         <h3 class="titulo-card">Implementación de IPSec VPN</h3>
-                        <p class="desc-card">
-                            Configuración y puesta en marcha de una Red Privada Virtual (VPN) segura utilizando el protocolo IPSec para garantizar la confidencialidad.
-                        </p>
+                        <p class="desc-card">Configuración de túneles seguros Site-to-Site para confidencialidad de datos.</p>
                         <a href="actividad06.html" class="btn-acceder">>> LEER ARTÍCULO</a>
                     </div>
                 </article>
@@ -257,11 +184,10 @@
     <footer>
         <div class="contenedor contenido-footer">
             <p>&copy; 2026 Ángel Josué González Delgado. Todos los derechos reservados.</p>
-            <p class="ssl-badge"><i class="fas fa-lock"></i> Conexión segura con SSL</p>
         </div>
     </footer>
 
-    <script type="text/javascript">
+    <script>
         window.onload = function() {
             const observador = new IntersectionObserver((entradas) => {
                 entradas.forEach((entrada) => {
@@ -269,14 +195,9 @@
                         entrada.target.classList.add('visible');
                     }
                 });
-            }, {
-                threshold: 0.1
-            });
-
-            const elementosOcultos = document.querySelectorAll('.scroll-element');
-            elementosOcultos.forEach((el) => observador.observe(el));
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.scroll-element').forEach((el) => observador.observe(el));
         }
     </script>
-
 </body>
 </html>
