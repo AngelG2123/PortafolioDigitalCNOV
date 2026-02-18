@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 06 | IPSec VPN</title>
+    <link rel="stylesheet" href="style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- 1. ESTILOS GENERALES (FONDO NEGRO PURO) --- */
+        body { 
+            background-color: #050505; 
+            color: #e0e0e0; 
+            font-family: 'Inter', sans-serif; 
+            margin: 0;
+        }
+
+        /* --- 2. CABECERA (LETRAS BLANCAS Y COMPACTAS) --- */
+        .info-materia p {
+            margin: 0 !important;
+            padding: 1px 0 !important;
+            line-height: 1.1 !important;
+            text-align: right !important;
+            font-size: 0.85rem !important;
+            color: #ffffff !important; 
+            font-family: 'JetBrains Mono', monospace !important;
+            display: block !important;
+        }
+        .info-materia span.simbolo, 
+        .info-materia span.cursor {
+            color: #00ff41 !important; 
+        }
+
+        /* --- 3. ESTILOS DEL ARTÍCULO --- */
+        .contenedor-articulo { max-width: 950px; margin: 0 auto; padding: 2rem 1rem; position: relative; z-index: 1; }
+        
+        h1 { font-size: 2.2rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
+
+        .rubrica-titulo {
+            font-family: 'JetBrains Mono', monospace; font-size: 1.3rem; color: #00ff41; 
+            border-bottom: 2px solid #333; padding-bottom: 0.5rem; margin-top: 4rem; margin-bottom: 1.5rem; text-transform: uppercase;
+        }
+        .rubrica-tag { background: #222; color: #aaa; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; margin-right: 10px; vertical-align: middle; }
+        
+        .contenedor-articulo p { line-height: 1.8; margin-bottom: 1.2rem; text-align: justify; font-size: 1rem; color: #d1d1d1; }
+        strong { color: #fff; }
+        h3 { color: #fff; margin-top: 2rem; margin-bottom: 1rem; font-size: 1.1rem; border-left: 3px solid #00ff41; padding-left: 10px; }
+
+        /* --- 4. COMPONENTES --- */
+        .box-metadata { background: #111; border: 1px solid #333; padding: 1.5rem; margin-bottom: 3rem; border-left: 4px solid #00ff41; }
+        .box-metadata ul { list-style: none; padding: 0; }
+        .box-metadata li { font-size: 0.9rem; color: #aaa; margin-bottom: 5px;}
+        .box-metadata li i { color: #00ff41; margin-right: 8px; }
+
+        /* ESTILO PARA CÓDIGO DE ROUTER (CONSOLE STYLE) */
+        .console-block {
+            background: #000;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: #ccc;
+            overflow-x: auto;
+        }
+        .console-prompt { color: #00ff41; font-weight: bold; }
+        .console-cmd { color: #fff; font-weight: bold; }
+        .console-comment { color: #666; font-style: italic; }
+
+        .multimedia-area { background: #0f0f0f; border: 1px dashed #444; padding: 1.5rem; text-align: center; margin: 2rem 0; border-radius: 6px; }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 1rem; border: 1px solid #333; }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+        .espacio-imagen {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background-color: #0f0f0f; border: 2px dashed #333; color: #555; padding: 2rem; margin: 1.5rem 0; border-radius: 6px; min-height: 200px; transition: 0.3s;
+        }
+        .espacio-imagen:hover { border-color: #00ff41; color: #888; }
+        .espacio-imagen i { font-size: 2.5rem; margin-bottom: 1rem; }
+        .espacio-imagen img { max-width: 100%; height: auto; border: 1px solid #333; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        
+        .btn-exportar {
+            display: block; width: 100%; max-width: 350px; margin: 3rem auto; padding: 1.2rem; background: #b71c1c; 
+            color: white; text-align: center; text-decoration: none; font-weight: bold; border-radius: 4px; font-family: 'JetBrains Mono', monospace; 
+            transition: 0.3s; border: 1px solid #e53935; box-shadow: 0 4px 10px rgba(183, 28, 28, 0.3);
+        }
+        .btn-exportar:hover { background: #d32f2f; box-shadow: 0 0 20px rgba(229, 57, 53, 0.6); transform: translateY(-2px); }
+
+        .referencias-lista { list-style: none; padding: 0; background: #111; padding: 1.5rem; border-left: 2px solid #555; }
+        .referencias-lista li { margin-bottom: 1rem; font-size: 0.9rem; color: #bbb; word-break: break-all; }
+        .referencias-lista li::before { content: ">> "; color: #00ff41; font-weight: bold; }
+
+    </style>
+</head>
+<body>
+
+    <header class="cabecera-principal">
+        <div class="contenedor contenido-cabecera">
+            <div class="logo-terminal">
+                <span class="simbolo">></span> Ángel Josué González Delgado<span class="cursor">_</span>
+                <br>
+                <span class="simbolo">></span> VenusWatch<span class="cursor">_</span>
+            </div>
+            <div class="info-materia">
+                <p><span class="simbolo">></span> CNO V - Seguridad Informática <span class="cursor">_</span></p>
+                <p><span class="simbolo">></span> Universidad Politécnica de San Luis Potosí <span class="cursor">_</span></p>
+                <p><span class="simbolo">></span> Octavo semestre <span class="cursor">_</span></p>
+            </div>
+        </div>
+        
+        <nav class="barra-navegacion">
+            <ul class="enlaces">
+                <li><a href="index.html">/Inicio</a></li>
+                <li><a href="actividades.html" class="activo">/Actividades</a></li>
+                <li><a href="#" class="deshabilitado">/Parcial 1</a></li>
+                <li><a href="#" class="deshabilitado">/Parcial 2</a></li>
+                <li><a href="#" class="deshabilitado">/Parcial 3</a></li>
+                <li><a href="#" class="deshabilitado">/Proyecto Final</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="contenedor-articulo">
+        
+        <div class="header-section scroll-element">
+            <h1>IPSEC VPN (SITE-TO-SITE)</h1>
+            <p style="color: #00ff41; font-family: 'JetBrains Mono'; margin-top: 0;">Actividad 06 | Implementación de Túnel Seguro</p>
+            
+            <div class="box-metadata">
+                <h4 style="margin-top:0; color:#fff;">// FICHA TÉCNICA:</h4>
+                <ul>
+                    <li><i class="fas fa-user"></i> Estudiante: González Delgado Ángel Josué - 182837</li>
+                    <li><i class="fas fa-chalkboard-teacher"></i> Profesor: Servando López Contreras</li>
+                    <li><i class="fas fa-calendar-alt"></i> Fecha de entrega: 16-Febrero-2026</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">01</span> Introducción Contextual al Tema</h2>
+        <div class="scroll-element">
+            <p>En esta actividad se realizó la implementación de una red utilizando una <strong>VPN (Virtual Private Network)</strong> con el protocolo <strong>IPSec</strong>. El objetivo principal fue conectar dos redes locales diferentes a través de una red pública (simulada por un router ISP), asegurando que la información viaje encriptada y segura.</p>
+            <p>Para lograr esto, se configuraron dos routers de borde (R1 y R2) para establecer un túnel por donde pasarán los datos de una PC a otra. Este mecanismo garantiza los principios de confidencialidad e integridad: si alguien intercepta el tráfico en el medio (Man-in-the-Middle), no podrá leerlo a menos que posea la clave privada correspondiente.</p>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">02</span> Desarrollo Técnico de la Actividad</h2>
+        <div class="scroll-element">
+            
+            <h3>1. Configuración Inicial y Enrutamiento</h3>
+            <p>Se configuraron las interfaces y rutas estáticas apuntando al ISP para permitir la conectividad básica antes de establecer el túnel.</p>
+            <div class="console-block">
+                <span class="console-comment">! Configuración Router ISP (Simulación de Internet)</span><br>
+                <span class="console-prompt">ISP(config)#</span> <span class="console-cmd">ip route 0.0.0.0 0.0.0.0 209.165.200.1</span><br><br>
+                <span class="console-comment">! Configuración R1 (Lado A)</span><br>
+                <span class="console-prompt">R1(config)#</span> <span class="console-cmd">ip route 0.0.0.0 0.0.0.0 209.165.100.2</span><br><br>
+                <span class="console-comment">! Configuración R2 (Lado B)</span><br>
+                <span class="console-prompt">R2(config)#</span> <span class="console-cmd">ip route 0.0.0.0 0.0.0.0 209.165.200.2</span>
+            </div>
+
+            <h3>2. Habilitación de Licencia de Seguridad</h3>
+            <p>Para utilizar las funciones criptográficas en los routers Cisco serie 1900, fue necesario activar el paquete de tecnología <code>securityk9</code>.</p>
+            <div class="console-block">
+                <span class="console-prompt">R1(config)#</span> <span class="console-cmd">license boot module c1900 technology-package securityk9</span><br>
+                <span class="console-comment">ACCEPT? [yes/no]: yes</span><br>
+                <span class="console-prompt">R1#</span> <span class="console-cmd">reload</span>
+            </div>
+
+            <h3>3. Definición de Tráfico Interesante (ACL)</h3>
+            <p>Se configuraron Listas de Control de Acceso (ACL 100) para identificar qué tráfico debe ser encriptado y enviado por el túnel VPN.</p>
+            <div class="console-block">
+                <span class="console-prompt">R1(config)#</span> <span class="console-cmd">access-list 100 permit ip 192.168.1.0 0.0.0.255 192.168.3.0 0.0.0.255</span><br>
+                <span class="console-prompt">R2(config)#</span> <span class="console-cmd">access-list 100 permit ip 192.168.3.0 0.0.0.255 192.168.1.0 0.0.0.255</span>
+            </div>
+
+            <h3>4. Configuración de Políticas ISAKMP (Fase 1)</h3>
+            <p>Se establecieron los parámetros para la negociación inicial: encriptación AES-256, autenticación Pre-Shared Key y grupo Diffie-Hellman 5.</p>
+            <div class="console-block">
+                <span class="console-prompt">R1(config)#</span> <span class="console-cmd">crypto isakmp policy 10</span><br>
+                <span class="console-prompt">R1(config-isakmp)#</span> <span class="console-cmd">encryption aes 256</span><br>
+                <span class="console-prompt">R1(config-isakmp)#</span> <span class="console-cmd">authentication pre-share</span><br>
+                <span class="console-prompt">R1(config-isakmp)#</span> <span class="console-cmd">group 5</span><br>
+                <span class="console-prompt">R1(config)#</span> <span class="console-cmd">crypto isakmp key secretkey address 209.165.200.1</span>
+            </div>
+
+            <h3>5. Configuración IPSec Transform-Set (Fase 2)</h3>
+            <p>Se definió el conjunto de transformación para encriptar los datos del usuario.</p>
+            <div class="console-block">
+                <span class="console-prompt">R1(config)#</span> <span class="console-cmd">crypto ipsec transform-set R1->R2 esp-aes 256 esp-sha-hmac</span>
+            </div>
+
+            <h3>6. Creación y Aplicación del Mapa Criptográfico</h3>
+            <p>Finalmente, se vinculan todas las configuraciones en un <code>crypto map</code> y se aplica a la interfaz de salida.</p>
+            <div class="console-block">
+                <span class="console-prompt">R1(config)#</span> <span class="console-cmd">crypto map IPSEC-MAP 10 ipsec-isakmp</span><br>
+                <span class="console-prompt">R1(config-crypto-map)#</span> <span class="console-cmd">set peer 209.165.200.1</span><br>
+                <span class="console-prompt">R1(config-crypto-map)#</span> <span class="console-cmd">set transform-set R1->R2</span><br>
+                <span class="console-prompt">R1(config-crypto-map)#</span> <span class="console-cmd">match address 100</span><br>
+                <span class="console-prompt">R1(config)#</span> <span class="console-cmd">interface g0/0</span><br>
+                <span class="console-prompt">R1(config-if)#</span> <span class="console-cmd">crypto map IPSEC-MAP</span><br>
+                <span class="console-comment">*Jan 3 07:16:26.785: CRYPTO-6-ISAKMP ON OFF: ISAKMP is ON</span>
+            </div>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">03</span> Material Multimedia</h2>
+        <div class="scroll-element">
+            <p>Evidencia de la implementación exitosa de la topología y la prueba de conectividad.</p>
+            
+            <div class="espacio-imagen">
+                <i class="fas fa-network-wired"></i>
+                <span>[IMAGEN 1: TOPOLOGÍA Y PING EXITOSO]</span>
+                <span style="font-size: 0.8rem; margin-top: 5px;">Sugerencia: Inserta la captura de Packet Tracer donde se ve el ping de PC-A a PC-B.</span>
+                </div>
+
+            <div class="multimedia-area">
+                <h4 style="color:#00ff41; margin-top:0;">1. Video de Referencia: Configuración Site-to-Site VPN</h4>
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/5H-j6fT2Gv0" title="Cisco IPSec VPN Configuration" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">04</span> Conclusiones y Resultados</h2>
+        <div class="scroll-element">
+            <p>La implementación de la VPN Site-to-Site fue exitosa. Como se muestra en la evidencia multimedia (Paso 8), la prueba de conectividad (PING) entre la PC-A (Red 192.168.1.0/24) y la PC-B (Red 192.168.3.0/24) fue correcta, lo que confirma que el túnel IPSec se estableció y el tráfico está fluyendo de manera encriptada a través de la red pública simulada.</p>
+            <div style="background: #151515; padding: 1.5rem; border-left: 3px solid #00ff41; margin-top: 1rem;">
+                <strong>Resultado Técnico:</strong> Se logró confidencialidad mediante AES-256 e integridad mediante SHA-HMAC, cumpliendo con los estándares de seguridad requeridos para interconectar sucursales.
+            </div>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">05</span> Referencias Técnicas</h2>
+        <div class="scroll-element">
+            <ul class="referencias-lista">
+                <li>Cisco Systems. (2024). <em>Configuring IPSec Network Security</em>. Cisco IOS Security Configuration Guide.</li>
+                <li>RFC 2409. (1998). <em>The Internet Key Exchange (IKE)</em>. IETF.</li>
+                <li>Academy, C. N. (2023). <em>CCNA Security: Site-to-Site VPNs</em>. Cisco Press.</li>
+            </ul>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">06</span> Exportación</h2>
+        <div class="scroll-element" style="text-align: center;">
+            <p>Descarga la versión formal del documento correspondiente a esta actividad.</p>
+            
+            <a href="182837-Act06.pdf" class="btn-exportar" download type="application/pdf">
+                <i class="fas fa-file-pdf" style="margin-right: 10px;"></i> EXPORTAR A PDF
+            </a>
+            
+            <p style="font-size: 0.8rem; color: #666;">Archivo: 182837-Act06.pdf</p>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="contenedor contenido-footer">
+            <p>&copy; 2026 Ángel Josué González Delgado. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+        document.querySelectorAll('.scroll-element').forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
