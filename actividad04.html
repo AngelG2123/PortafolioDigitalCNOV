@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 04 | Mecanismos de Defensa</title>
+    <link rel="stylesheet" href="style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- 1. ESTILOS GENERALES (FONDO NEGRO PURO) --- */
+        body { 
+            background-color: #050505; /* Negro sólido */
+            color: #e0e0e0; 
+            font-family: 'Inter', sans-serif; 
+            margin: 0;
+        }
+
+        /* --- 2. CORRECCIÓN DE CABECERA (INFO-MATERIA) --- */
+        .info-materia p {
+            margin: 0 !important;
+            padding: 1px 0 !important;
+            line-height: 1.1 !important;
+            text-align: right !important;
+            font-size: 0.85rem !important;
+            color: #ffffff !important; /* Letras blancas */
+            font-family: 'JetBrains Mono', monospace !important;
+            display: block !important;
+        }
+        .info-materia span.simbolo, 
+        .info-materia span.cursor {
+            color: #00ff41 !important; /* Símbolos verdes */
+        }
+
+        /* --- 3. ESTILOS DEL ARTÍCULO --- */
+        .contenedor-articulo { max-width: 950px; margin: 0 auto; padding: 2rem 1rem; position: relative; z-index: 1; }
+        
+        h1 { font-size: 2.2rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
+
+        .rubrica-titulo {
+            font-family: 'JetBrains Mono', monospace; font-size: 1.3rem; color: #00ff41; 
+            border-bottom: 2px solid #333; padding-bottom: 0.5rem; margin-top: 4rem; margin-bottom: 1.5rem; text-transform: uppercase;
+        }
+        .rubrica-tag { background: #222; color: #aaa; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; margin-right: 10px; vertical-align: middle; }
+        
+        /* Párrafos */
+        .contenedor-articulo p { line-height: 1.8; margin-bottom: 1.2rem; text-align: justify; font-size: 1rem; color: #d1d1d1; }
+        strong { color: #fff; }
+        
+        /* Títulos de sección */
+        h3 { color: #fff; margin-top: 3rem; margin-bottom: 1rem; font-size: 1.2rem; border-left: 4px solid #00ff41; padding-left: 10px; padding-top: 5px; padding-bottom: 5px;}
+
+        /* --- 4. COMPONENTES --- */
+        .box-metadata { background: #111; border: 1px solid #333; padding: 1.5rem; margin-bottom: 3rem; border-left: 4px solid #00ff41; }
+        .box-metadata ul { list-style: none; padding: 0; }
+        .box-metadata li { font-size: 0.9rem; color: #aaa; margin-bottom: 5px;}
+        .box-metadata li i { color: #00ff41; margin-right: 8px; }
+
+        .tabla-container { background: #0a0a0a; overflow-x: auto; margin-bottom: 2rem; border: 1px solid #333; border-radius: 4px; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; font-family: 'JetBrains Mono', monospace; }
+        th { background: #1a1a1a; color: #00ff41; padding: 12px; text-align: left; border-bottom: 2px solid #444; min-width: 50px; }
+        td { padding: 12px; border: 1px solid #333; vertical-align: middle; color: #ccc; }
+        tr:nth-child(even) td { background: rgba(255,255,255,0.03); }
+        
+        /* Estilo especial para código en tabla */
+        .code-command { font-family: 'Courier New', monospace; color: #00ff41; background: #000; padding: 4px 8px; border-radius: 4px; border: 1px solid #333; display: block; }
+
+        .multimedia-area { background: #0f0f0f; border: 1px dashed #444; padding: 1.5rem; text-align: center; margin: 2rem 0; border-radius: 6px; }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 1rem; border: 1px solid #333; }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+        .espacio-imagen {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background-color: #0f0f0f; border: 2px dashed #333; color: #555; padding: 2rem; margin: 1.5rem 0; border-radius: 6px; min-height: 200px; transition: 0.3s;
+        }
+        .espacio-imagen:hover { border-color: #00ff41; color: #888; }
+        .espacio-imagen i { font-size: 2.5rem; margin-bottom: 1rem; }
+        .espacio-imagen img { max-width: 100%; height: auto; border: 1px solid #333; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .caption-imagen { font-size: 0.8rem; color: #666; margin-top: 10px; font-style: italic; }
+
+        .btn-exportar {
+            display: block; width: 100%; max-width: 350px; margin: 3rem auto; padding: 1.2rem; background: #b71c1c; 
+            color: white; text-align: center; text-decoration: none; font-weight: bold; border-radius: 4px; font-family: 'JetBrains Mono', monospace; 
+            transition: 0.3s; border: 1px solid #e53935; box-shadow: 0 4px 10px rgba(183, 28, 28, 0.3);
+        }
+        .btn-exportar:hover { background: #d32f2f; box-shadow: 0 0 20px rgba(229, 57, 53, 0.6); transform: translateY(-2px); }
+
+        .referencias-lista { list-style: none; padding: 0; background: #111; padding: 1.5rem; border-left: 2px solid #555; }
+        .referencias-lista li { margin-bottom: 1rem; font-size: 0.9rem; color: #bbb; word-break: break-all; }
+        .referencias-lista li::before { content: ">> "; color: #00ff41; font-weight: bold; }
+
+    </style>
+</head>
+<body>
+
+    <header class="cabecera-principal">
+        <div class="contenedor contenido-cabecera">
+            <div class="logo-terminal">
+                <span class="simbolo">></span> Ángel Josué González Delgado<span class="cursor">_</span>
+                <br>
+                <span class="simbolo">></span> VenusWatch<span class="cursor">_</span>
+            </div>
+            <div class="info-materia">
+                <p><span class="simbolo">></span> CNO V - Seguridad Informática <span class="cursor">_</span></p>
+                <p><span class="simbolo">></span> Universidad Politécnica de San Luis Potosí <span class="cursor">_</span></p>
+                <p><span class="simbolo">></span> Octavo semestre <span class="cursor">_</span></p>
+            </div>
+        </div>
+        
+        <nav class="barra-navegacion">
+            <ul class="enlaces">
+                <li><a href="index.html">/Inicio</a></li>
+                <li><a href="actividades.html" class="activo">/Actividades</a></li>
+                <li><a href="#" class="deshabilitado">/Parcial 1</a></li>
+                <li><a href="#" class="deshabilitado">/Parcial 2</a></li>
+                <li><a href="#" class="deshabilitado">/Parcial 3</a></li>
+                <li><a href="#" class="deshabilitado">/Proyecto Final</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="contenedor-articulo">
+        
+        <div class="header-section scroll-element">
+            <h1>MECANISMOS DE DEFENSA DE RED</h1>
+            <p style="color: #00ff41; font-family: 'JetBrains Mono'; margin-top: 0;">Actividad 04 | Filtrado de Paquetes con Iptables</p>
+            
+            <div class="box-metadata">
+                <h4 style="margin-top:0; color:#fff;">// FICHA TÉCNICA:</h4>
+                <ul>
+                    <li><i class="fas fa-user"></i> Alumno: González Delgado Ángel Josué - 182837</li>
+                    <li><i class="fas fa-chalkboard-teacher"></i> Profesor: Mtro. Servando López Contreras</li>
+                    <li><i class="fas fa-calendar-alt"></i> Fecha de entrega: 04-Febrero - 2026</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">01</span> Introducción Contextual al Tema</h2>
+        <div class="scroll-element">
+            <p>La defensa en profundidad de una infraestructura de red requiere el control estricto del tráfico que entra y sale de la organización. En el ecosistema Linux, <strong>iptables</strong> es la herramienta estándar para interactuar con el framework <em>Netfilter</em> del kernel, permitiendo definir reglas de filtrado de paquetes (firewall) y traducción de direcciones de red (NAT).</p>
+            <p>El objetivo de esta actividad es aplicar políticas de filtrado en un escenario simulado, configurando un Firewall perimetral que proteja una red interna (DMZ) con servicios críticos como Correo y Web. Se aplicará el principio de "privilegio mínimo", denegando todo el tráfico por defecto y permitiendo únicamente las conexiones explícitamente necesarias para el funcionamiento de los servicios.</p>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">02</span> Desarrollo Técnico de la Actividad</h2>
+        <div class="scroll-element">
+            
+            <h3>Topología de Red</h3>
+            <p>Se plantea el siguiente escenario de red donde un Firewall intermedia la conexión entre Internet y la red local (192.1.2.0/24), la cual aloja un Servidor de Correo (192.1.2.10) y un Servidor Web (192.1.2.11).</p>
+
+            <div class="espacio-imagen">
+                <i class="fas fa-sitemap"></i>
+                <span>[IMAGEN 1: TOPOLOGÍA DE RED]</span>
+                <span style="font-size: 0.8rem; margin-top: 5px;">Sugerencia: Recorta la imagen de la topología del PDF y guárdala como 'topologia_act04.png'.</span>
+                </div>
+
+            <h3>Reglas de Filtrado (Iptables)</h3>
+            <p>A continuación se detallan las reglas necesarias para cumplir con los requerimientos de seguridad solicitados, especificando protocolo, direcciones IP, puertos y estados de conexión.</p>
+
+            <div class="tabla-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 5%;">No.</th>
+                            <th style="width: 45%;">Requerimiento / Acción Solicitada</th>
+                            <th style="width: 50%;">Regla de Iptables (Comando)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Establecer una política restrictiva (Denegar todo por defecto).</td>
+                            <td><span class="code-command">iptables -P DROP</span></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Permitir el tráfico de conexiones ya establecidas o relacionadas.</td>
+                            <td><span class="code-command">iptables -A FORWARD -m state --state ESTABLISHED, RELATED -j ACCEPT</span></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Aceptar tráfico DNS (TCP) saliente de la red local.</td>
+                            <td><span class="code-command">iptables -A FORWARD -p tcp -s 192.1.2.11 --dport 53 -j ACCEPT</span></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Aceptar correo entrante proveniente de Internet en el servidor de correo.</td>
+                            <td><span class="code-command">iptables -A FORWARD -p tcp -d 192.1.2.10 --dport 25 -j ACCEPT</span></td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Permitir correo saliente a Internet desde el servidor de correo.</td>
+                            <td><span class="code-command">iptables -A FORWARD -p tcp -s 192.1.2.10 --dport 25 -j ACCEPT</span></td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>Aceptar conexiones HTTP desde Internet a nuestro servidor web.</td>
+                            <td><span class="code-command">iptables -A FORWARD -p tcp -d 192.1.2.10 --dport 80 -j ACCEPT</span></td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>Permitir tráfico HTTP desde la red local a Internet (Navegación).</td>
+                            <td><span class="code-command">iptables -A FORWARD -p tcp -s 192.1.2.0/24 --dport 80 -j ACCEPT</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">03</span> Material Multimedia</h2>
+        <div class="scroll-element">
+            <p>Recursos adicionales para comprender el funcionamiento del filtrado de paquetes y la sintaxis de Iptables.</p>
+            
+            <div class="multimedia-area">
+                <h4 style="color:#00ff41; margin-top:0;">1. Video Demostrativo: Iptables para principiantes</h4>
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/l554bUf8o8E" title="Linux Firewall - Iptables" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div class="espacio-imagen">
+                <i class="fas fa-terminal"></i>
+                <span>[IMAGEN 2: CAPTURA DE TERMINAL]</span>
+                <span style="font-size: 0.8rem; margin-top: 5px;">Sugerencia: Inserta una captura mostrando el comando 'iptables -L -n -v'.</span>
+            </div>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">04</span> Conclusiones y Reflexión Técnica</h2>
+        <div class="scroll-element">
+            <p>La implementación de firewalls mediante iptables es una competencia fundamental para cualquier administrador de sistemas y seguridad. En esta actividad, la aplicación de políticas por defecto restrictivas (DROP) demostró ser la estrategia más segura, obligando a declarar explícitamente qué tráfico es legítimo.</p>
+            <p>Además, el uso del módulo de estado (<code>-m state</code>) es crucial para la eficiencia del firewall, ya que permite gestionar el tráfico de retorno de conexiones legítimas sin necesidad de abrir puertos de forma insegura. Este enfoque de "Stateful Inspection" reduce drásticamente la superficie de ataque frente a firewalls estáticos tradicionales.</p>
+            
+            <div style="background: #151515; padding: 1.5rem; border-left: 3px solid #00ff41; margin-top: 1rem;">
+                <strong>Importancia en el mundo real:</strong> En entornos corporativos, estas reglas base son el primer anillo de seguridad perimetral. Un error en la regla de tráfico saliente (Egress filtering) podría permitir que un malware en la red interna se comunique con su servidor de Comando y Control (C2).
+            </div>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">05</span> Referencias Técnicas</h2>
+        <div class="scroll-element">
+            <ul class="referencias-lista">
+                <li>Netfilter Project. (s.f.). <em>iptables(8) - Linux man page</em>. Recuperado de netfilter.org</li>
+                <li>Oskar Andreasson. (2006). <em>Iptables Tutorial 1.2.2</em>.</li>
+                <li>Red Hat. (2024). <em>Security Guide: Setting up a Firewall</em>. Red Hat Enterprise Linux Documentation.</li>
+            </ul>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">06</span> Exportación</h2>
+        <div class="scroll-element" style="text-align: center;">
+            <p>Descarga la versión formal del documento correspondiente a esta actividad.</p>
+            
+            <a href="182837_act04.pdf" class="btn-exportar" download type="application/pdf">
+                <i class="fas fa-file-pdf" style="margin-right: 10px;"></i> EXPORTAR A PDF
+            </a>
+            
+            <p style="font-size: 0.8rem; color: #666;">Archivo: 182837_act04.pdf</p>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="contenedor contenido-footer">
+            <p>&copy; 2026 Ángel Josué González Delgado. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+        document.querySelectorAll('.scroll-element').forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
