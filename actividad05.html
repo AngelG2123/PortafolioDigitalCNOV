@@ -132,148 +132,112 @@
                 </ul>
             </div>
         </div>
-
-        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">01</span> Introducción Contextual al Tema</h2>
+        
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">02</span> Metodologías</h2>
         <div class="scroll-element">
-            <p>La ejecución de pruebas de seguridad y tests de penetración (pentesting) no puede ser un proceso caótico o improvisado. Para garantizar resultados consistentes, reproducibles y profesionales, la industria ha desarrollado diversos marcos de trabajo y metodologías estandarizadas.</p>
-            <p>El objetivo de esta actividad es "cartografiar" el ecosistema actual de metodologías de ciberseguridad, realizando un análisis comparativo entre los estándares más reconocidos: <strong>MITRE ATT&CK</strong>, <strong>OWASP WSTG</strong>, <strong>NIST SP 800-115</strong>, <strong>OSSTMM</strong>, <strong>PTES</strong> e <strong>ISSAF</strong>. Cada uno de estos marcos posee una orientación específica (ofensiva, defensiva, auditoría o gestión de riesgos), y comprender sus diferencias es vital para seleccionar la herramienta adecuada según el escenario operativo.</p>
-            
-            <div class="espacio-imagen">
-                <i class="fas fa-project-diagram"></i>
-                <span>[IMAGEN 1: LOGOS DE METODOLOGÍAS]</span>
-                <span style="font-size: 0.8rem; margin-top: 5px;">Sugerencia: Inserta una imagen que muestre los logos de MITRE, OWASP, NIST, etc.</span>
-            </div>
-        </div>
-
-        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">02</span> Análisis Comparativo (Matriz Técnica)</h2>
-        <div class="scroll-element">
-            <p>A continuación, se presenta la matriz comparativa detallada de las metodologías analizadas, desglosando sus fases, objetivos, escenarios de uso y certificaciones asociadas.</p>
 
             <div class="tabla-container">
                 <table>
-                    <thead>
-                        <tr>
-                            <th>CATEGORÍA / METODOLOGÍA</th>
-                            <th>MITRE ATT&CK</th>
-                            <th>OWASP WSTG</th>
-                            <th>NIST SP 800-115</th>
-                            <th>OSSTMM</th>
-                            <th>PTES</th>
-                            <th>ISSAF</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Descripción</td>
-                            <td>Base de conocimiento de tácticas y técnicas basadas en observaciones del mundo real. Se utiliza como base para modelos de amenaza y defensa.</td>
-                            <td>Guía principal para pruebas de seguridad en aplicaciones web. Incluye el OWASP Top 10 de riesgos críticos.</td>
-                            <td>Guía técnica estándar de EE.UU. para realizar evaluaciones de seguridad de la información. Diseñada para planificación federal y organizacional.</td>
-                            <td>Metodología científica para pruebas de seguridad. Se centra en métricas operacionales para construir defensas basadas en hechos.</td>
-                            <td>Estándar que cubre todo el ciclo de vida de un pentest, desde el acuerdo inicial (pre-engagement) hasta el reporte técnico.</td>
-                            <td>Marco estructurado y detallado para evaluar seguridad en red, sistemas y aplicaciones. Ofrece guías paso a paso específicas.</td>
-                        </tr>
-                        <tr>
-                            <td>Fases de Implementación</td>
-                            <td>1. Reconocimiento<br>2. Desarrollo de Recursos<br>3. Acceso Inicial<br>4. Ejecución<br>5. Persistencia<br>... (Matriz completa de tácticas).</td>
-                            <td>1. Recopilación de información<br>2. Gestión de configuración<br>3. Identidad y Autenticación<br>4. Validación de entrada<br>5. Criptografía<br>6. Lógica de negocio.</td>
-                            <td>1. Planificación<br>2. Descubrimiento<br>3. Ataque/Evaluación<br>4. Reporte.</td>
-                            <td>1. Inducción<br>2. Interacción<br>3. Investigación<br>4. Intervención.</td>
-                            <td>1. Pre-acuerdo<br>2. Inteligencia (OSINT)<br>3. Modelado de amenazas<br>4. Análisis de vulnerabilidades<br>5. Explotación<br>6. Post-explotación<br>7. Reporte.</td>
-                            <td>1. Planificación y preparación<br>2. Evaluación<br>3. Reporte<br>4. Limpieza y destrucción de artefactos.</td>
-                        </tr>
-                        <tr>
-                            <td>Objetivo Principal</td>
-                            <td>Resolver problemas de detección de amenazas enfocándose en el comportamiento del atacante.</td>
-                            <td>Permitir que las organizaciones tomen decisiones sobre sus aplicaciones mediante pruebas de seguridad web.</td>
-                            <td>Evaluar la eficiencia de controles de seguridad técnica y descubrir vulnerabilidades en entornos federales/empresariales.</td>
-                            <td>Ofrecer datos concretos sobre la eficacia de las defensas mediante valores de riesgo (RAV) y superficie de ataque.</td>
-                            <td>Estandarizar lo que debe ser un pentest para asegurar una validación manual correcta y comunicar impacto.</td>
-                            <td>Proporcionar una referencia detallada para evaluaciones técnicas profundas en tecnologías específicas.</td>
-                        </tr>
-                        <tr>
-                            <td>Escenarios de Uso</td>
-                            <td>Caza de amenazas (Threat Hunting), simulación de adversarios, mejora de SOC.</td>
-                            <td>Desarrollo seguro de software (SDLC), auditoría de aplicaciones web.</td>
-                            <td>Cumplimiento normativo, auditorías internas y gubernamentales.</td>
-                            <td>Auditorías que requieren datos métricos exactos para justificar inversión en seguridad.</td>
-                            <td>Pentesting en redes corporativas, aplicaciones web y servicios en nube.</td>
-                            <td>Evaluaciones donde se requiere un alto nivel de detalle técnico paso a paso.</td>
-                        </tr>
-                        <tr>
-                            <td>Orientación</td>
-                            <td><strong>Defensa y Evaluación:</strong> Se enfoca en entender el ataque para mejorar la defensa.</td>
-                            <td><strong>Defensa y Evaluación:</strong> Enseña a atacar para asegurar el código.</td>
-                            <td><strong>Evaluación:</strong> Busca mejorar la postura defensiva mediante hallazgos.</td>
-                            <td><strong>Evaluación y Defensa:</strong> Utiliza técnicas de ataque para medir eficacia defensiva.</td>
-                            <td><strong>Ataque (Ofensiva):</strong> Simula el comportamiento real de un atacante.</td>
-                            <td><strong>Evaluación:</strong> Marco de calidad para validar configuraciones defensivas.</td>
-                        </tr>
-                        <tr>
-                            <td>Autores</td>
-                            <td>The MITRE Corporation (Financiado por EE.UU.).</td>
-                            <td>OWASP Foundation.</td>
-                            <td>NIST (Karen Scarfone, Murugiah Souppaya).</td>
-                            <td>ISECOM (Peter Vincent Herzog).</td>
-                            <td>Grupo de expertos (Chris Nickerson, Dave Kennedy, Eric Smith).</td>
-                            <td>OISSG (Open Information Systems Security Group).</td>
-                        </tr>
-                        <tr>
-                            <td>URL Oficial</td>
-                            <td>attack.mitre.org</td>
-                            <td>owasp.org</td>
-                            <td>csrc.nist.gov</td>
-                            <td>isecom.org</td>
-                            <td>pentest-standard.org</td>
-                            <td>(OISSG Archivada)</td>
-                        </tr>
-                        <tr>
-                            <td>Certificaciones</td>
-                            <td>MITRE ATT&CK Fundamentals, CTI.</td>
-                            <td>OCSSD (Certified Secure Software Developer).</td>
-                            <td>Relacionado con CISM, CISSP (Gestión).</td>
-                            <td>OPST, OPSA, OSSTMM Professional.</td>
-                            <td>CEH, OSCP, GPEN (Alineadas a sus fases).</td>
-                            <td>CompTIA PenTest+, OSWE.</td>
-                        </tr>
-                        <tr>
-                            <td>Versión Vigente</td>
-                            <td>v14.1 (Actualización constante).</td>
-                            <td>WSTG v4.2 / Top 10 2025.</td>
-                            <td>SP 800-115 (2008, vigente).</td>
-                            <td>v3 (v4 en desarrollo).</td>
-                            <td>v1.0 (v2 en borrador).</td>
-                            <td>Draft 0.2.1.</td>
-                        </tr>
-                    </tbody>
-                </table>
+    <thead>
+        <tr>
+            <th>METODOLOGÍA</th>
+            <th>MITRE ATT&CK</th>
+            <th>OWASP WSTG</th>
+            <th>NIST SP 800-115</th>
+            <th>OSSTMM</th>
+            <th>PTES</th>
+            <th>ISSAF</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Descripción</td>
+            <td>Es una metodología que muestra tácticas y técnicas basadas en ataques del mundo real, se utiliza como base para el desarrollo de amenazas y metodologías de defensa.</td>
+            <td>Proporciona herramientas, documentos y metodologías. Contiene proyectos como el OWASP Top 10 el cual lista los riesgos de seguridad más críticos en aplicaciones web.</td>
+            <td>Es una guía técnica estándar de los estados unidos, se utiliza para realizar pruebas y evaluaciones de seguridad. Está diseñada para que organizaciones puedan planificar evaluaciones técnicas.</td>
+            <td>Es una metodología científica para pruebas de seguridad, se centra en encontrar vulnerabilidades además de medir la seguridad operacional para lograr construir las mejores defensas ante estas amenazas.</td>
+            <td>Es un estándar sobre las pruebas de penetración, se centra en ser practico y técnico, va desde los acuerdos previos hasta ejecutar los ataques correspondientes.</td>
+            <td>Es un marco de trabajo estructurado y técnico para evaluar la seguridad de la red, sistemas y aplicaciones. Ofrece guías paso a paso siendo específicas para evaluar diversos dispositivos.</td>
+        </tr>
+        <tr>
+            <td>Fases de implementación</td>
+            <td>1. Identificación de activos y amenazas. 2. Mapeo de defensas. 3. Análisis de brechas. 4. Emulación de adversarios. 5. Ingeniería de detección. 6. Mejora continua.</td>
+            <td>1. Recopilación de información. 2. Pruebas de gestión de configuración. 3. Pruebas de identidad y autenticación. 4. Pruebas de validación de entrada. 5. Reporte.</td>
+            <td>1. Identificar. 2. Proteger. 3. Detectar. 4. Responder. 5. Recuperar.</td>
+            <td>1. Planificación y definición de alcance. 2. Recopilación de información. 3. Análisis de seguridad. 4. Pruebas activas. 5. Análisis de resultados. 6. Informe final (STAR).</td>
+            <td>1. Interacciones previas al compromiso. 2. Recopilación de inteligencia. 3. Modelado de amenazas. 4. Análisis de vulnerabilidades. 5. Explotación. 6. Después de la explotación. 7. Reportaje.</td>
+            <td>1. Planificación y preparación. 2. Evaluación. 3. Reporte, limpieza y destrucción de artefactos.</td>
+        </tr>
+        <tr>
+            <td>Objetivo principal</td>
+            <td>El objetivo principal es resolver problemas de la detección de amenazas enfocándose en como el atacante se comporta, se busca crear defensas que sirvan en amenazas reales.</td>
+            <td>El objetivo es permitir que las organizaciones puedan tomar decisiones sobre sus aplicaciones en el ámbito de ciberseguridad, se busca crear una cultura donde la seguridad es parte fundamental en el desarrollo de software.</td>
+            <td>El objetivo de esta metodología es evaluar la eficiencia de los controles de seguridad técnica de una organización descubriendo vulnerabilidades y apoyando en la gestión de riesgos.</td>
+            <td>El objetivo principal es ofrecer datos concretos sobre la eficacia de las defensas mediante los valores de riesgo (RAV) y el cálculo de la superficie de ataque.</td>
+            <td>Crear un estándar de lo que se debe ser un pentest, para que se realice una correcta validación manual además de informar del impacto que puede llegar a ocasionar en una organización.</td>
+            <td>Su objetivo es proporcionar una referencia para realizar evaluaciones de seguridad, además de encontrar fallos también valida los controles de seguridad que existen en la organización.</td>
+        </tr>
+        <tr>
+            <td>Escenarios en los que se utiliza</td>
+            <td>Se utiliza para la caza de amenazas, desarrollo de inteligencia de amenazas y para evaluar centros de operaciones de seguridad.</td>
+            <td>Es utilizado para el desarrollo seguro de software, pruebas de penetración de aplicaciones web y auditorias de código.</td>
+            <td>Se utiliza en entornos federales o en empresas como cumplimiento normativo para los datos sensibles, además de en auditorías internas.</td>
+            <td>Se utiliza principalmente en auditorias de seguridad que requieren datos exactos para la toma de decisiones, evaluaciones donde se necesite justificar el por qué se debe invertir en defensas de seguridad.</td>
+            <td>Se utiliza en redes corporativas, aplicaciones web, servicios en la nube.</td>
+            <td>Se utiliza para evaluaciones técnicas donde se requiere un alto nivel de detalle en una tecnología especifica. Además, es utilizado como referencia en equipos de seguridad para listas de verificación.</td>
+        </tr>
+        <tr>
+            <td>Orientación (ataque, defensa o evaluación)</td>
+            <td>Defensa y evaluación ya que se enfoca en defender ataques mediante un estudio previo a la amenaza a defender, además de describir estos mismos ataques realizados.</td>
+            <td>Se orienta a la defensa y evaluación ya que enseña como atacar, pero a su vez tiene como finalidad el construir un software que sea seguro desde su diseño.</td>
+            <td>Se orienta en la evaluación ya que busca mejorar la defensa de la organización mediante la observación de los ataques realizados a esta misma.</td>
+            <td>Su orientación va en evaluación y defensa ya que utiliza técnicas de ataque, es para evaluar y medir la eficacia de las defensas utilizadas en la empresa y para poder reducir el riesgo en estos mismos.</td>
+            <td>Se orienta un poco hacia la evaluación ya que se realiza un reporte que es entregado al cliente, pero su principal enfoque es el ataque ya que el fin es simular lo que un atacante puede realizar.</td>
+            <td>Se orienta en la evaluación ya que esta diseñada como un marco de calidad para validar que las defensas utilizadas están bien configuradas.</td>
+        </tr>
+        <tr>
+            <td>Autores u organismos responsables</td>
+            <td>Es desarrollado por The MITRE Corporation, un centro de investigación y desarrollo financiado por EUA.</td>
+            <td>Es desarrollado por la OWASP Foundation.</td>
+            <td>Esta desarrollado por el NIST. Autores principales: Karen Scarfone, Murugiah Souppaya.</td>
+            <td>Fue desarrollado por Peter Vincent Herzog y es mantenida por la organización ISECOM.</td>
+            <td>Sus autores son un grupo de expertos en ciberseguridad como lo son Chris Nickerson, Dave Kennedy, Eric Smith.</td>
+            <td>Fue desarrollada por el OISSG (Open Information Systems Security Group).</td>
+        </tr>
+        <tr>
+            <td>URL del material oficial</td>
+            <td>https://attack.mitre.org/</td>
+            <td>https://owasp.org/</td>
+            <td>csrc.nist.gov</td>
+            <td>https://www.isecom.org/</td>
+            <td>http://www.pentest-standard.org</td>
+            <td>https://newmexicoform.com/oissg/</td>
+        </tr>
+        <tr>
+            <td>Certificaciones asociadas</td>
+            <td>MITRE ATT&CK Fundamentals, CTI, SOC Assessment Certificacion.</td>
+            <td>OCSSD – OWASP Certified Secure Software Developer.</td>
+            <td>CEH, OSCP, GPEN.</td>
+            <td>OSSTMM Professional Security (Analyst, Tester, Expert), Wireless Security Expert.</td>
+            <td>CompTIA PenTest+, CEH, OSCP, OSWE.</td>
+            <td>OPST – OSSTMM Professional Security Tester, OPSA – OSSTMM Professional Security Analyst.</td>
+        </tr>
+        <tr>
+            <td>Versiones o actualizaciones vigentes</td>
+            <td>Versión 18.1 (finales de 2025).</td>
+            <td>OWASP Top 10 (actualizada en 2025).</td>
+            <td>SP 800-115 (publicada en 2008, sigue vigente).</td>
+            <td>Versión 3 (Versión 4 en desarrollo).</td>
+            <td>Versión v1.0 (Versión v2.0 en preparación).</td>
+            <td>Draft 0.2.1 (lanzada en 2005).</td>
+        </tr>
+    </tbody>
+</table>
             </div>
         </div>
 
-        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">03</span> Material Multimedia</h2>
-        <div class="scroll-element">
-            <p>Recursos visuales para complementar el entendimiento de las fases del Pentesting y los marcos de trabajo.</p>
-            
-            <div class="multimedia-area">
-                <h4 style="color:#00ff41; margin-top:0;">1. Video: ¿Qué es el PTES?</h4>
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/3yJqI5o-C4Y" title="Penetration Testing Methodologies" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>
 
-            <div class="espacio-imagen">
-                <i class="fas fa-chart-pie"></i>
-                <span>[IMAGEN 2: CICLO DE VIDA DEL PENTESTING]</span>
-                <span style="font-size: 0.8rem; margin-top: 5px;">Sugerencia: Inserta un gráfico circular de las 7 fases del PTES.</span>
-            </div>
-        </div>
-
-        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">04</span> Opinión y Reflexión Técnica</h2>
-        <div class="scroll-element">
-            <p>El análisis comparativo realizado evidencia que no existe una "bala de plata" o metodología única superior a las demás; la elección depende estrictamente del objetivo de la evaluación. Mientras que <strong>PTES</strong> es ideal para estructurar una prueba de penetración técnica y ofensiva "de principio a fin", marcos como <strong>OSSTMM</strong> aportan un valor incalculable al traducir hallazgos técnicos en métricas de negocio cuantificables (RAV), algo crucial para justificar presupuestos ante la dirección.</p>
-            <p>Por otro lado, la relevancia de <strong>MITRE ATT&CK</strong> ha crecido exponencialmente al cambiar el enfoque de "buscar vulnerabilidades" a "entender comportamientos" (TTPs), lo cual es fundamental para los equipos de Blue Team modernos. En conclusión, un profesional de seguridad integral no debe casarse con una sola metodología, sino dominar la capacidad de hibridarlas: usar PTES para la ejecución, OSSTMM para la medición y MITRE para el mapeo de amenazas.</p>
-        </div>
-
-        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">05</span> Referencias Técnicas</h2>
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">05</span> Referencias Bibliográficas</h2>
         <div class="scroll-element">
             <ul class="referencias-lista">
                 <li>The Penetration Testing Execution Standard. (s. f.). http://www.pentest-standard.org/</li>
@@ -287,7 +251,7 @@
 
         <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">06</span> Exportación</h2>
         <div class="scroll-element" style="text-align: center;">
-            <p>Visualiza el documento formal en una nueva pestaña.</p>
+            <p>Documento PDF de la actividad05</p>
             
             <a href="182837-Act05.pdf" class="btn-exportar" target="_blank" type="application/pdf">
                 <i class="fas fa-file-pdf" style="margin-right: 10px;"></i> VER / DESCARGAR PDF
