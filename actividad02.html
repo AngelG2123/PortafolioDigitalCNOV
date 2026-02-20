@@ -180,14 +180,14 @@ siempre implica malware o intrusión activa. El impacto suele ser legal y reputa
 cuando no se pueda demostrar acceso malicioso</p>
             <div class="tabla-container">
                 <table>
-                    <tr><th>Elemento</th><th>Respuesta</th></tr>
-                    <tr><td>Servicios X.800 comprometidos</td><td>Control de acceso, confidencialidad de los datos.</td></tr>
-                    <tr><td>Definición(es) RFC 4949</td><td><strong>Exposure:</strong> Datos sensibles liberados de forma no autorizada.<br><strong>Access control:</strong> Protección contra acceso no autorizado.</td></tr>
-                    <tr><td>Tipo de amenaza</td><td>Interna (Accidental).</td></tr>
-                    <tr><td>Vector de ataque</td><td>Exposición pública debido a fallo de configuración (bucket S3, etc.).</td></tr>
-                    <tr><td>Impacto técnico</td><td>Pérdida de confidencialidad y daño reputacional.</td></tr>
-                    <tr><td>Control recomendado</td><td>Auditorías constantes de configuración y capacitación en protección de datos.</td></tr>
-                </table>
+    <tr><th>Elemento</th><th>Respuesta</th></tr>
+    <tr><td>Servicios X.800 comprometidos</td><td>Control de acceso, confidencialidad de los datos.</td></tr>
+    <tr><td>Definición(es) aplicable(s) RFC 4949.</td><td><strong>Exposure:</strong> Acción de amenaza donde los datos sensibles se liberan de forma no autorizada.<br><strong>Access control:</strong> Protección de los recursos del sistema contra el acceso no autorizado.<br><strong>Data confidentiality:</strong> Propiedad que los datos no se divulguen sin antes una autorización previa.</td></tr>
+    <tr><td>Tipo de amenaza.</td><td>Interna (Accidental)</td></tr>
+    <tr><td>Vector de ataque.</td><td>Exposición pública de bases de datos, debido a un fallo de configuración en almacenamiento en la nube.</td></tr>
+    <tr><td>Impacto técnico / operativo.</td><td>Confidencialidad y daño reputacional perdida.</td></tr>
+    <tr><td>Medida de control recomendada.</td><td>Realizar auditorías constantemente con el fin de encontrar posibles fallas en los sistemas además de contar con capacitaciones sobre la importancia de la protección de datos.</td></tr>
+</table>
             </div>
 
             <h3>Escenario 03.</h3>
@@ -199,14 +199,14 @@ como supply chain attack, destacando el abuso de relaciones de confianza. El da�
 particularmente crítico porque rompe el supuesto de legitimidad del software firmado.</p>
             <div class="tabla-container">
                 <table>
-                    <tr><th>Elemento</th><th>Respuesta</th></tr>
-                    <tr><td>Servicios X.800 comprometidos</td><td>Integridad de los sistemas, confidencialidad.</td></tr>
-                    <tr><td>Definición(es) RFC 4949</td><td><strong>Data integrity:</strong> Datos no modificados/destruidos sin autorización.<br><strong>System integrity:</strong> Sistema libre de manipulaciones no autorizadas.</td></tr>
-                    <tr><td>Tipo de amenaza</td><td>Externa (Supply Chain Attack / Trojan Horse).</td></tr>
-                    <tr><td>Vector de ataque</td><td>Inyección de código malicioso en software legal para su distribución.</td></tr>
-                    <tr><td>Impacto técnico</td><td>Gran daño en la confianza de legitimidad, accesos no autorizados.</td></tr>
-                    <tr><td>Control recomendado</td><td>Verificar firmas digitales de actualizaciones, monitoreo de comportamiento.</td></tr>
-                </table>
+    <tr><th>Elemento</th><th>Respuesta</th></tr>
+    <tr><td>Servicios X.800 comprometidos</td><td>Integridad de los sistemas, confidencialidad.</td></tr>
+    <tr><td>Definición(es) aplicable(s) RFC 4949.</td><td><strong>Data confidentiality:</strong> Propiedad que los datos no se divulguen sin antes una autorización previa.<br><strong>Data integrity:</strong> Propiedad que los datos no puedan ser modificados, destruidos o perdidos de una manera accidental o no autorizada.<br><strong>System integrity:</strong> Sistema que puede realizar sus actividades sin afectaciones, libre de manipulaciones no autorizadas.<br><strong>Trojan Horse:</strong> Programa con función oculta y maliciosa que evade mecanismos de seguridad.</td></tr>
+    <tr><td>Tipo de amenaza.</td><td>Externa (Supply Chain Attack)</td></tr>
+    <tr><td>Vector de ataque.</td><td>Inyección de código malicioso en software legal para su próxima distribución.</td></tr>
+    <tr><td>Impacto técnico / operativo.</td><td>Gran daño en la confianza de legitimidad del software, accesos no autorizados.</td></tr>
+    <tr><td>Medida de control recomendada.</td><td>Verificar firmas digitales de las actualizaciones a instalar, monitoreos constantes.</td></tr>
+</table>
             </div>
 
             <h3>Escenario 04.</h3>
@@ -218,14 +218,14 @@ compromise con authentication failure conceptual, no técnica. La falta de MFA y
 monitoreo de comportamiento facilitó la persistencia del atacante.</p>
             <div class="tabla-container">
                 <table>
-                    <tr><th>Elemento</th><th>Respuesta</th></tr>
-                    <tr><td>Servicios X.800 comprometidos</td><td>Autenticación, control de acceso.</td></tr>
-                    <tr><td>Definición(es) RFC 4949</td><td><strong>Authentication:</strong> Verificación de identidad.<br><strong>Compromise:</strong> Uso no autorizado de datos sensibles.<br><strong>Phishing:</strong> Técnica de suplantación para adquirir datos.</td></tr>
-                    <tr><td>Tipo de amenaza</td><td>Externa (Phishing).</td></tr>
-                    <tr><td>Vector de ataque</td><td>Robo de credenciales válidas mediante engaño.</td></tr>
-                    <tr><td>Impacto técnico</td><td>Acceso no detectado y no autorizado a sistemas.</td></tr>
-                    <tr><td>Control recomendado</td><td>Implementación de MFA, cambio frecuente de contraseñas.</td></tr>
-                </table>
+    <tr><th>Elemento</th><th>Respuesta</th></tr>
+    <tr><td>Servicios X.800 comprometidos</td><td>Autenticación, control de acceso.</td></tr>
+    <tr><td>Definición(es) aplicable(s) RFC 4949.</td><td><strong>Authentication:</strong> Proceso o verificación de una entidad del sistema con el fin de encontrar un valor especifico.<br><strong>Credential:</strong> Datos que se transfieren para establecer la identidad de una entidad.<br><strong>Compromise:</strong> Divulgación, modificación o uso no autorizado de datos sensibles.<br><strong>Phishing:</strong> Técnica para adquirir datos sensibles disfrazándose de una persona con buena reputación.</td></tr>
+    <tr><td>Tipo de amenaza.</td><td>Externa (Phishing)</td></tr>
+    <tr><td>Vector de ataque.</td><td>Se utilizo phishing para el robo de credenciales validas para el acceso al sistema.</td></tr>
+    <tr><td>Impacto técnico / operativo.</td><td>Acceso no detectado y no autorizado a sistemas, afectaciones en operaciones diarias.</td></tr>
+    <tr><td>Medida de control recomendada.</td><td>Implementación de MFA, monitoreos diarios de accesos, cambio frecuente de contraseñas.</td></tr>
+</table>
             </div>
 
             <h3>Escenario 05.</h3>
@@ -237,14 +237,14 @@ deliberada de maximizar el daño. La inexistencia de respaldos offline o inmutab
 el incidente en catastrófico.</p>
             <div class="tabla-container">
                 <table>
-                    <tr><th>Elemento</th><th>Respuesta</th></tr>
-                    <tr><td>Servicios X.800 comprometidos</td><td>Disponibilidad, integridad.</td></tr>
-                    <tr><td>Definición(es) RFC 4949</td><td><strong>Data integrity:</strong> Datos no destruidos sin autorización.<br><strong>Availability:</strong> Recurso accesible bajo demanda.<br><strong>Malicious logic:</strong> Software con fines nocivos.</td></tr>
-                    <tr><td>Tipo de amenaza</td><td>Externa (Data destruction).</td></tr>
-                    <tr><td>Vector de ataque</td><td>Destrucción de respaldos antes del cifrado principal.</td></tr>
-                    <tr><td>Impacto técnico</td><td>Imposibilidad de recuperación, costos altos de rescate.</td></tr>
-                    <tr><td>Control recomendado</td><td>Crear respaldos offline (fuera de línea) e inmutables.</td></tr>
-                </table>
+    <tr><th>Elemento</th><th>Respuesta</th></tr>
+    <tr><td>Servicios X.800 comprometidos</td><td>Disponibilidad, integridad.</td></tr>
+    <tr><td>Definición(es) aplicable(s) RFC 4949.</td><td><strong>Data integrity:</strong> Propiedad que los datos no puedan ser modificados, destruidos o perdidos de una manera accidental o no autorizada.<br><strong>Availability:</strong> Propiedad de un sistema o recurso de sistema de ser accesible y utilizable bajo demanda.<br><strong>Malicious logic:</strong> Hardware, software o firmware incluido intencionalmente en un sistema con fines nocivos.</td></tr>
+    <tr><td>Tipo de amenaza.</td><td>Externa (data destruction)</td></tr>
+    <tr><td>Vector de ataque.</td><td>Destrucción de respaldos antes de afectar sistemas productivos.</td></tr>
+    <tr><td>Impacto técnico / operativo.</td><td>Imposibilidad de recuperación respaldos, costos altos en caso de rescate.</td></tr>
+    <tr><td>Medida de control recomendada.</td><td>Crear respaldos offline, monitoreo en respaldos.</td></tr>
+</table>
             </div>
 
             <h3>Escenario 06.</h3>
@@ -256,14 +256,14 @@ tan grave como el externo. La carencia de monitoreo y de políticas de mínimo p
 determinante.</p>
             <div class="tabla-container">
                 <table>
-                    <tr><th>Elemento</th><th>Respuesta</th></tr>
-                    <tr><td>Servicios X.800 comprometidos</td><td>Confidencialidad, control de acceso.</td></tr>
-                    <tr><td>Definición(es) RFC 4949</td><td><strong>Insider:</strong> Usuario dentro del perímetro de seguridad.<br><strong>Access control:</strong> Protección contra uso no autorizado.</td></tr>
-                    <tr><td>Tipo de amenaza</td><td>Interna (Ataque malicioso).</td></tr>
-                    <tr><td>Vector de ataque</td><td>Abuso de privilegios legítimos.</td></tr>
-                    <tr><td>Impacto técnico</td><td>Filtración de bases de datos sin uso de vulnerabilidades técnicas.</td></tr>
-                    <tr><td>Control recomendado</td><td>Monitoreo de accesos internos, principio de mínimos privilegios.</td></tr>
-                </table>
+    <tr><th>Elemento</th><th>Respuesta</th></tr>
+    <tr><td>Servicios X.800 comprometidos</td><td>Confidencialidad, control de acceso.</td></tr>
+    <tr><td>Definición(es) aplicable(s) RFC 4949.</td><td><strong>Data confidentiality:</strong> Propiedad que los datos no se divulguen sin antes una autorización previa.<br><strong>Access control:</strong> Protección de los recursos del sistema contra el acceso no autorizado.<br><strong>Insider:</strong> Usuario que accede a un sistema que se encuentra dentro del perímetro de seguridad del sistema.</td></tr>
+    <tr><td>Tipo de amenaza.</td><td>Interna (Ataque malicioso)</td></tr>
+    <tr><td>Vector de ataque.</td><td>Abuso de privilegios legítimos, extracción y venta de bases de datos por empleado.</td></tr>
+    <tr><td>Impacto técnico / operativo.</td><td>Filtración de bases de datos sin uso de vulnerabilidades técnicas.</td></tr>
+    <tr><td>Medida de control recomendada.</td><td>Monitoreo de accesos internos, auditorias, pocos privilegios a usuarios.</td></tr>
+</table>
             </div>
 
             <h3>Escenario 07.</h3>
@@ -274,14 +274,14 @@ repudio, ya que no es posible demostrar qué ocurrió ni quién fue responsable.
 es técnico, sino también probatorio y legal.</p>
             <div class="tabla-container">
                 <table>
-                    <tr><th>Elemento</th><th>Respuesta</th></tr>
-                    <tr><td>Servicios X.800 comprometidos</td><td>Integridad de los datos, no repudio.</td></tr>
-                    <tr><td>Definición(es) RFC 4949</td><td><strong>Non-repudiation service:</strong> Servicio contra la negación falsa de un evento.<br><strong>Data integrity:</strong> Protección contra modificación no autorizada.</td></tr>
-                    <tr><td>Tipo de amenaza</td><td>Externa (Violación a la integridad).</td></tr>
-                    <tr><td>Vector de ataque</td><td>Cifrado/borrado de logs para eliminar huellas.</td></tr>
-                    <tr><td>Impacto técnico</td><td>Imposibilidad de análisis forense y atribución.</td></tr>
-                    <tr><td>Control recomendado</td><td>Logs en servidor remoto (Syslog) con protección contra escritura.</td></tr>
-                </table>
+    <tr><th>Elemento</th><th>Respuesta</th></tr>
+    <tr><td>Servicios X.800 comprometidos</td><td>Integridad de los datos, no repudio.</td></tr>
+    <tr><td>Definición(es) aplicable(s) RFC 4949.</td><td><strong>Data integrity:</strong> Propiedad que los datos no puedan ser modificados, destruidos o perdidos de una manera accidental o no autorizada.<br><strong>Non-repudiation service:</strong> Servicio que proporciona información contra la falsificación negativa.</td></tr>
+    <tr><td>Tipo de amenaza.</td><td>Externa (violación a la integridad)</td></tr>
+    <tr><td>Vector de ataque.</td><td>Cifrado de registros del sistema, imposibilidad de reconstrucción.</td></tr>
+    <tr><td>Impacto técnico / operativo.</td><td>No es posible la reconstrucción de los eventos por lo cual no se puede obtener un culpable.</td></tr>
+    <tr><td>Medida de control recomendada.</td><td>Protección contra escritura en registros del sistema, respaldos en tiempo real de ser posible.</td></tr>
+</table>
             </div>
 
             <h3>Escenario 08.</h3>
@@ -292,14 +292,14 @@ seguridad también se ve afectada por errores internos. La falta de pruebas prev
 de reversión amplificó el impacto.</p>
             <div class="tabla-container">
                 <table>
-                    <tr><th>Elemento</th><th>Respuesta</th></tr>
-                    <tr><td>Servicios X.800 comprometidos</td><td>Disponibilidad.</td></tr>
-                    <tr><td>Definición(es) RFC 4949</td><td><strong>Availability:</strong> Sistema utilizable bajo demanda.<br><strong>Failure control:</strong> Metodología de recuperación a prueba de fallos.</td></tr>
-                    <tr><td>Tipo de amenaza</td><td>Interna (Fallo en proceso).</td></tr>
-                    <tr><td>Vector de ataque</td><td>Actualización defectuosa sin pruebas suficientes.</td></tr>
-                    <tr><td>Impacto técnico</td><td>Interrupción global de servicios críticos.</td></tr>
-                    <tr><td>Control recomendado</td><td>Entornos de staging (pruebas) y planes de rollback.</td></tr>
-                </table>
+    <tr><th>Elemento</th><th>Respuesta</th></tr>
+    <tr><td>Servicios X.800 comprometidos</td><td>Disponibilidad</td></tr>
+    <tr><td>Definición(es) aplicable(s) RFC 4949.</td><td><strong>Availability:</strong> Propiedad de un sistema o recurso de sistema de ser accesible y utilizable bajo demanda.<br><strong>Failure control:</strong> metodología utilizada para proporcionar recuperación de los sistemas a prueba de fallos.</td></tr>
+    <tr><td>Tipo de amenaza.</td><td>Interna (fallo en proceso de actualización)</td></tr>
+    <tr><td>Vector de ataque.</td><td>Actualización mal ejecutada o defectuosa.</td></tr>
+    <tr><td>Impacto técnico / operativo.</td><td>Interrupción de servicios críticos</td></tr>
+    <tr><td>Medida de control recomendada.</td><td>Pruebas en servidores de prueba, posibilidad de realizar rollbacks.</td></tr>
+</table>
             </div>
 
             <h3>Escenario 09.</h3>
@@ -310,14 +310,14 @@ masquerade y phishing, subrayando el componente de ingeniería social. La ausenc
 mecanismos de autenticación del dominio y de concientización facilitó el éxito del ataque.</p>
             <div class="tabla-container">
                 <table>
-                    <tr><th>Elemento</th><th>Respuesta</th></tr>
-                    <tr><td>Servicios X.800 comprometidos</td><td>Autenticación, confidencialidad.</td></tr>
-                    <tr><td>Definición(es) RFC 4949</td><td><strong>Masquerade:</strong> Entidad que se hace pasar por otra autorizada.<br><strong>Phishing:</strong> Técnica de ingeniería social.</td></tr>
-                    <tr><td>Tipo de amenaza</td><td>Externa (Masquerade).</td></tr>
-                    <tr><td>Vector de ataque</td><td>Clonación de sitios web/correos para robo de datos.</td></tr>
-                    <tr><td>Impacto técnico</td><td>Robo de credenciales y engaño a usuarios.</td></tr>
-                    <tr><td>Control recomendado</td><td>Autenticación de dominio (DMARC/SPF) y concientización.</td></tr>
-                </table>
+    <tr><th>Elemento</th><th>Respuesta</th></tr>
+    <tr><td>Servicios X.800 comprometidos</td><td>Autenticación, confidencialidad.</td></tr>
+    <tr><td>Definición(es) aplicable(s) RFC 4949.</td><td><strong>Authentication:</strong> Proceso o verificación de una entidad del sistema con el fin de encontrar un valor especifico.<br><strong>Data confidentiality:</strong> Propiedad que los datos no se divulguen sin antes una autorización previa.<br><strong>Phishing:</strong> Técnica para adquirir datos sensibles disfrazándose de una persona con buena reputación.<br><strong>Masquerade:</strong> Amenaza por la que una entidad obtiene acceso al sistema o realiza actos maliciosos haciéndose pasar por una entidad autorizada.</td></tr>
+    <tr><td>Tipo de amenaza.</td><td>Externa (Phishing, masquerade)</td></tr>
+    <tr><td>Vector de ataque.</td><td>Replicación de correos para engañar y obtener datos de usuarios.</td></tr>
+    <tr><td>Impacto técnico / operativo.</td><td>Robo de credenciales y engaño a usuario</td></tr>
+    <tr><td>Medida de control recomendada.</td><td>Autenticación de dominio y confidencialidad de usuarios.</td></tr>
+</table>
             </div>
 
             <h3>Escenario 10.</h3>
@@ -329,14 +329,14 @@ objetivo no es solo el lucro, sino el daño irreversible. La detección tardía 
 contención efectiva.</p>
             <div class="tabla-container">
                 <table>
-                    <tr><th>Elemento</th><th>Respuesta</th></tr>
-                    <tr><td>Servicios X.800 comprometidos</td><td>Confidencialidad, integridad, disponibilidad.</td></tr>
-                    <tr><td>Definición(es) RFC 4949</td><td><strong>Data confidentiality/integrity/availability:</strong> Compromiso total.<br><strong>Destructive attack:</strong> Daño irreversible como objetivo.</td></tr>
-                    <tr><td>Tipo de amenaza</td><td>Externa (Destrucción de sistemas).</td></tr>
-                    <tr><td>Vector de ataque</td><td>Ejecución de malware tipo Wiper.</td></tr>
-                    <tr><td>Impacto técnico</td><td>Daño irreversible y eliminación de rastros.</td></tr>
-                    <tr><td>Control recomendado</td><td>Detección temprana (EDR) y planes de recuperación ante desastres.</td></tr>
-                </table>
+    <tr><th>Elemento</th><th>Respuesta</th></tr>
+    <tr><td>Servicios X.800 comprometidos</td><td>Confidencialidad, integridad, disponibilidad.</td></tr>
+    <tr><td>Definición(es) aplicable(s) RFC 4949.</td><td><strong>Data confidentiality:</strong> Propiedad que los datos no se divulguen sin antes una autorización previa.<br><strong>Data integrity:</strong> Propiedad que los datos no puedan ser modificados, destruidos o perdidos de una manera accidental o no autorizada.<br><strong>Availability:</strong> Propiedad de un sistema o recurso de sistema de ser accesible y utilizable bajo demanda.</td></tr>
+    <tr><td>Tipo de amenaza.</td><td>Externa (destrucción de sistemas)</td></tr>
+    <tr><td>Vector de ataque.</td><td>Ejecuciones de malwares los cuales destruían sistemas completos y además de poder eliminar rastros.</td></tr>
+    <tr><td>Impacto técnico / operativo.</td><td>Daño irreversible a los sistemas además de poder eliminar el rastro de estos mismos ataques.</td></tr>
+    <tr><td>Medida de control recomendada.</td><td>Detecciones de posibles ataques, planes de recuperación de datos.</td></tr>
+</table>
             </div>
 
         </div>
