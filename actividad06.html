@@ -122,11 +122,11 @@
     <div class="contenedor-articulo">
         
         <div class="header-section scroll-element">
-            <h1>IPSEC VPN (SITE-TO-SITE)</h1>
-            <p style="color: #00ff41; font-family: 'JetBrains Mono'; margin-top: 0;">Actividad 06 | Implementación de Túnel Seguro</p>
+            <h1>IPSEC VPN</h1>
+            <p style="color: #00ff41; font-family: 'JetBrains Mono'; margin-top: 0;">Actividad 06 | Ipsec VPN</p>
             
             <div class="box-metadata">
-                <h4 style="margin-top:0; color:#fff;">// FICHA TÉCNICA:</h4>
+                <h4 style="margin-top:0; color:#fff;">// DATOS:</h4>
                 <ul>
                     <li><i class="fas fa-user"></i> Estudiante: González Delgado Ángel Josué - 182837</li>
                     <li><i class="fas fa-chalkboard-teacher"></i> Profesor: Servando López Contreras</li>
@@ -177,11 +177,6 @@ R2(config-if)#no shut
 R2 (config-if)#ip route 0.0.0.0 0.0.0.0 209.165.200.2
             </div>
 
-            <div class="espacio-imagen">
-                <i class="fas fa-image"></i>
-                <span>[IMAGEN PASO 1: Configuración Inicial]</span>
-                <span style="font-size: 0.8rem; margin-top: 5px;">Inserta aquí tu captura de la configuración de IPs.</span>
-            </div>
 
             <h3>2. Licencia de seguridad habilitada</h3>
             <p>Se utilizo el comando: license boot module c1900 technology-package securityk9. Esto con el fin de activar el paquete de seguridad que permite el uso de comandos de criptografia, posteriormente se reiniciaron los router R1 y R2 para su correcta implementación.</p>
@@ -196,11 +191,6 @@ R2 (config)#license boot module c1900 technology-package securityk9
 ACCEPT? [yes/no]: yes
             </div>
 
-            <div class="espacio-imagen">
-                <i class="fas fa-image"></i>
-                <span>[IMAGEN PASO 2: Licencia Securityk9]</span>
-                <span style="font-size: 0.8rem; margin-top: 5px;">Inserta aquí la captura de la activación de la licencia.</span>
-            </div>
 
             <h3>3. Implementación de ACLs</h3>
             <p>Aquí se utilizo el comando Access-list 100 permit ip. Este comando es muy importante ya que si la IP coincide lo que hará será atrapar el mensaje y mandarlo a través de la VPN con el fin de asegurarlo y dificultar que otras personas puedan interceptarlo.</p>
@@ -209,12 +199,6 @@ ACCEPT? [yes/no]: yes
 R1(config) #access-list 100 permit ip 192.168.1.0 0.0.0.255 192.168.3.0 0.0.0.255
 
 R2 (config)#access-list 100 permit ip 192.168.3.0 0.0.0.255 192.168.1.0 0.0.0.255
-            </div>
-
-            <div class="espacio-imagen">
-                <i class="fas fa-image"></i>
-                <span>[IMAGEN PASO 3: Access Lists]</span>
-                <span style="font-size: 0.8rem; margin-top: 5px;">Inserta aquí la captura de las ACLs.</span>
             </div>
 
             <h3>4. ISAKMP policy</h3>
@@ -239,12 +223,6 @@ R2 (config-isakmp)#exit
 R2 (config)#crypto isakmp key secretkey address 209.165.100.1
             </div>
 
-            <div class="espacio-imagen">
-                <i class="fas fa-image"></i>
-                <span>[IMAGEN PASO 4: ISAKMP Policy]</span>
-                <span style="font-size: 0.8rem; margin-top: 5px;">Inserta aquí la captura de la política ISAKMP.</span>
-            </div>
-
             <h3>5. IPSec transform-set</h3>
             <p>Se define como se encriptarán los datos. Se utiliza crypto ipsec transform-set definiendo esp-aes 256 para el cifrado de los datos y esp-sha-hmac para la integridad de estos mismos.</p>
             
@@ -254,11 +232,6 @@ R1(config)#crypto ipsec transform-set R1->R2 esp-aes 256 esp-sha-hmac
 R2 (config)#crypto ipsec transform-set R2->R1 esp-aes 256 esp-sha-hmac
             </div>
 
-            <div class="espacio-imagen">
-                <i class="fas fa-image"></i>
-                <span>[IMAGEN PASO 5: Transform-set]</span>
-                <span style="font-size: 0.8rem; margin-top: 5px;">Inserta aquí la captura del transform-set.</span>
-            </div>
 
             <h3>6. Crear el mapa criptográfico</h3>
             <p>Aquí se junta todo lo anterior para crear un mapa en el cual solo las personas identificadas y con acceso podrán recibir los datos de la otra computadora. Se define el destino con peer, se asignan las reglas de encriptación (transform-set) y se identifica el trafico especifico utilizando match address 100.</p>
@@ -278,11 +251,6 @@ R2 (config-crypto-map) #set transform-set R2->R1
 R2 (config-crypto-map) #match address 100
             </div>
 
-            <div class="espacio-imagen">
-                <i class="fas fa-image"></i>
-                <span>[IMAGEN PASO 6: Crypto Map]</span>
-                <span style="font-size: 0.8rem; margin-top: 5px;">Inserta aquí la captura del mapa criptográfico.</span>
-            </div>
 
             <h3>7. Aplicar el mapa criptográfico</h3>
             <p>Se activan las interfaces de salida, todo lo que salga por G0/0 se revisara y si coincide se encriptara y se mandara hacia el otro lado.</p>
@@ -297,26 +265,15 @@ R2 (config-if)#crypto map IPSEC-MAP
 *Jan 3 07:16:26.785: CRYPTO-6-ISAKMP ON OFF: ISAKMP is ON
             </div>
 
-            <div class="espacio-imagen">
-                <i class="fas fa-image"></i>
-                <span>[IMAGEN PASO 7: Aplicación en Interfaz]</span>
-                <span style="font-size: 0.8rem; margin-top: 5px;">Inserta aquí la captura aplicando el mapa a la interfaz.</span>
-            </div>
-
             <h3>8. Prueba de recibimiento de paquetes: PC-A PC-B</h3>
             <p>Se realizó la prueba de conectividad entre los dispositivos finales para verificar el funcionamiento del túnel.</p>
-            
-            <div class="espacio-imagen">
-                <i class="fas fa-check-circle"></i>
-                <span>[IMAGEN PASO 8: PING EXITOSO]</span>
-                <span style="font-size: 0.8rem; margin-top: 5px;">Inserta aquí la captura del Ping exitoso entre PC-A y PC-B.</span>
-            </div>
+
 
         </div>
 
         <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">03</span> Conclusiones y Resultados</h2>
         <div class="scroll-element">
-            <p>La implementación de la VPN Site-to-Site fue exitosa. Como se muestra en la evidencia del paso 8, la prueba de conectividad (PING) entre la PC-A y la PC-B fue correcta, lo que confirma que el túnel IPSec se estableció y el tráfico está fluyendo de manera encriptada a través de la red pública simulada. Se logró confidencialidad mediante AES-256 e integridad mediante SHA-HMAC, cumpliendo con los estándares de seguridad requeridos.</p>
+            <p>La implementación de la VPN Site-to-Site fue exitosa. La prueba de conectividad (PING) entre la PC-A y la PC-B fue correcta, lo que confirma que el túnel IPSec se estableció y el tráfico se envia de manera encriptada a través de la red pública simulada.</p>
         </div>
 
         <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">04</span> Referencias Técnicas</h2>
@@ -329,7 +286,7 @@ R2 (config-if)#crypto map IPSEC-MAP
 
         <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">06</span> Exportación</h2>
         <div class="scroll-element" style="text-align: center;">
-            <p>Visualiza el documento formal en una nueva pestaña.</p>
+            <p>Documento PDF de la actividad 06.</p>
             
             <a href="./Parcial1/182837-Act06.pdf" class="btn-exportar" target="_blank" type="application/pdf">
                 <i class="fas fa-file-pdf" style="margin-right: 10px;"></i> VER / DESCARGAR PDF
