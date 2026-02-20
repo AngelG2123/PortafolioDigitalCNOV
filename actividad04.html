@@ -139,7 +139,7 @@
         <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">01</span> Introducción Contextual al Tema</h2>
         <div class="scroll-element">
             <p>La defensa en profundidad de una infraestructura de red requiere el control estricto del tráfico que entra y sale de la organización. En el ecosistema Linux, <strong>iptables</strong> es la herramienta estándar para interactuar con el framework <em>Netfilter</em> del kernel, permitiendo definir reglas de filtrado de paquetes (firewall) y traducción de direcciones de red (NAT).</p>
-            <p>El objetivo de esta actividad es aplicar políticas de filtrado en un escenario simulado, configurando un Firewall perimetral que proteja una red interna (DMZ) con servicios críticos como Correo y Web. Se aplicará el principio de "privilegio mínimo", denegando todo el tráfico por defecto y permitiendo únicamente las conexiones explícitamente necesarias para el funcionamiento de los servicios.</p>
+            <p>El objetivo de esta actividad es aplicar políticas de filtrado (firewall) , tomando diferentes escenarios posibles.</p>
         </div>
 
         <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">02</span> Desarrollo Técnico de la Actividad</h2>
@@ -148,15 +148,15 @@
             <h3>Topología de Red</h3>
             <p>Se plantea el siguiente escenario de red donde un Firewall intermedia la conexión entre Internet y la red local (192.1.2.0/24), la cual aloja un Servidor de Correo (192.1.2.10) y un Servidor Web (192.1.2.11).</p>
 
-            <div class="espacio-imagen">
-                <i class="fas fa-sitemap"></i>
-                <span>[IMAGEN 1: TOPOLOGÍA DE RED]</span>
-                <span style="font-size: 0.8rem; margin-top: 5px;">Sugerencia: Recorta la imagen de la topología del PDF y guárdala como 'topologia_act04.png'.</span>
-                </div>
+            <div style="margin: 2rem 0; text-align: center;">
+                <img src="./Parcial1/act4.1.png" alt="Red" style="max-width: 100%; height: auto; border: 2px solid #333; box-shadow: 0 0 15px rgba(0,0,0,0.5); border-radius: 4px;">
+                <p style="font-size: 0.8rem; color: #666; margin-top: 5px; font-style: italic;">
+                    Imagen 1: Topología de red.
+                </p>
+            </div>
 
             <h3>Reglas de Filtrado (Iptables)</h3>
-            <p>A continuación se detallan las reglas necesarias para cumplir con los requerimientos de seguridad solicitados, especificando protocolo, direcciones IP, puertos y estados de conexión.</p>
-
+       
             <div class="tabla-container">
                 <table>
                     <thead>
@@ -169,7 +169,7 @@
                     <tbody>
                         <tr>
                             <td>1</td>
-                            <td>Establecer una política restrictiva (Denegar todo por defecto).</td>
+                            <td>Establecer una política restrictiva.</td>
                             <td><span class="code-command">iptables -P DROP</span></td>
                         </tr>
                         <tr>
@@ -199,7 +199,7 @@
                         </tr>
                         <tr>
                             <td>7</td>
-                            <td>Permitir tráfico HTTP desde la red local a Internet (Navegación).</td>
+                            <td>Permitir tráfico HTTP desde la red local a Internet.</td>
                             <td><span class="code-command">iptables -A FORWARD -p tcp -s 192.1.2.0/24 --dport 80 -j ACCEPT</span></td>
                         </tr>
                     </tbody>
@@ -207,32 +207,11 @@
             </div>
         </div>
 
-        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">03</span> Material Multimedia</h2>
-        <div class="scroll-element">
-            <p>Recursos adicionales para comprender el funcionamiento del filtrado de paquetes y la sintaxis de Iptables.</p>
-            
-            <div class="multimedia-area">
-                <h4 style="color:#00ff41; margin-top:0;">1. Video Demostrativo: Iptables para principiantes</h4>
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/l554bUf8o8E" title="Linux Firewall - Iptables" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>
-
-            <div class="espacio-imagen">
-                <i class="fas fa-terminal"></i>
-                <span>[IMAGEN 2: CAPTURA DE TERMINAL]</span>
-                <span style="font-size: 0.8rem; margin-top: 5px;">Sugerencia: Inserta una captura mostrando el comando 'iptables -L -n -v'.</span>
-            </div>
-        </div>
 
         <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">04</span> Conclusiones y Reflexión Técnica</h2>
         <div class="scroll-element">
-            <p>La implementación de firewalls mediante iptables es una competencia fundamental para cualquier administrador de sistemas y seguridad. En esta actividad, la aplicación de políticas por defecto restrictivas (DROP) demostró ser la estrategia más segura, obligando a declarar explícitamente qué tráfico es legítimo.</p>
-            <p>Además, el uso del módulo de estado (<code>-m state</code>) es crucial para la eficiencia del firewall, ya que permite gestionar el tráfico de retorno de conexiones legítimas sin necesidad de abrir puertos de forma insegura. Este enfoque de "Stateful Inspection" reduce drásticamente la superficie de ataque frente a firewalls estáticos tradicionales.</p>
-            
-            <div style="background: #151515; padding: 1.5rem; border-left: 3px solid #00ff41; margin-top: 1rem;">
-                <strong>Importancia en el mundo real:</strong> En entornos corporativos, estas reglas base son el primer anillo de seguridad perimetral. Un error en la regla de tráfico saliente (Egress filtering) podría permitir que un malware en la red interna se comunique con su servidor de Comando y Control (C2).
-            </div>
+            <p>La implementación de firewalls mediante iptables es fundamental para cualquier administrador de sistemas y seguridad. En esta actividad, la aplicación de políticas utilizando DROP, demostró ser la estrategia más segura, ya que se tiene que decir quienes son los que pueden entrar.</p>
+            <p>Además, el uso del módulo de estado (<code>-m state</code>) es importante para la eficiencia del firewall, ya que permite gestionar el tráfico de retorno de conexiones legítimas sin necesidad de abrir puertos de forma insegura.</p>
         </div>
 
         <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">05</span> Referencias Técnicas</h2>
@@ -246,7 +225,7 @@
 
         <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">06</span> Exportación</h2>
         <div class="scroll-element" style="text-align: center;">
-            <p>Visualiza el documento formal en una nueva pestaña.</p>
+            <p>Documento PDF de la actividad 04.</p>
             
             <a href="./Parcial1/182837_act04.pdf" class="btn-exportar" target="_blank" type="application/pdf">
                 <i class="fas fa-file-pdf" style="margin-right: 10px;"></i> VER / DESCARGAR PDF
