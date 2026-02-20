@@ -35,6 +35,44 @@
             font-family: 'JetBrains Mono', monospace !important;
             display: block !important;
         }
+        /* --- AJUSTES PARA COMPACTAR EL HEADER --- */
+        .cabecera-principal {
+            padding: 0.5rem 2rem !important; /* Reduce el espacio arriba y abajo del header */
+            background-color: #050505;
+            border-bottom: 1px solid #333;
+        }
+
+        .contenido-cabecera {
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* Centra los elementos verticalmente para que no ocupen espacio de más */
+        }
+
+        .logo-terminal {
+            font-size: 0.95rem; /* Letra un poquito más pequeña para ahorrar espacio */
+            line-height: 1.2;
+            color: #ffffff;
+        }
+
+        .barra-navegacion .enlaces {
+            margin: 0.5rem 0 0 0 !important; /* Reduce drásticamente el espacio entre el texto y el menú */
+            padding: 0;
+            display: flex;
+            gap: 15px;
+            list-style: none;
+        }
+
+        .barra-navegacion a {
+            font-size: 0.85rem; /* Ajusta el tamaño de los enlaces */
+            text-decoration: none;
+            color: #ffffff; /* Asegura que sean blancos */
+            font-family: 'JetBrains Mono', monospace;
+            transition: color 0.3s;
+        }
+
+        .barra-navegacion a:hover, .barra-navegacion a.activo {
+            color: #00ff41;
+        }
         
         .rubrica-tag {
             background: #222; color: #aaa; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; margin-right: 10px; vertical-align: middle;
