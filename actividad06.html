@@ -135,16 +135,24 @@
             </div>
         </div>
 
-        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">01</span> Introducción Contextual al Tema</h2>
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">01</span> Introducción</h2>
         <div class="scroll-element">
-            <p>En esta actividad se realizó la implementación de una red utilizando una VPN con el protocolo IPSec. El objetivo principal fue conectar dos redes locales diferentes a través de una red pública, la cual fue simulada por el router ISP de manera que la información viaje encriptada y segura. Para esto, se configuraron dos routers (R1 y R2) para crear un túnel por donde pasarán los datos de una PC a otra, asegurando que si alguien intercepta el tráfico en medio, no pueda leerlo a menos que conozca la llave privada.</p>
+            <p>En esta actividad se realizó en la implementación de una red utilizando una VPN con el
+protocolo IPSec. El objetivo principal fue conectar dos redes locales diferentes a través de
+una red pública, la cual fue simulada por el router ISP de manera que la información viaje
+encriptada y segura. Para esto, se configuraron dos routers (R1 y R2) para crear un túnel
+por donde pasarán los datos de una PC a otra, asegurando que si alguien intercepta el
+tráfico en medio, no pueda leerlo a menos que conozca la llave privada.</p>
         </div>
 
-        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">02</span> Desarrollo Técnico de la Actividad</h2>
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">02</span> Desarrollo</h2>
         <div class="scroll-element">
             
             <h3>1. Configuración Inicial</h3>
-            <p>Durante la configuración inicial se configuraron los routers, las interfaces G0/0 y G0/1 dando direcciones IP. Se agregaron IPs estáticas las cuales apuntaban al ISP para poder realizar correctamente la transferencia de datos. Además, se asignaron IPs a las 2 PC utilizadas.</p>
+            <p>Durante la configuración inicial se configuraron los routers, las interfaces G0/0 y G0/1
+dando direcciones IP. Se agregaron IPs estáticas las cuales apuntaban al ISP para poder
+realizar correctamente la transferencia de datos. Además, se asignaron IPs a las 2 PC
+utilizadas.</p>
             
             <div class="console-block">
 Router>EN
@@ -273,7 +281,7 @@ R2 (config-if)#crypto map IPSEC-MAP
 
         <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">03</span> Conclusiones y Resultados</h2>
         <div class="scroll-element">
-            <p>La implementación de la VPN Site-to-Site fue exitosa. La prueba de conectividad (PING) entre la PC-A y la PC-B fue correcta, lo que confirma que el túnel IPSec se estableció y el tráfico se envia de manera encriptada a través de la red pública simulada.</p>
+            <p>La implementación de la VPN fue exitosa. La prueba de conectividad (PING) entre la PC-A y la PC-B fue correcta, lo que confirma que el túnel IPSec se estableció y el tráfico se envia de manera encriptada a través de la red pública simulada.</p>
         </div>
 
         <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">04</span> Referencias Técnicas</h2>
