@@ -131,7 +131,7 @@
         
         <div class="header-section scroll-element">
             <h1>POLÍTICAS DE FILTRADO EN IPTABLES</h1>
-            <p style="color: #00ff41; font-family: 'JetBrains Mono'; margin-top: 0;">Actividad 03 | Filtrado de paquetes</p>
+            <p style="color: #00ff41; font-family: 'JetBrains Mono'; margin-top: 0;">Actividad 03 | Interpretación y traducción de políticas de filtrado</p>
             
             <div class="box-metadata">
                 <h4 style="margin-top:0; color:#fff;">// FICHA TÉCNICA:</h4>
@@ -145,61 +145,53 @@
 
         <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">01</span> Introducción y Flujo del Paquete</h2>
         <div class="scroll-element">
-            <p>El filtrado de paquetes en sistemas Linux se gestiona principalmente a través de <strong>iptables</strong>. Para configurar reglas efectivas de seguridad, es vital comprender el flujo que sigue un paquete al llegar a la interfaz de red.</p>
-            <p>El flujo jerárquico que sigue un paquete es el siguiente:</p>
-            <div class="terminal-code">
-                <span class="cmd">1. TABLA</span> &nbsp; >> &nbsp; <span class="cmd">2. CADENA</span> &nbsp; >> &nbsp; <span class="cmd">3. ACCIÓN (TARGET)</span>
-            </div>
-            <p>Este orden asegura que el paquete sea clasificado primero por su naturaleza (Tabla), luego por el momento en que se encuentra en el tráfico (Cadena) y finalmente se decida su destino (Acción).</p>
+            <p><strong>1. Completa los espacios conforme se explica el flujo del paquete.</strong></p>
+            <p>Cuando un paquete llega al sistema, primero pasa por una <strong>tabla</strong> después por una <strong>cadena</strong> y finalmente se ejecuta una <strong>acción</strong>.</p>
         </div>
 
         <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">02</span> Desarrollo Teórico: Tablas y Comandos</h2>
         <div class="scroll-element">
             
-            <h3>Tablas y Propósitos</h3>
-            <p>Identificación de las tablas principales utilizadas en Netfilter/iptables y su función específica en la seguridad de la red.</p>
+            <h3>2. Relaciona cada tabla con su propósito principal.</h3>
             <div class="tabla-container">
                 <table>
-                    <tr><th>Tabla</th><th>Propósito Principal</th><th>Ejemplo de Uso</th></tr>
-                    <tr><td>FILTER</td><td>Filtrar paquetes</td><td>Control de accesos y tráfico de red.</td></tr>
-                    <tr><td>NAT</td><td>Traducción de direcciones</td><td>Modificar IPs (SNAT/DNAT).</td></tr>
-                    <tr><td>MANGLE</td><td>Modificación de paquetes</td><td>Alterar cabeceras (TOS/TTL).</td></tr>
-                    <tr><td>RAW</td><td>Excepciones de conexiones</td><td>Paquetes sin inspección de estado (NOTRACK).</td></tr>
-                    <tr><td>SECURITY</td><td>Etiquetas de seguridad</td><td>Integración con políticas SELinux.</td></tr>
+                    <tr><th>Tabla</th><th>Propósito Principal</th><th>Ejemplo de Uso (01 palabra o frase corta)</th></tr>
+                    <tr><td>FILTER</td><td>Filtrar paquetes</td><td>Accesos al trafico de red</td></tr>
+                    <tr><td>NAT</td><td>Traducción de direcciones</td><td>Modifica las ip</td></tr>
+                    <tr><td>MANGLE</td><td>Modificación de paquetes</td><td>Colocar marcas a los cabezales</td></tr>
+                    <tr><td>RAW</td><td>Excepciones de conexiones</td><td>Acceso paquetes sin ser inspeccionados</td></tr>
+                    <tr><td>SECURITY</td><td>Aplicar etiquetas de seguridad SELinux</td><td>Politicas de seguridad del trafico</td></tr>
                 </table>
             </div>
 
-            <h3>Análisis de Comandos</h3>
-            <p>Interpretación técnica de la sintaxis utilizada para la creación de reglas.</p>
-            
-            <p><strong>Comando Básico:</strong></p>
+            <h3>3. y 4. Anatomía de un comando iptables:</h3>
             <div class="terminal-code">
                 iptables -A INPUT -p tcp -m multiport --dports 80,443 -j ACCEPT
             </div>
-            <p><em>Interpretación:</em> Permite el tráfico TCP entrante hacia los puertos 80 (HTTP) y 443 (HTTPS) usando el módulo multiport.</p>
+            <p><strong>¿Qué permite este comando?:</strong> Permite el trafico tcp de los puertos de destino 80 y 443.</p>
 
-            <p><strong>Comando Avanzado (Stateful):</strong></p>
-            <div class="terminal-code">
-                iptables -A INPUT -i eth0 -p tcp -m multiport --dports 22,80,443 -m state --state NEW,ESTABLISHED -j ACCEPT
-            </div>
-            <p><em>Interpretación:</em> Permite el tráfico entrante por la interfaz <code>eth0</code> a los puertos 22, 80 y 443, únicamente si la conexión es nueva o ya está establecida.</p>
-            
-            <h3>Variables Comunes</h3>
+            <h3>5. Variables y opciones comunes</h3>
             <div class="tabla-container">
                 <table>
-                    <tr><th>Acción</th><th>Comando / Bandera</th></tr>
-                    <tr><td>Limitar intentos</td><td><code>-m limit --limit 5/minute</code></td></tr>
-                    <tr><td>Filtrar por IP origen</td><td><code>-s 192.168.1.0/24</code></td></tr>
-                    <tr><td>Ver reglas (solo IP)</td><td><code>-L -n</code></td></tr>
-                    <tr><td>Ver contadores</td><td><code>-L -v</code></td></tr>
+                    <tr><th>Acción</th><th>Comando / Opción</th></tr>
+                    <tr><td>a) Limitar intentos por minuto</td><td><code>iptables --limit 5/minute</code></td></tr>
+                    <tr><td>b) Filtrar por IP de origen</td><td><code>iptables -s 192.168.1.0/24</code></td></tr>
+                    <tr><td>c) Ver solo números, sin DNS</td><td><code>iptables -L -n</code></td></tr>
+                    <tr><td>d) Ver reglas con contadores</td><td><code>iptables -L -v</code></td></tr>
                 </table>
             </div>
+
+            <h3>6. ¿Qué hace esta regla?</h3>
+            <div class="terminal-code">
+                iptables -A INPUT -i eth0 -p tcp -m multiport --dports 22,80,443 \<br>
+                -m state --state NEW,ESTABLISHED -j ACCEPT
+            </div>
+            <p><strong>Respuesta:</strong> Permite el trafico tcp de la interfaz eth0, saliente de los puertos 22, 80 y 443, cuando se establecio la conexión es nueva.</p>
         </div>
 
         <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">03</span> Ejercicios de Traducción de Reglas</h2>
         <div class="scroll-element">
-            <p>A continuación se presenta la traducción de políticas de lenguaje natural a sintaxis de comando iptables.</p>
-
+            
             <h3>7. Permitir tráfico HTTP entrante</h3>
             <div class="terminal-code">
                 iptables -A INPUT -p tcp --dport 80 -j ACCEPT
@@ -210,26 +202,25 @@
                 iptables -A OUTPUT -j ACCEPT
             </div>
 
-            <h3>9. Permitir SSH solo desde IP específica</h3>
+            <h3>9. Permitir SSH solo desde la IP 192.168.1.50</h3>
             <div class="terminal-code">
                 iptables -A INPUT -p tcp --dport 22 -s 192.168.1.50 -j ACCEPT
             </div>
 
-            <h3>10. Tráfico TCP entrante (Establecido/Relacionado)</h3>
+            <h3>10. Permitir tráfico TCP entrante a puertos 80 y 443 solo si es conexión establecida o relacionada</h3>
             <div class="terminal-code">
                 iptables -A INPUT -p tcp -m multiport --dports 80,443 -m state --state ESTABLISHED,RELATED -j ACCEPT
             </div>
 
-            <h3>11. Registrar intentos y permitir (LOG + ACCEPT)</h3>
-            <p>Para que el registro sea efectivo, la regla de <code>LOG</code> debe ejecutarse <strong>antes</strong> que la de <code>ACCEPT</code>.</p>
+            <h3>11. Permitir tráfico TCP entrante por eth0 a 22, 80 y 443, registrar intentos y permitir solo NEW y ESTABLISHED</h3>
             <div class="terminal-code">
-                <span class="comment"># 1. Primero registramos el evento</span><br>
-                iptables -A INPUT -i eth0 -p tcp -m multiport --dports 22,80,443 -m state --state NEW,ESTABLISHED -j LOG --log-prefix "Intento: "<br><br>
-                <span class="comment"># 2. Después permitimos el tráfico</span><br>
-                iptables -A INPUT -i eth0 -p tcp -m multiport --dports 22,80,443 -m state --state NEW,ESTABLISHED -j ACCEPT
+                iptables -A INPUT -i eth0 -p tpc -m multiport --dports 22,80,443 -m state --state NEW,ESTABLISHED -j ACCEPT<br>
+                <br>
+                iptables -A INPUT -i eth0 -p tcp -m multiport --dports 22,80,443 -m state --state NEW -j LOG --log-prefix "Intento:"
             </div>
-        </div>
 
+
+        </div>
 
         <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">06</span> Exportación</h2>
         <div class="scroll-element" style="text-align: center;">
