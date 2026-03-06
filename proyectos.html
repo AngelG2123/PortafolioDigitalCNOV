@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parcial 1 | Seguridad Informática</title>
+    <link rel="stylesheet" href="style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+
+        body { background-color: #050505; color: #e0e0e0; font-family: 'Inter', sans-serif; margin: 0; }
+
+        .info-materia p {
+            margin: 0 !important;
+            padding: 1px 0 !important;
+            line-height: 1.1 !important;
+            text-align: right !important;
+            font-size: 0.85rem !important;
+            color: #ffffff !important; 
+            font-family: 'JetBrains Mono', monospace !important;
+            display: block !important;
+        }
+        .info-materia span.simbolo, .info-materia span.cursor { color: #00ff41 !important; }
+
+        .scroll-element { opacity: 0; transform: translateY(50px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; will-change: opacity, transform; }
+        .scroll-element.visible { opacity: 1; transform: translateY(0); }
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+
+        .seccion-actividades { padding-top: 50px; min-height: 100vh; padding-bottom: 4rem; }
+        
+        .encabezado-seccion { margin-bottom: 3rem; text-align: left; }
+        .titulo-principal { font-size: 2rem; color: #fff; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 2px; }
+        .subtitulo { color: #00ff41; font-family: 'JetBrains Mono', monospace; font-size: 1rem; }
+
+        .grid-actividades { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-top: 2rem; }
+
+        .tarjeta-actividad {
+            background-color: #0f0f0f; border: 1px solid #333; border-radius: 8px; overflow: hidden;
+            transition: all 0.3s ease; display: flex; flex-direction: column; position: relative;
+        }
+        .tarjeta-actividad:hover { transform: translateY(-5px); border-color: #00ff41; box-shadow: 0 5px 15px rgba(0, 255, 65, 0.15); }
+
+        .imagen-actividad { width: 100%; height: 180px; overflow: hidden; border-bottom: 1px solid #333; }
+        .imagen-actividad img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; filter: grayscale(40%); }
+        .tarjeta-actividad:hover .imagen-actividad img { transform: scale(1.05); filter: grayscale(0%); }
+
+        .contenido-card { padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; }
+        .tag-numero { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: #00ff41; margin-bottom: 0.5rem; display: block; }
+        .titulo-card { font-family: 'Inter', sans-serif; font-size: 1.25rem; color: #fff; margin-bottom: 0.8rem; font-weight: 700; }
+        .desc-card { color: #ccc; font-size: 0.9rem; line-height: 1.5; margin-bottom: 1.5rem; flex-grow: 1; }
+
+        .btn-acceder {
+            display: inline-block; padding: 0.6rem 1.2rem; background: transparent; border: 1px solid #00ff41;
+            color: #00ff41; font-family: 'JetBrains Mono', monospace; text-decoration: none; font-size: 0.9rem;
+            text-align: center; transition: all 0.3s ease; margin-top: auto;
+        }
+        .btn-acceder:hover { background: #00ff41; color: #000; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <header class="cabecera-principal">
+        <div class="contenedor contenido-cabecera">
+            <div class="logo-terminal">
+                <span class="simbolo">></span> Ángel Josué González Delgado<span class="cursor">_</span>
+                <br>
+                <span class="simbolo">></span> VenusWatch<span class="cursor">_</span>
+            </div>
+            <div class="info-materia">
+                <p><span class="simbolo">></span> CNO V - Seguridad Informática <span class="cursor">_</span></p>
+                <p><span class="simbolo">></span> Universidad Politécnica de San Luis Potosí <span class="cursor">_</span></p>
+                <p><span class="simbolo">></span> Octavo semestre <span class="cursor">_</span></p>
+            </div>
+        </div>
+        
+        <nav class="barra-navegacion">
+            <ul class="enlaces">
+                <li><a href="index.html">/Inicio</a></li>
+                <li><a href="actividades.html">/Actividades</a></li>
+                <li><a href="parcial1.html">/Parcial 1</a></li>
+                <li><a href="#" class="deshabilitado">/Parcial 2</a></li>
+                <li><a href="#" class="deshabilitado">/Parcial 3</a></li>
+                <li><a href="proyectos.html"  class="activo"">/Proyectos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="seccion-actividades">
+        <div class="contenedor">
+            
+            <div class="encabezado-seccion scroll-element">
+                <a href="actividades.html" style="color: #666; text-decoration: none; font-size: 0.9rem; margin-bottom: 10px; display: inline-block;">
+                    <i class="fas fa-arrow-left"></i> Proyectos
+                </a>
+                <h1 class="titulo-principal">Proyectos del Semestre</h1>
+                <p class="subtitulo">Proyectos</p>
+                <hr style="border-color: #333; margin-top: 1rem;">
+            </div>
+
+            <div class="grid-actividades">
+
+                <article class="tarjeta-actividad scroll-element delay-100">
+                    <div class="imagen-actividad">
+                        <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1000&auto=format&fit=crop" alt="Ciberataque">
+                    </div>
+                    <div class="contenido-card">
+                        <span class="tag-numero">// PR01</span>
+                        <h3 class="titulo-card">Walkthrough en acción</h3>
+                        <p class="desc-card">Video vulneración maquina virtual.</p>
+                        <a href="pr01.html" class="btn-acceder">>> LEER</a>
+                    </div>
+                </article>
+
+                <article class="tarjeta-actividad scroll-element delay-200">
+                    <div class="imagen-actividad">
+                        <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1080&auto=format&fit=crop" alt="Seguridad Digital y Redes">
+                    </div>
+                    <div class="contenido-card">
+                        <span class="tag-numero">// PR02</span>
+                        <h3 class="titulo-card">Investigación plataformas de simulación de phishing</h3>
+                        <p class="desc-card">Ingenieráa Social</p>
+                        <a href="pr02.html" class="btn-acceder">>> LEER</a>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="contenedor contenido-footer">
+            <p>&copy; 2026 Ángel Josué González Delgado. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        window.onload = function() {
+            const observador = new IntersectionObserver((entradas) => {
+                entradas.forEach((entrada) => {
+                    if (entrada.isIntersecting) {
+                        entrada.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.scroll-element').forEach((el) => observador.observe(el));
+        }
+    </script>
+</body>
+</html>
