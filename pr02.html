@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PR02 | Simulación de Phishing</title>
+    <link rel="stylesheet" href="style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* ESTILOS GENERALES */
+        body { 
+            background-color: #050505;
+            color: #e0e0e0; 
+            font-family: 'Inter', sans-serif; 
+            margin: 0;
+        }
+
+        .info-materia p {
+            margin: 0 !important;
+            padding: 1px 0 !important;
+            line-height: 1.1 !important;
+            text-align: right !important;
+            font-size: 0.85rem !important;
+            color: #ffffff !important;
+            font-family: 'JetBrains Mono', monospace !important;
+            display: block !important;
+        }
+        .info-materia span.simbolo, 
+        .info-materia span.cursor {
+            color: #00ff41 !important;
+        }
+        .contenedor-articulo { max-width: 950px; margin: 0 auto; padding: 2rem 1rem; position: relative; z-index: 1; }
+        
+        h1 { font-size: 2.2rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
+
+        .rubrica-titulo {
+            font-family: 'JetBrains Mono', monospace; font-size: 1.3rem; color: #00ff41; 
+            border-bottom: 2px solid #333; padding-bottom: 0.5rem; margin-top: 4rem; margin-bottom: 1.5rem; text-transform: uppercase;
+        }
+        .rubrica-tag { background: #222; color: #aaa; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; margin-right: 10px; vertical-align: middle; }
+        
+        /* Párrafos y Textos */
+        .contenedor-articulo p { line-height: 1.8; margin-bottom: 1.2rem; text-align: justify; font-size: 1rem; color: #d1d1d1; }
+        .contenedor-articulo ul { line-height: 1.8; margin-bottom: 1.2rem; font-size: 1rem; color: #d1d1d1; }
+        .contenedor-articulo li { margin-bottom: 10px; }
+        strong { color: #fff; }
+        h3 { color: #fff; margin-top: 3rem; margin-bottom: 1rem; font-size: 1.2rem; border-left: 4px solid #00ff41; padding-left: 10px; padding-top: 5px; padding-bottom: 5px;}
+
+        /* Metadata */
+        .box-metadata { background: #111; border: 1px solid #333; padding: 1.5rem; margin-bottom: 3rem; border-left: 4px solid #00ff41; }
+        .box-metadata ul { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px;}
+        .box-metadata li { font-size: 0.9rem; color: #aaa; margin-bottom: 5px;}
+        .box-metadata li i { color: #00ff41; margin-right: 8px; }
+
+        /* Tablas */
+        .tabla-container { background: #0a0a0a; overflow-x: auto; margin-bottom: 2rem; border: 1px solid #333; border-radius: 4px; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; font-family: 'JetBrains Mono', monospace; }
+        th { background: #1a1a1a; color: #00ff41; padding: 12px; text-align: left; border-bottom: 2px solid #444; min-width: 180px; }
+        td { padding: 12px; border: 1px solid #333; vertical-align: top; color: #ccc; }
+        tr:nth-child(even) td { background: rgba(255,255,255,0.03); }
+
+        /* Multimedia y Placeholders */
+        .multimedia-area { background: #0f0f0f; border: 1px dashed #444; padding: 1.5rem; text-align: center; margin: 2rem 0; border-radius: 6px; }
+        
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 1rem; border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 1px solid #333; }
+
+        .espacio-imagen {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background-color: #0f0f0f; border: 2px dashed #333; color: #555; padding: 2rem; margin: 1.5rem 0; border-radius: 6px; min-height: 200px; transition: 0.3s;
+        }
+        .espacio-imagen:hover { border-color: #00ff41; color: #888; }
+        .espacio-imagen i { font-size: 2.5rem; margin-bottom: 1rem; }
+        .espacio-imagen img { max-width: 100%; height: auto; border: 1px solid #333; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .caption-imagen { font-size: 0.8rem; color: #666; margin-top: 10px; font-style: italic; }
+
+        /* Botón Exportar */
+        .btn-exportar {
+            display: block; width: 100%; max-width: 350px; margin: 3rem auto; padding: 1.2rem; background: #b71c1c; 
+            color: white; text-align: center; text-decoration: none; font-weight: bold; border-radius: 4px; font-family: 'JetBrains Mono', monospace; 
+            transition: 0.3s; border: 1px solid #e53935; box-shadow: 0 4px 10px rgba(183, 28, 28, 0.3);
+        }
+        .btn-exportar:hover { background: #d32f2f; box-shadow: 0 0 20px rgba(229, 57, 53, 0.6); transform: translateY(-2px); }
+
+        /* Referencias */
+        .referencias-lista { list-style: none; padding: 0; background: #111; padding: 1.5rem; border-left: 2px solid #555; }
+        .referencias-lista li { margin-bottom: 1rem; font-size: 0.9rem; color: #bbb; word-break: break-all; }
+        .referencias-lista li::before { content: ">> "; color: #00ff41; font-weight: bold; }
+
+    </style>
+</head>
+<body>
+
+    <header class="cabecera-principal">
+        <div class="contenedor contenido-cabecera">
+            <div class="logo-terminal">
+                <span class="simbolo">></span> Ángel Josué González Delgado<span class="cursor">_</span>
+                <br>
+                <span class="simbolo">></span> VenusWatch<span class="cursor">_</span>
+            </div>
+            <div class="info-materia">
+                <p><span class="simbolo">></span> CNO V - Seguridad Informática <span class="cursor">_</span></p>
+                <p><span class="simbolo">></span> Universidad Politécnica de San Luis Potosí <span class="cursor">_</span></p>
+                <p><span class="simbolo">></span> Octavo semestre <span class="cursor">_</span></p>
+            </div>
+        </div>
+        
+        <nav class="barra-navegacion">
+            <ul class="enlaces">
+                <li><a href="index.html">/Inicio</a></li>
+                <li><a href="actividades.html" >/Actividades</a></li>
+                <li><a href="parcial1.html">/Parcial 1</a></li>
+                <li><a href="#" class="deshabilitado">/Parcial 2</a></li>
+                <li><a href="#" class="deshabilitado">/Parcial 3</a></li>
+                <li><a href="proyectos.html" class="activo">/Proyectos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="contenedor-articulo">
+        
+        <div class="header-section scroll-element">
+            <h1>INVESTIGACIÓN COMPARATIVA DE PLATAFORMAS DE SIMULACIÓN DE PHISHING</h1>
+            <p style="color: #00ff41; font-family: 'JetBrains Mono'; margin-top: 0;">PR02 | Simulación de Phishing</p>
+            
+            <div class="box-metadata">
+                <h4 style="margin-top:0; color:#fff;">// DATOS DEL ALUMNO:</h4>
+                <ul>
+                    <li><i class="fas fa-user-shield"></i> González Delgado Ángel Josué - 182837</li>
+                </ul>
+                <p style="font-size: 0.8rem; margin-bottom: 0; margin-top: 1rem; border-top: 1px solid #333; padding-top: 10px;">
+                    Profesor: Mtro. Servando López Contreras | Fecha: 07-Marzo-2026
+                </p>
+            </div>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">01</span> Introducción</h2>
+        <div class="scroll-element">
+            <p>La ingeniería social es de los métodos más usados para vulnerar organizaciones, aprovechándose del usuario final en lugar de atacar directamente a los sistemas. Por lo tanto, empresas buscan mitigar este problema, utilizando plataformas diseñadas para lanzar campañas de phishing simuladas y poder concientizar a los usuarios.</p>
+            
+            <p>El objetivo de este documento es analizar y comparar 8 herramientas, las cuales son: Hoxhunt, Proofpoint, KnowBe4, Cofense, Phished, NINJIO, Mimecast e Infosec IQ. Durante la investigación se evaluarán capacidades técnicas, métricas utilizadas para calcular el nivel de riesgo de los usuarios y métodos de enseñanza. Además de los controles éticos de cada plataforma, con el fin de la forma en que concientizan a los usuarios sin que el entrenamiento se vuelva estresante o repetitivo.</p>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">02</span> Desarrollo</h2>
+        <div class="scroll-element">
+            
+            <h3>Hoxhunt</h3>
+            <p>Es una plataforma la cual se centra en la defensa contra ataques de ingeniería social como el phishing. Utiliza un sistema de IA, la cual sirve para crear rutas de aprendizaje personalizadas dependiendo el perfil del usuario. Además, es una plataforma que intenta premiar al usuario con el fin de mejorar su aprendizaje.</p>
+            <ul>
+                <li><strong>Capacidades técnicas:</strong> Usa inteligencia artificial para crear simulaciones personalizadas de correo, Slack y Teams. Además, tiene un sistema de reportes, el cual se conecta con el equipo de seguridad (SOC) para analizar los correos.</li>
+                <li><strong>Métricas de medición:</strong> Mide el click rate que es el contador de las veces que caen en un phishing, el reporting rate que son los reportes correctamente hechos, y también el detection rate dando un porcentaje de la cantidad de ataques identificados de manera correcta.</li>
+                <li><strong>Enfoques de entrenamiento:</strong> Se basa en dar pequeñas lecciones después de que el usuario se equivoca.</li>
+                <li><strong>Controles éticos:</strong> Realiza campañas de phishing enfocándose más en dar refuerzos positivos.</li>
+            </ul>
+            <div class="espacio-imagen">
+                <i class="fas fa-image"></i>
+                <p>Inserta tu imagen de Hoxhunt aquí</p>
+                </div>
+
+            <h3>Proofpoint</h3>
+            <p>Proofpoint se especializa en la defensa contra ataques de phishing en empresas. Utiliza IA para tomar amenazas reales de su propia página web y convertirlas en simulaciones seguras, con el fin de crear rutas de aprendizaje para los usuarios.</p>
+            <ul>
+                <li><strong>Capacidades técnicas:</strong> Toma ataques reales y les quita lo peligroso para usarlos como prueba. Usa una herramienta llamada PhishAlarm para que los empleados puedan reportar los correos sospechosos al SOC.</li>
+                <li><strong>Métricas de medición:</strong> Mide el click rate, el reporting rate y la puntuación que sacan los usuarios en sus evaluaciones de conocimiento.</li>
+                <li><strong>Enfoques de entrenamiento:</strong> Usa un modelo de aprendizaje progresivo y micro-lecciones que se adaptan al rol de cada trabajador dentro de la empresa con el fin de dar el mejor aprendizaje posible.</li>
+                <li><strong>Controles éticos:</strong> Se puede modificar en cualquier momento la dificultad de los laboratorios con el fin de que los usuarios aprendan a su propio ritmo. Además, las métricas de los usuarios sirven para mejorar sus rutas de aprendizaje.</li>
+            </ul>
+            <div class="espacio-imagen">
+                <i class="fas fa-image"></i>
+                <p>Inserta tu imagen de Proofpoint aquí</p>
+                </div>
+
+            <h3>KnowBe4</h3>
+            <p>Enfatiza en que los errores humanos son la principal causa de los hackeos. Sirve para dar capacitación continua a organizaciones para crear conciencia y evitar este tipo de hackeos.</p>
+            <ul>
+                <li><strong>Capacidades técnicas:</strong> Tiene campañas automáticas y permite diseñar ataques dirigidos. Además de utilizar Active Directory para administrar a los usuarios.</li>
+                <li><strong>Métricas de medición:</strong> Utiliza el porcentaje de propensión al phishing (Phish-prone percentage), y también mide los clics y si la gente llega a meter sus contraseñas en páginas falsas.</li>
+                <li><strong>Enfoques de entrenamiento:</strong> Tiene una biblioteca enorme de contenidos. Si un usuario falla en una prueba, el sistema le asigna automáticamente un micro-entrenamiento para que corrija el error.</li>
+                <li><strong>Controles éticos:</strong> Permite configurar las campañas con el fin de apoyar al usuario, evaluando los resultados de forma general.</li>
+            </ul>
+            <div class="espacio-imagen">
+                <i class="fas fa-image"></i>
+                <p>Inserta tu imagen de KnowBe4 aquí</p>
+                </div>
+
+            <h3>Cofense</h3>
+            <p>Cofense busca que los mismos empleados se conviertan en sensores activos de seguridad. En lugar de solo evaluarlos, los entrena para que ayuden a detectar amenazas reales.</p>
+            <ul>
+                <li><strong>Capacidades técnicas:</strong> Recrea ataques que ya han pasado en otras partes del mundo. Tiene un botón de reporte que se conecta con los sistemas de seguridad de la empresa (SIEM) para actuar lo más pronto posible.</li>
+                <li><strong>Métricas de medición:</strong> Mide clics y reportes, además de enfocarse en la tasa de detección de amenazas reales y el tiempo que tarda la empresa en responder.</li>
+                <li><strong>Enfoques de entrenamiento:</strong> Se basa en que la gente participe activamente y aprenda a identificar las señales de peligro para reportarlas.</li>
+                <li><strong>Controles éticos:</strong> Evita hacer simulaciones individuales, buscando fomentar el trabajo en equipo entre los empleados y los encargados de ciberseguridad.</li>
+            </ul>
+            <div class="espacio-imagen">
+                <i class="fas fa-image"></i>
+                <p>Inserta tu imagen de Cofense aquí</p>
+                </div>
+
+            <h3>Phished</h3>
+            <p>Es una plataforma automatizada usando IA. Analiza continuamente cómo se comporta cada usuario para adaptar el nivel de las pruebas de forma automática.</p>
+            <ul>
+                <li><strong>Capacidades técnicas:</strong> Sus algoritmos crean las simulaciones dependiendo del nivel de riesgo del usuario.</li>
+                <li><strong>Métricas de medición:</strong> Calcula una puntuación de riesgo conductual (Behavioral Risk Score), además de medir los clics, los reportes y qué tanto participan los usuarios en los entrenamientos.</li>
+                <li><strong>Enfoques de entrenamiento:</strong> Es un modelo adaptativo, cambia el contenido y la cantidad de pruebas dependiendo las habilidades del empleado en su día a día.</li>
+                <li><strong>Controles éticos:</strong> Si la plataforma detecta que un usuario tiene bajo riesgo, le manda menos pruebas para no aburrirlo o generarle estrés innecesario.</li>
+            </ul>
+            <div class="espacio-imagen">
+                <i class="fas fa-image"></i>
+                <p>Inserta tu imagen de Phished aquí</p>
+                </div>
+
+            <h3>NINJIO</h3>
+            <p>Ninjio utiliza videos animados inspirados en hackeos reales para enseñar ciberseguridad, haciéndolo que el aprendizaje sea más dinámico.</p>
+            <ul>
+                <li><strong>Capacidades técnicas:</strong> Mezcla las simulaciones de phishing con contenido audiovisual interactivo. Se puede integrar a las empresas usando un inicio de sesión único (SSO).</li>
+                <li><strong>Métricas de medición:</strong> Mide los clics y reportes, además de utilizar "engagement rate", lo cual mide qué tanto interactúa la gente con los videos.</li>
+                <li><strong>Enfoques de entrenamiento:</strong> Usa lecciones muy cortas que se mandan periódicamente para que la gente aprenda sin que les quite mucho tiempo de su trabajo.</li>
+                <li><strong>Controles éticos:</strong> Promueve el aprendizaje en un entorno más relajado con el fin de mejorar el aprendizaje.</li>
+            </ul>
+            <div class="espacio-imagen">
+                <i class="fas fa-image"></i>
+                <p>Inserta tu imagen de NINJIO aquí</p>
+                </div>
+
+            <h3>Mimecast</h3>
+            <p>Mimecast es una plataforma de simulaciones de seguridad de correos electronicos, tiene el fin de proteger mejor las comunicaciones de la empresa.</p>
+            <ul>
+                <li><strong>Capacidades técnicas:</strong> Permite mandar simulaciones de los ataques corporativos más comunes y se conecta directo con sus propios filtros de seguridad de correo.</li>
+                <li><strong>Métricas de medición:</strong> Saca una puntuación de riesgo por usuario, mide clics y reportes, realiza un análisis de cómo va mejorando el comportamiento del usuario con el tiempo.</li>
+                <li><strong>Enfoques de entrenamiento:</strong> Combina pruebas automáticas con micro-contenidos educativos que se mandan de forma periódica.</li>
+                <li><strong>Controles éticos:</strong> Trata de hacer pruebas que sean realistas, pero cuidando siempre el no comprometer la confianza de los empleados.</li>
+            </ul>
+            <div class="espacio-imagen">
+                <i class="fas fa-image"></i>
+                <p>Inserta tu imagen de Mimecast aquí</p>
+                </div>
+
+            <h3>Infosec IQ</h3>
+            <p>Es una plataforma muy estructurada creada por Infosec Institute. Tiene la finalidad de crear programas de entrenamiento en ciberseguridad.</p>
+            <ul>
+                <li><strong>Capacidades técnicas:</strong> Tiene una biblioteca muy grande de contenidos además de permitir la automatización de campañas. También se puede conectar con plataformas escolares.</li>
+                <li><strong>Métricas de medición:</strong> Calcula el riesgo general de la organización, mide los clics y reportes, y revisa qué porcentaje de usuarios de verdad completan los módulos.</li>
+                <li><strong>Enfoques de entrenamiento:</strong> Cuando alguien comete un error en una simulación, el sistema automáticamente le asigna un curso que tiene que ver exactamente con la amenaza en la que cayó.</li>
+                <li><strong>Controles éticos:</strong> Usa las simulaciones puramente como una herramienta para enseñar y mejorar, no utiliza sistemas de castigos para no perjudicar a los usuarios.</li>
+            </ul>
+            <div class="espacio-imagen">
+                <i class="fas fa-image"></i>
+                <p>Inserta tu imagen de Infosec IQ aquí</p>
+                </div>
+            
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">03</span> Tabla técnica comparativa</h2>
+        <div class="scroll-element">
+            <div class="tabla-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Plataforma</th>
+                            <th>Integración</th>
+                            <th>Analítica</th>
+                            <th>Controles Éticos</th>
+                            <th>Limitaciones Identificadas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Hoxhunt</strong></td>
+                            <td>Usa IA para mandar simulaciones personalizadas en correo, Slack y Teams. Tiene un botón de reporte que se conecta directo al SOC.</td>
+                            <td>Mide click rate, reporting rate, detection rate y nivel de resiliencia.</td>
+                            <td>Usa refuerzo positivo y evita campañas agresivas para no hacer sentir mal al usuario que se equivoca.</td>
+                            <td>Depende mucho de tener el correo corporativo muy bien integrado y procesos SOC ya armados.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Proofpoint</strong></td>
+                            <td>Toma amenazas reales y las convierte en simulaciones seguras. Usa PhishAlarm para mandar reportes directos al SOC.</td>
+                            <td>Evalúa click rate, reporting rate, knowledge score de las evaluaciones.</td>
+                            <td>Permite bajar la dificultad para evitar el estrés en los usuarios. Las métricas se usan solo para capacitar.</td>
+                            <td>Está pensada para empresas muy grandes, lo que la hace compleja y costosa.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>KnowBe4</strong></td>
+                            <td>Tiene campañas automáticas y se conecta con Active Directory para administrar usuarios y lanzar spear phishing personalizado.</td>
+                            <td>Su métrica principal es el phish-prone percentage, además de click rate y credential submission rate.</td>
+                            <td>Evita campañas manipulativas. Usa métricas generales para que no se vuelva repetitivo.</td>
+                            <td>Tiene un contenido extenso el cual requiere que alguien lo esté administrando constantemente.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cofense</strong></td>
+                            <td>Recrea ataques reales además de utilizar un botón de reporte que se conecta rápido con los sistemas SIEM de la empresa.</td>
+                            <td>Mide click rate, reporting rate, threat detection rate y response time.</td>
+                            <td>Fomenta el trabajo en equipo con el área de seguridad. No busca solo engañar por engañar.</td>
+                            <td>Depende muchísimo de que los usuarios participen y reporten para poder detectar amenazas reales.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Phished</strong></td>
+                            <td>Sus algoritmos de IA adaptan las pruebas automáticamente según el nivel del usuario. Se integra directo al correo corporativo con Zero Incident Mail.</td>
+                            <td>Calcula behavioral risk score, click rate, reporting rate y training engagement rate.</td>
+                            <td>Si el usuario tiene bajo riesgo, le manda menos pruebas para no aburrirlo ni generarle estrés.</td>
+                            <td>Al depender tanto de la IA, necesita de mucho historial de datos para ser precisa y evitar errores.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>NINJIO</strong></td>
+                            <td>Usa videos animados interactivos basados en hackeos reales. Se integra fácil con inicio de sesión único (SSO).</td>
+                            <td>Mide click rate, reporting rate y engagement rate con los videos, lo cual aumenta la retención de usuarios.</td>
+                            <td>Como usa historias animadas, elimina la presión a las pruebas y provoca confianza en los usuarios.</td>
+                            <td>Su análisis de datos no es tan profundo como el de otras plataformas que se centran solo en métricas técnicas.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mimecast</strong></td>
+                            <td>Se conecta directo con sus propios filtros de seguridad de correo para cruzar resultados con amenazas reales.</td>
+                            <td>Saca risk score por usuario, click rate, reporting rate, y trend analysis de cómo cambia el comportamiento.</td>
+                            <td>Hace pruebas realistas, cuidando el no romper la confianza del empleado, priorizando siempre educar.</td>
+                            <td>Depende mucho de la aplicación de utilizar el sistema de seguridad de correo de Mimecast.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Infosec IQ</strong></td>
+                            <td>Automatiza campañas y se conecta con plataformas de aprendizaje (LMS) usando el estándar SCORM. Incluye más de 2000 plantillas reales.</td>
+                            <td>Evalúa click rate, reporting rate, training completion rate y mejora en tiempos de reporte.</td>
+                            <td>Se utiliza para enseñar. Si te equivocas, simplemente te asignan un curso sin penalizarte.</td>
+                            <td>Se necesita una buena planeación para poder adaptar bien los cursos a los diferentes perfiles que hay en la organización.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">04</span> Conclusión</h2>
+        <div class="scroll-element">
+            <p>Después de realizar la investigación cada una de las plataformas de simulación de phishing, se puede concluir que, aunque las plataformas buscan reducir el riesgo humano en contra de la ingeniería social, cada una presenta ventajas y limitaciones distintas las cuales dependen de cada empresa que quiera utilizarlas.</p>
+            <p>La ventaja principal de plataformas como Hoxhunt y Phished es su enfoque adaptativo usando IA para personalizar las simulaciones según el comportamiento de cada persona. En cambio, Proofpoint y Mimecast tienen la ventaja de integrarse directamente con los ecosistemas de correo corporativo para correlacionar simulaciones con amenazas reales. KnowBe4 cuenta con la ventaja de su gran cantidad de contenidos para programas a gran escala, mientras que NINJIO destaca por su micro-aprendizaje audiovisual que reduce la presión sobre el usuario.</p>
+            <p>Por último, Cofense se distingue por buscar que los empleados sean sensores activos de seguridad, Infosec IQ resulta ser la plataforma ideal para llevar programas de entrenamiento estructurados y compatibles con plataformas de formación.</p>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">05</span> Referencias Bibliográficas</h2>
+        <div class="scroll-element">
+            <ul class="referencias-lista">
+                <li>Cofense. (s.f.). PhishMe: Phishing Simulation Training. Obtenido de Cofense: https://cofense.com/product/phishme/</li>
+                <li>Hoxhunt. (17 de noviembre de 2025). Security Awareness Metrics That Matter: Predicting Breach Reduction. Obtenido de Hoxhunt: https://hoxhunt.com/blog/security-awareness-metrics</li>
+                <li>(2025) ¿Qué es la ingeniería social? Obtenido de IBM: https://www.ibm.com/mx-es/think/topics/social-engineering</li>
+                <li>Infosec Institute. (2026). INFOSEC IQ Security Awareness. Obtenido de Infosec Institute: https://www.infosecinstitute.com/iq/phishing-simulations</li>
+                <li>KnowBe4. (s.f.). Security Awareness Training and Simulated Phishing Platform. Obtenido de KnowBe4: https://www.knowbe4.com/products/enterprise-security-awareness-training</li>
+                <li>Microsoft. (2025). Suplantación de identidad definida. Obtenido de Microsoft: https://www.microsoft.com/es-mx/security/business/security-101/what-is-phishing</li>
+                <li>Mimecast. (2003). Phishing Simulation. Obtenido de Mimecast: https://www.mimecast.com/content/phishing-simulation</li>
+                <li>NINJIO. (2026). NINJIO. Obtenido de NINJIO: https://ninjio.com</li>
+                <li>Phished. (s.f.). Automated Security Awareness Training. Obtenido de Phished: https://phished.io/</li>
+                <li>Proofpoint. (09 de agosto de 2021). Measuring Security Awareness Success: For Your CISO and Your Organization. Obtenido de Proofpoint: https://www.proofpoint.com/us/blog/security-awareness-training/measuring-security-awareness-success-your-ciso-and-your</li>
+            </ul>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">06</span> Exportación</h2>
+        <div class="scroll-element" style="text-align: center;">
+            <p>Documento PDF de la investigación comparativa.</p>
+            
+            <a href="./182837-PR02.pdf" class="btn-exportar" target="_blank" type="application/pdf">
+                <i class="fas fa-file-pdf" style="margin-right: 10px;"></i> VER / DESCARGAR PDF
+            </a>
+            
+            <p style="font-size: 0.8rem; color: #666;">Archivo: 182837-PR02.pdf</p>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="contenedor contenido-footer">
+            <p>&copy; 2026 Ángel Josué González Delgado. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>
