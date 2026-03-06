@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
-        /* --- ESTILOS DE ANIMACIÓN --- */
+
         .scroll-element {
             opacity: 0;
             transform: translateY(50px); 
@@ -26,21 +26,20 @@
         .delay-200 { transition-delay: 200ms; }
         .delay-300 { transition-delay: 300ms; }
 
-        /* --- CORRECCIÓN DE CABECERA (LETRAS BLANCAS) --- */
-        /* Igual que en las actividades */
+
         .info-materia p {
             margin: 0 !important;
             padding: 1px 0 !important;
             line-height: 1.1 !important;
             text-align: right !important;
             font-size: 0.85rem !important;
-            color: #ffffff !important; /* AQUI ESTÁ EL CAMBIO A BLANCO */
+            color: #ffffff !important; 
             font-family: 'JetBrains Mono', monospace !important;
             display: block !important;
         }
         .info-materia span.simbolo, 
         .info-materia span.cursor {
-            color: #00ff41 !important; /* Los símbolos se quedan verdes */
+            color: #00ff41 !important; 
         }
     </style>
 </head>
@@ -180,13 +179,13 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     
     <script type="text/javascript">
-        // --- CÓDIGO EMAILJS EXISTENTE ---
+
         (function() {
             emailjs.init("MASBu8avvt8m2e264");
         })();
 
         window.onload = function() {
-            // Inicializar el formulario
+
             document.getElementById('form-contacto').addEventListener('submit', function(event) {
                 event.preventDefault();
                 
@@ -207,20 +206,19 @@
                     });
             });
 
-            // --- NUEVO CÓDIGO DE ANIMACIÓN (Intersection Observer) ---
+
             
             const observador = new IntersectionObserver((entradas) => {
                 entradas.forEach((entrada) => {
-                    // Si el elemento entra en el viewport (pantalla)
+
                     if (entrada.isIntersecting) {
                         entrada.target.classList.add('visible');
                     }
                 });
             }, {
-                threshold: 0.1 // Se activa cuando el 10% del elemento es visible
+                threshold: 0.1 
             });
 
-            // Seleccionar todos los elementos que tienen la clase 'scroll-element'
             const elementosOcultos = document.querySelectorAll('.scroll-element');
             elementosOcultos.forEach((el) => observador.observe(el));
         }
@@ -228,5 +226,6 @@
 
 </body>
 </html>
+
 
 
