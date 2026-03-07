@@ -25,7 +25,7 @@
         .hacker-title { font-family: 'JetBrains Mono', monospace; color: #00ff41; font-size: 2.2rem; margin-bottom: 1rem; border-bottom: 1px solid #333; padding-bottom: 10px; text-transform: uppercase; }
         .hacker-text { color: #d1d1d1; font-size: 1.05rem; line-height: 1.8; margin-bottom: 2rem; text-align: justify; }
         
-        /* METADATA EQUIPO (ADAPTADO DE TU DISEÑO) */
+        /* METADATA EQUIPO */
         .box-metadata { background: #111; border: 1px solid #333; padding: 1.5rem; margin-bottom: 3rem; border-left: 4px solid #00ff41; }
         .box-metadata ul { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px;}
         .box-metadata li { font-size: 0.9rem; color: #aaa; margin-bottom: 5px;}
@@ -139,10 +139,10 @@
             <h2 class="hacker-title" style="font-size: 1.5rem; border: none;">>_ Introducción del tema</h2>
             <div class="caja-texto">
                 <p class="hacker-text">
-                    La inyección SQL (SQLi) es una vulnerabilidad crítica que permite a un atacante interferir con las consultas que una aplicación realiza a su base de datos. En este módulo se documenta la resolución práctica de 18 laboratorios estructurados, abarcando desde la evasión básica de filtros y saltos de autenticación, hasta la extracción compleja de datos mediante inyecciones ciegas (Blind SQLi) y exfiltración fuera de banda (OAST).
+                    La inyección SQL es una vulnerabilidad crítica que permite a un atacante interferir con las consultas que una aplicación realiza a su base de datos. En este módulo se documenta la resolución práctica de 18 laboratorios estructurados, abarcando desde la evasión básica de filtros y saltos de autenticación, hasta la extracción compleja de datos mediante inyecciones ciegas (Blind SQLi) y exfiltración fuera de banda (OAST).
                 </p>
                 <p class="hacker-text" style="margin-bottom: 0;">
-                    A continuación, se presenta el roadmap de SQL Injection de PortSwigger.
+                    A continuación, se presenta el roadmap de laboratorios de SQL Injection resueltos por el equipo.
                 </p>
             </div>
         </div>
@@ -155,7 +155,7 @@
                 <div class="roadmap-content">
                     <span class="lab-badge">LAB 01</span>
                     <h3 class="lab-title">SQL injection vulnerability in WHERE clause allowing retrieval of hidden data</h3>
-                    <p class="lab-desc">Explotación de la cláusula WHERE mediante lógica booleana (' OR 1=1--) para anular filtros y revelar productos ocultos.</p>
+                    <p class="lab-desc">El objetivo es mostrar todos los productos de la base de datos, incluyendo aquellos que no han sido publicados. Normalmente, la aplicación filtra los productos para mostrar solo los de una categoría específica y que tengan un estado de "publicado".</p>
                 </div>
             </div>
 
@@ -164,7 +164,7 @@
                 <div class="roadmap-content">
                     <span class="lab-badge">LAB 02</span>
                     <h3 class="lab-title">SQL injection vulnerability allowing login bypass</h3>
-                    <p class="lab-desc">Evasión del panel de autenticación truncando la validación de contraseñas en la base de datos para acceder como administrador.</p>
+                    <p class="lab-desc">El objetivo es acceder a la aplicación con el perfil de "administrator". Sin conocer la contraseña del usuario; manipulando el campo de entrada del nombre de usuario para intentar anular cualquier tipo de seguridad.</p>
                 </div>
             </div>
 
@@ -172,8 +172,8 @@
                 <div class="roadmap-dot"></div>
                 <div class="roadmap-content">
                     <span class="lab-badge">LAB 03</span>
-                    <h3 class="lab-title">SQL injection UNION attack, determining the number of columns returned by the query</h3>
-                    <p class="lab-desc">Identificación de la estructura de la consulta original utilizando la directiva ORDER BY para inyecciones posteriores.</p>
+                    <h3 class="lab-title">SQL injection attack, querying the database type and version on Oracle</h3>
+                    <p class="lab-desc">El objetivo consiste en extraer la información de la versión de la base de datos Oracle. Aprendiendo a utilizar la sintaxis necesaria ya que en este caso es una base de datos Oracle.</p>
                 </div>
             </div>
 
@@ -181,8 +181,8 @@
                 <div class="roadmap-dot"></div>
                 <div class="roadmap-content">
                     <span class="lab-badge">LAB 04</span>
-                    <h3 class="lab-title">SQL injection UNION attack, finding a column containing text</h3>
-                    <p class="lab-desc">Uso de inyecciones de prueba con valores nulos para descubrir qué columnas admiten cadenas de texto.</p>
+                    <h3 class="lab-title">SQL injection attack, querying the database type and version on MySQL and Microsoft</h3>
+                    <p class="lab-desc">El objetivo es determinar la versión específica del software de la base de datos que está en el servidor. Se debe identificar el número de columnas y qué columna acepta datos de tipo cadena, para luego inyectar la función correspondiente que mostrará la versión de la base de datos.</p>
                 </div>
             </div>
 
@@ -190,8 +190,8 @@
                 <div class="roadmap-dot"></div>
                 <div class="roadmap-content">
                     <span class="lab-badge">LAB 05</span>
-                    <h3 class="lab-title">SQL injection UNION attack, retrieving data from other tables</h3>
-                    <p class="lab-desc">Extracción exitosa de credenciales de usuario y contraseñas ubicadas en otras tablas ajenas a la consulta original.</p>
+                    <h3 class="lab-title">SQL injection attack, listing the database contents on non-Oracle databases</h3>
+                    <p class="lab-desc">El objetivo de la práctica es iniciar sesión como administrator obteniendo su contraseña, para lograr este objetivo es necesario aplicar Inyección SQL que permita listar el contenido de la base de datos utilizando UNION.</p>
                 </div>
             </div>
 
@@ -199,8 +199,8 @@
                 <div class="roadmap-dot"></div>
                 <div class="roadmap-content">
                     <span class="lab-badge">LAB 06</span>
-                    <h3 class="lab-title">SQL injection UNION attack, retrieving multiple values in a single column</h3>
-                    <p class="lab-desc">Concatenación de múltiples campos (usuario y contraseña) dentro de una única columna de retorno mediante funciones de string.</p>
+                    <h3 class="lab-title">Lab: SQL injection attack, listing the database contents on Oracle</h3>
+                    <p class="lab-desc">El objetivo de esta práctica es iniciar sesión como el usuario administrator, para ello es necesario conocer su contraseña. La aplicación web tiene una base de datos Oracle, por lo cual la sintaxis y nombres de tablas que contienen información de los usuarios cambian a comparación de la práctica anterior.</p>
                 </div>
             </div>
 
@@ -208,8 +208,8 @@
                 <div class="roadmap-dot"></div>
                 <div class="roadmap-content">
                     <span class="lab-badge">LAB 07</span>
-                    <h3 class="lab-title">SQL injection attack, querying the database type and version on Oracle</h3>
-                    <p class="lab-desc">Inyección adaptada a sintaxis estricta de Oracle, empleando la tabla DUAL y extrayendo metadatos de v$version.</p>
+                    <h3 class="lab-title">Lab: SQL injection UNION attack, determining the number of columns returned by the query</h3>
+                    <p class="lab-desc">El objetivo del laboratorio será, como en los anteriores dos laboratorios, explotar la vulnerabilidad que se encuentra en el filtro de la página para utilizar una inyección SQL. Así mismo, será necesario determinar el número de columnas para, de esta forma, hacer que se devuelvan valores nulos.</p>
                 </div>
             </div>
 
@@ -217,8 +217,8 @@
                 <div class="roadmap-dot"></div>
                 <div class="roadmap-content">
                     <span class="lab-badge">LAB 08</span>
-                    <h3 class="lab-title">SQL injection attack, querying the database type and version on MySQL and Microsoft</h3>
-                    <p class="lab-desc">Descubrimiento de la versión del software del servidor utilizando la constante global @@version.</p>
+                    <h3 class="lab-title">Lab: SQL injection UNION attack, finding a column containing text</h3>
+                    <p class="lab-desc">El objetivo del laboratorio será explotar la vulnerabilidad en el filtro de la página. El paso principal es identificar una columna compatible con datos de cadena para devolver una fila adicional con el valor proporcionado en los resultados de la consulta.</p>
                 </div>
             </div>
 
@@ -226,8 +226,8 @@
                 <div class="roadmap-dot"></div>
                 <div class="roadmap-content">
                     <span class="lab-badge">LAB 09</span>
-                    <h3 class="lab-title">SQL injection attack, listing the database contents on non-Oracle databases</h3>
-                    <p class="lab-desc">Mapeo completo de la estructura de la base de datos (tablas y columnas) consultando el information_schema.</p>
+                    <h3 class="lab-title">Lab: SQL injection UNION attack, retrieving data from other tables</h3>
+                    <p class="lab-desc">El objetivo del laboratorio será, como en los anteriores laboratorios, explotar la vulnerabilidad que se encuentra en las categorías de la página para utilizar una inyección SQL. Tenemos el nombre de una tabla y sus columnas por lo que se deberá extraer credenciales para loguearse como administrador.</p>
                 </div>
             </div>
 
@@ -235,8 +235,8 @@
                 <div class="roadmap-dot"></div>
                 <div class="roadmap-content">
                     <span class="lab-badge">LAB 10</span>
-                    <h3 class="lab-title">SQL injection attack, listing the database contents on Oracle</h3>
-                    <p class="lab-desc">Enumeración del esquema de la base de datos en entornos Oracle utilizando vistas del sistema como all_tables.</p>
+                    <h3 class="lab-title">Lab: SQL injection UNION attack, retrieving multiple values in a single column</h3>
+                    <p class="lab-desc">El objetivo es recuperar todos los nombres de usuario y contraseñas almacenados en la tabla users de la base de datos y utilizar estas credenciales para iniciar sesión exitosamente en la cuenta del usuario administrator.</p>
                 </div>
             </div>
 
@@ -244,8 +244,8 @@
                 <div class="roadmap-dot"></div>
                 <div class="roadmap-content">
                     <span class="lab-badge">LAB 11</span>
-                    <h3 class="lab-title">Blind SQL injection with conditional responses</h3>
-                    <p class="lab-desc">Inyección ciega evaluando cambios sutiles en el HTML devuelto por la aplicación web (Boolean-based).</p>
+                    <h3 class="lab-title">Lab: Blind SQL injection with conditional responses</h3>
+                    <p class="lab-desc">Aprovechar la vulnerabilidad de inyección SQL ciega en el procesamiento de la cookie de seguimiento (Trackingld) para inferir y reconstruir, carácter por carácter, la contraseña del usuario administrator, logrando posteriormente iniciar sesión en el sistema con dichas credenciales.</p>
                 </div>
             </div>
 
@@ -253,8 +253,8 @@
                 <div class="roadmap-dot"></div>
                 <div class="roadmap-content">
                     <span class="lab-badge">LAB 12</span>
-                    <h3 class="lab-title">Blind SQL injection with conditional errors</h3>
-                    <p class="lab-desc">Exfiltración de datos provocando intencionalmente errores lógicos (ej. división por cero) en el backend.</p>
+                    <h3 class="lab-title">Lab: Blind SQL injection with conditional errors</h3>
+                    <p class="lab-desc">Explotar una vulnerabilidad de inyección SQL ciega en la cookie de seguimiento (Trackingld) forzando errores condicionales para inferir la longitud y extraer, carácter por carácter, la contraseña del usuario administrator, logrando finalmente iniciar sesión con dichas credenciales.</p>
                 </div>
             </div>
 
@@ -262,8 +262,8 @@
                 <div class="roadmap-dot"></div>
                 <div class="roadmap-content">
                     <span class="lab-badge">LAB 13</span>
-                    <h3 class="lab-title">Visible error-based SQL injection</h3>
-                    <p class="lab-desc">Recuperación de datos sensibles directamente a través de mensajes de error de base de datos mal configurados.</p>
+                    <h3 class="lab-title">Lab: Visible error-based SQL injection</h3>
+                    <p class="lab-desc">El objetivo del laboratorio es extraer la contraseña del usuario "administrator" almacenada en la base de datos y usarla para iniciar sesión en la aplicación. Para resolver el laboratorio es necesario utilizar consultas SQL que generan errores visibles cuando se cumple una condición específica.</p>
                 </div>
             </div>
 
@@ -271,8 +271,8 @@
                 <div class="roadmap-dot"></div>
                 <div class="roadmap-content">
                     <span class="lab-badge">LAB 14</span>
-                    <h3 class="lab-title">Blind SQL injection with time delays</h3>
-                    <p class="lab-desc">Confirmación de vulnerabilidades induciendo pausas en la ejecución de la consulta (Time-based SQLi).</p>
+                    <h3 class="lab-title">Lab: Blind SQL injection with time delays</h3>
+                    <p class="lab-desc">El objetivo del laboratorio es explotar la vulnerabilidad de SQL Injection para provocar un retraso de 10 segundos en la respuesta del servidor, demostrando que la aplicación es vulnerable a una inyección SQL ciega basada en tiempo.</p>
                 </div>
             </div>
 
@@ -280,8 +280,8 @@
                 <div class="roadmap-dot"></div>
                 <div class="roadmap-content">
                     <span class="lab-badge">LAB 15</span>
-                    <h3 class="lab-title">Blind SQL injection with time delays and information retrieval</h3>
-                    <p class="lab-desc">Extracción de contraseñas infiriendo caracteres mediante la medición del tiempo de respuesta del servidor.</p>
+                    <h3 class="lab-title">Lab: Blind SQL injection with time delays and information retrieval</h3>
+                    <p class="lab-desc">El objetivo del laboratorio es explotar la vulnerabilidad de SQL Injection para descubrir la contraseña del usuario "administrator" almacenada en la base de datos y utilizarla para iniciar sesión en la aplicación. La base de datos contiene una tabla llamada users con las columnas username y password.</p>
                 </div>
             </div>
 
@@ -289,8 +289,8 @@
                 <div class="roadmap-dot"></div>
                 <div class="roadmap-content">
                     <span class="lab-badge">LAB 16</span>
-                    <h3 class="lab-title">Blind SQL injection with out-of-band interaction</h3>
-                    <p class="lab-desc">Confirmación de inyecciones provocando búsquedas DNS hacia un servidor externo controlado (Burp Collaborator).</p>
+                    <h3 class="lab-title">Lab: Blind SQL injection with out-of-band interaction</h3>
+                    <p class="lab-desc">El objetivo del laboratorio es explotar la vulnerabilidad de SQL Injection para provocar una interacción externa (por ejemplo una consulta DNS) hacia un servidor de Burp Collaborator, demostrando que la base de datos ejecuta el código SQL inyectado.</p>
                 </div>
             </div>
 
@@ -298,8 +298,8 @@
                 <div class="roadmap-dot"></div>
                 <div class="roadmap-content">
                     <span class="lab-badge">LAB 17</span>
-                    <h3 class="lab-title">Blind SQL injection with out-of-band data exfiltration</h3>
-                    <p class="lab-desc">Extracción de datos asíncrona incrustando contraseñas dentro de peticiones DNS dirigidas al atacante.</p>
+                    <h3 class="lab-title">Lab: Blind SQL injection with out-of-band data exfiltration</h3>
+                    <p class="lab-desc">El objetivo es explotar la vulnerabilidad presente en la cookie TrackingId para extraer la contraseña del usuario administrator almacenada en la tabla users. Se debe utilizar una técnica de exfiltración fuera de banda para obtener la contraseña y posteriormente iniciar sesión.</p>
                 </div>
             </div>
 
@@ -307,8 +307,8 @@
                 <div class="roadmap-dot"></div>
                 <div class="roadmap-content">
                     <span class="lab-badge">LAB 18</span>
-                    <h3 class="lab-title">SQL injection with filter bypass via XML encoding</h3>
-                    <p class="lab-desc">Evasión de un Web Application Firewall (WAF) ofuscando los payloads de inyección mediante codificación XML (Hex).</p>
+                    <h3 class="lab-title">Lab: SQL injection with filter bypass via XML encoding</h3>
+                    <p class="lab-desc">El objetivo es explotar la vulnerabilidad presente en la funcionalidad de verificación de stock para extraer las credenciales almacenadas en la tabla users, particularmente las del usuario administrador, y posteriormente iniciar sesión con esas credenciales para completar el laboratorio.</p>
                 </div>
             </div>
 
@@ -333,7 +333,7 @@
 
         <div class="contenedor-boton scroll-element">
             <h2 class="hacker-title" style="font-size: 1.5rem; border: none; text-align: left; margin-bottom: 1rem;">>_ Exportación</h2>
-            <p style="color: #aaa; text-align: left; margin-bottom: 2rem;">Documento PDF de la Actividad 08 (Reporte Técnico Completo).</p>
+            <p style="color: #aaa; text-align: left; margin-bottom: 2rem;">Documento PDF Actividad 08.</p>
             
             <a href="archivos/Act08-Equipo02.pdf" download="Actividad08_SQL_Injection.pdf" class="btn-exportar" target="_blank" type="application/pdf">
                 <i class="fas fa-file-pdf" style="margin-right: 10px;"></i> VER / DESCARGAR PDF
