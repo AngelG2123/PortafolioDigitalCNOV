@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Road to Hall of Fame | Seguridad Informática</title>
+    <link rel="stylesheet" href="style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        body { background-color: #050505; color: #e0e0e0; font-family: 'Inter', sans-serif; margin: 0; }
+
+        /* CABECERA CON LETRAS BLANCAS */
+        .info-materia p {
+            margin: 0 !important; padding: 1px 0 !important; line-height: 1.1 !important; text-align: right !important;
+            font-size: 0.85rem !important; color: #ffffff !important; font-family: 'JetBrains Mono', monospace !important; display: block !important;
+        }
+        .info-materia span.simbolo, .info-materia span.cursor { color: #00ff41 !important; }
+
+        /* Título de la sección */
+        .titulo-seccion {
+            text-align: center; margin-bottom: 2rem;
+        }
+        .titulo-seccion h1 {
+            font-family: 'JetBrains Mono', monospace; color: #00ff41; font-size: 2.5rem; margin: 0;
+        }
+        .titulo-seccion p {
+            color: #888; font-size: 1.1rem; margin-top: 10px;
+        }
+
+        /* Estilos de la Tarjeta */
+        .seccion-menu { padding-top: 60px; min-height: 80vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        
+        /* Contenedor flex para centrar la tarjeta única */
+        .contenedor-tarjeta { display: flex; justify-content: center; width: 100%; max-width: 1100px; padding: 2rem; }
+
+        .card-parcial {
+            background: #0f0f0f; border: 1px solid #333; border-radius: 12px; padding: 3rem 2rem; text-align: center;
+            transition: all 0.4s ease; position: relative; overflow: hidden; cursor: pointer; text-decoration: none; display: block;
+            width: 100%; max-width: 400px; /* Limita el ancho para que no se estire de más */
+        }
+        .card-parcial:hover { transform: translateY(-10px); border-color: #00ff41; box-shadow: 0 0 25px rgba(0, 255, 65, 0.2); }
+        .card-parcial:hover .icono-parcial { color: #00ff41; transform: scale(1.1); }
+        .card-parcial:hover h2 { color: #fff; }
+
+        .icono-parcial { font-size: 4rem; color: #444; margin-bottom: 1.5rem; transition: all 0.4s ease; }
+        
+        .card-parcial h2 { font-family: 'JetBrains Mono', monospace; color: #888; font-size: 1.8rem; margin: 0; transition: color 0.3s; }
+        .card-parcial p { color: #666; margin-top: 10px; font-size: 0.9rem; }
+
+        /* Scroll Animation */
+        .scroll-element { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+        .scroll-element.visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+    <header class="cabecera-principal">
+        <div class="contenedor contenido-cabecera">
+            <div class="logo-terminal">
+                <span class="simbolo">></span> Ángel Josué González Delgado<span class="cursor">_</span>
+                <br>
+                <span class="simbolo">></span> VenusWatch<span class="cursor">_</span>
+            </div>
+            <div class="info-materia">
+                <p><span class="simbolo">></span> CNO V - Seguridad Informática <span class="cursor">_</span></p>
+                <p><span class="simbolo">></span> Universidad Politécnica de San Luis Potosí <span class="cursor">_</span></p>
+                <p><span class="simbolo">></span> Octavo semestre <span class="cursor">_</span></p>
+            </div>
+        </div>
+        
+        <nav class="barra-navegacion">
+            <ul class="enlaces">
+                <li><a href="index.html">/Inicio</a></li>
+                <li><a href="actividades.html">/Actividades</a></li>
+                <li><a href="parcial1.html">/Parcial 1</a></li>
+                <li><a href="parcial2.html">/Parcial 2</a></li>
+                <li><a href="#" class="deshabilitado">/Parcial 3</a></li>
+                <li><a href="proyectos.html">/Proyectos</a></li>
+                <li><a href="hall-of-fame.html" class="activo">/Hall_of_Fame</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="seccion-menu">
+        
+        <div class="titulo-seccion scroll-element">
+            <h1>>_ ROAD TO HALL OF FAME</h1>
+            <p>Módulo de Explotación de Vulnerabilidades</p>
+        </div>
+
+        <div class="contenedor-tarjeta">
+            <a href="sql-injection.html" class="card-parcial scroll-element">
+                <i class="fas fa-database icono-parcial"></i>
+                <h2>SQL INJECTION</h2>
+                <p>>> 18 Laboratorios</p>
+                <p style="color: #00ff41; margin-top: 20px; font-size: 0.8rem;">[ACCESO CONCEDIDO]</p>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="contenedor contenido-footer">
+            <p>&copy; 2026 Ángel Josué González Delgado. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        window.onload = function() {
+            const observador = new IntersectionObserver((entradas) => {
+                entradas.forEach((entrada) => {
+                    if (entrada.isIntersecting) { entrada.target.classList.add('visible'); }
+                });
+            });
+            document.querySelectorAll('.scroll-element').forEach((el) => observador.observe(el));
+        }
+    </script>
+</body>
+</html>
