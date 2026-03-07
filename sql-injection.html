@@ -108,8 +108,8 @@
                 <li><a href="parcial1.html">/Parcial 1</a></li>
                 <li><a href="#" class="deshabilitado">/Parcial 2</a></li>
                 <li><a href="#" class="deshabilitado">/Parcial 3</a></li>
-                <li><a href="hall-of-fame.html" class="activo">/Hall_of_Fame</a></li>
                 <li><a href="proyectos.html">/Proyectos</a></li>
+                <li><a href="hall-of-fame.html" class="activo">/Hall_of_Fame</a></li>
             </ul>
         </nav>
     </header>
@@ -142,7 +142,7 @@
                     La inyección SQL (SQLi) es una vulnerabilidad crítica que permite a un atacante interferir con las consultas que una aplicación realiza a su base de datos. En este módulo se documenta la resolución práctica de 18 laboratorios estructurados, abarcando desde la evasión básica de filtros y saltos de autenticación, hasta la extracción compleja de datos mediante inyecciones ciegas (Blind SQLi) y exfiltración fuera de banda (OAST).
                 </p>
                 <p class="hacker-text" style="margin-bottom: 0;">
-                    A continuación, se presenta la ruta de progreso técnico (Roadmap) detallando el objetivo central de cada desafío superado.
+                    A continuación, se presenta el roadmap de SQL Injection de PortSwigger.
                 </p>
             </div>
         </div>
@@ -154,7 +154,7 @@
                 <div class="roadmap-dot"></div>
                 <div class="roadmap-content">
                     <span class="lab-badge">LAB 01</span>
-                    <h3 class="lab-title">Vulnerability in WHERE clause allowing retrieval of hidden data</h3>
+                    <h3 class="lab-title">SQL injection vulnerability in WHERE clause allowing retrieval of hidden data</h3>
                     <p class="lab-desc">Explotación de la cláusula WHERE mediante lógica booleana (' OR 1=1--) para anular filtros y revelar productos ocultos.</p>
                 </div>
             </div>
@@ -163,7 +163,7 @@
                 <div class="roadmap-dot"></div>
                 <div class="roadmap-content">
                     <span class="lab-badge">LAB 02</span>
-                    <h3 class="lab-title">Vulnerability allowing login bypass</h3>
+                    <h3 class="lab-title">SQL injection vulnerability allowing login bypass</h3>
                     <p class="lab-desc">Evasión del panel de autenticación truncando la validación de contraseñas en la base de datos para acceder como administrador.</p>
                 </div>
             </div>
@@ -172,7 +172,7 @@
                 <div class="roadmap-dot"></div>
                 <div class="roadmap-content">
                     <span class="lab-badge">LAB 03</span>
-                    <h3 class="lab-title">UNION attack, determining the number of columns</h3>
+                    <h3 class="lab-title">SQL injection UNION attack, determining the number of columns returned by the query</h3>
                     <p class="lab-desc">Identificación de la estructura de la consulta original utilizando la directiva ORDER BY para inyecciones posteriores.</p>
                 </div>
             </div>
@@ -181,7 +181,7 @@
                 <div class="roadmap-dot"></div>
                 <div class="roadmap-content">
                     <span class="lab-badge">LAB 04</span>
-                    <h3 class="lab-title">UNION attack, finding a column containing text</h3>
+                    <h3 class="lab-title">SQL injection UNION attack, finding a column containing text</h3>
                     <p class="lab-desc">Uso de inyecciones de prueba con valores nulos para descubrir qué columnas admiten cadenas de texto.</p>
                 </div>
             </div>
@@ -190,7 +190,7 @@
                 <div class="roadmap-dot"></div>
                 <div class="roadmap-content">
                     <span class="lab-badge">LAB 05</span>
-                    <h3 class="lab-title">UNION attack, retrieving data from other tables</h3>
+                    <h3 class="lab-title">SQL injection UNION attack, retrieving data from other tables</h3>
                     <p class="lab-desc">Extracción exitosa de credenciales de usuario y contraseñas ubicadas en otras tablas ajenas a la consulta original.</p>
                 </div>
             </div>
@@ -199,7 +199,7 @@
                 <div class="roadmap-dot"></div>
                 <div class="roadmap-content">
                     <span class="lab-badge">LAB 06</span>
-                    <h3 class="lab-title">UNION attack, retrieving multiple values in a single column</h3>
+                    <h3 class="lab-title">SQL injection UNION attack, retrieving multiple values in a single column</h3>
                     <p class="lab-desc">Concatenación de múltiples campos (usuario y contraseña) dentro de una única columna de retorno mediante funciones de string.</p>
                 </div>
             </div>
@@ -208,7 +208,7 @@
                 <div class="roadmap-dot"></div>
                 <div class="roadmap-content">
                     <span class="lab-badge">LAB 07</span>
-                    <h3 class="lab-title">Querying the database type and version on Oracle</h3>
+                    <h3 class="lab-title">SQL injection attack, querying the database type and version on Oracle</h3>
                     <p class="lab-desc">Inyección adaptada a sintaxis estricta de Oracle, empleando la tabla DUAL y extrayendo metadatos de v$version.</p>
                 </div>
             </div>
@@ -217,7 +217,7 @@
                 <div class="roadmap-dot"></div>
                 <div class="roadmap-content">
                     <span class="lab-badge">LAB 08</span>
-                    <h3 class="lab-title">Querying the database type and version on MySQL and Microsoft</h3>
+                    <h3 class="lab-title">SQL injection attack, querying the database type and version on MySQL and Microsoft</h3>
                     <p class="lab-desc">Descubrimiento de la versión del software del servidor utilizando la constante global @@version.</p>
                 </div>
             </div>
@@ -226,7 +226,7 @@
                 <div class="roadmap-dot"></div>
                 <div class="roadmap-content">
                     <span class="lab-badge">LAB 09</span>
-                    <h3 class="lab-title">Listing the database contents on non-Oracle databases</h3>
+                    <h3 class="lab-title">SQL injection attack, listing the database contents on non-Oracle databases</h3>
                     <p class="lab-desc">Mapeo completo de la estructura de la base de datos (tablas y columnas) consultando el information_schema.</p>
                 </div>
             </div>
@@ -235,7 +235,7 @@
                 <div class="roadmap-dot"></div>
                 <div class="roadmap-content">
                     <span class="lab-badge">LAB 10</span>
-                    <h3 class="lab-title">Listing the database contents on Oracle</h3>
+                    <h3 class="lab-title">SQL injection attack, listing the database contents on Oracle</h3>
                     <p class="lab-desc">Enumeración del esquema de la base de datos en entornos Oracle utilizando vistas del sistema como all_tables.</p>
                 </div>
             </div>
@@ -280,7 +280,7 @@
                 <div class="roadmap-dot"></div>
                 <div class="roadmap-content">
                     <span class="lab-badge">LAB 15</span>
-                    <h3 class="lab-title">Blind SQL injection with time delays and info retrieval</h3>
+                    <h3 class="lab-title">Blind SQL injection with time delays and information retrieval</h3>
                     <p class="lab-desc">Extracción de contraseñas infiriendo caracteres mediante la medición del tiempo de respuesta del servidor.</p>
                 </div>
             </div>
@@ -318,14 +318,16 @@
             <h2 class="hacker-title" style="font-size: 1.5rem; border: none;">>_ Conclusiones</h2>
             <div class="caja-texto" style="margin-bottom: 2rem;">
                 <p class="hacker-text">
-                    El desarrollo de estos entornos demostró que ocultar errores o implementar filtros básicos (WAF) es insuficiente ante atacantes con metodologías avanzadas. La inyección SQL sigue siendo un riesgo de alto impacto debido a la falta de separación entre datos y código. La mitigación definitiva exige la implementación arquitectónica de consultas parametrizadas (Prepared Statements) en todas las interacciones con bases de datos, validación estricta de entradas y la configuración adecuada de privilegios en el sistema.
+                    Al realizar los laboratorios se pudo concluir de forma práctica lo vulnerables que pueden ser las aplicaciones web cuando no se validan adecuadamente las entradas del usuario. A través de distintas técnicas, como alterar la lógica en las cláusulas WHERE, utilizar Login Bypass y usar ataques basados en UNION, se puede lograr evadir la seguridad para acceder como administradores y extraer las versiones exactas de distintos tipos de bases de datos como Oracle, MySQL y Microsoft SQL Server. Los laboratorios nos permiten ver que un campo de texto o la modificación de parámetros en la URL es suficiente para extraer información si el código construye las consultas concatenando texto. Por último nos ayuda a saber que tenemos que proteger para poder evitar estos tipos de ataques como lo puede ser el implementar consultas parametrizadas desde el diseño de la página web, validar todos los datos que ingresan y aplicar el principio de menor privilegio en la base de datos con el fin de hacer lo más protegida posible nuestras páginas web.
                 </p>
             </div>
 
             <h2 class="hacker-title" style="font-size: 1.5rem; border: none;">>_ Referencias Bibliográficas</h2>
             <ul class="referencias-lista">
-                <li>PortSwigger. (2025). Web Security Academy: SQL Injection. Extraído de los laboratorios de aprendizaje práctico.</li>
-                <li>González Delgado, Á. J. (2025). Documentación Técnica Actividad 08: SQL Injection. Universidad Politécnica de San Luis Potosí.</li>
+                <li>Oracle Corporation. (n.d.). Oracle Database SQL language reference. https://docs.oracle.com/en/database/oracle/oracle-database/</li>
+                <li>Elmasri, R., & Navathe, S. B. (2016). Fundamentals of database systems (7th ed.). Pearson.</li>
+                <li>OWASP Foundation. (2021). OWASP Top 10: The ten most critical web application security risks. https://owasp.org/Top10/</li>
+                <li>National Institute of Standards and Technology. (2020). Security and privacy controls for information systems and organizations (SP 800-53 Rev. 5). U.S. Department of Commerce. https://doi.org/10.6028/NIST.SP.800-53r5</li>
             </ul>
         </div>
 
