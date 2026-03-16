@@ -154,9 +154,15 @@ document.getElementById('btnEmpezar').addEventListener('click', () => {
     }
     alias = inputAlias;
     
-    // Ocultar registro, mostrar quiz (modificando la propiedad display por el HTML de la página)
-    document.getElementById('pantalla-registro').style.display = 'none';
-    document.getElementById('pantalla-quiz').style.display = 'block';
+    // FORZAR ocultar registro y mostrar quiz (evitando bloqueos de CSS)
+    const pantallaRegistro = document.getElementById('pantalla-registro');
+    const pantallaQuiz = document.getElementById('pantalla-quiz');
+    
+    pantallaRegistro.classList.add('hidden');
+    pantallaRegistro.style.display = 'none';
+    
+    pantallaQuiz.classList.remove('hidden');
+    pantallaQuiz.style.display = 'block';
     
     cargarEscenario();
 });
@@ -233,8 +239,15 @@ function siguienteEscenario() {
 
 // 5. Finalizar Simulación y mostrar Scoreboard local
 function finalizarQuiz() {
-    document.getElementById('pantalla-quiz').style.display = 'none';
-    document.getElementById('pantalla-resultados').style.display = 'block';
+    // FORZAR ocultar quiz y mostrar resultados
+    const pantallaQuiz = document.getElementById('pantalla-quiz');
+    const pantallaResultados = document.getElementById('pantalla-resultados');
+    
+    pantallaQuiz.classList.add('hidden');
+    pantallaQuiz.style.display = 'none';
+    
+    pantallaResultados.classList.remove('hidden');
+    pantallaResultados.style.display = 'block';
     
     const maxScore = escenarios.length * 10;
     
