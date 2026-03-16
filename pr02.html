@@ -478,10 +478,8 @@
         let segundosTranscurridos = 0;
         let tiempoTotal = 0; 
         let alias = "";
-        
-        let modalInstancia;
 
-        // --- BASE DE DATOS DE ESCENARIOS (Sin números fijos en el título) ---
+        // --- BASE DE DATOS DE ESCENARIOS ---
         const escenarios = [
             {
                 titulo: "Urgencia Ejecutiva (Fraude del CEO)",
@@ -567,18 +565,13 @@
 
         // --- FUNCIONES Y LÓGICA ---
         
-        // Función para barajear el arreglo de forma aleatoria (Fisher-Yates)
+        // Barajear el arreglo de forma aleatoria (Fisher-Yates)
         function mezclarEscenarios(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [array[i], array[j]] = [array[j], array[i]];
             }
         }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const feedbackModalEl = document.getElementById('feedbackModal');
-            modalInstancia = new bootstrap.Modal(feedbackModalEl);
-        });
 
         document.getElementById('btnEmpezar').addEventListener('click', () => {
             const inputAlias = document.getElementById('aliasUsuario').value.trim();
@@ -588,9 +581,10 @@
             }
             alias = inputAlias;
             
-            // ¡MEZCLAMOS LOS ESCENARIOS ANTES DE EMPEZAR!
+            // Mezclar preguntas
             mezclarEscenarios(escenarios);
             
+            // Cambiar pantallas
             document.getElementById('pantalla-registro').setAttribute('style', 'display: none !important');
             document.getElementById('pantalla-quiz').setAttribute('style', 'display: block !important');
             document.getElementById('pantalla-quiz').classList.remove('hidden');
@@ -641,11 +635,19 @@
                 modalMensaje.innerText = escenario.feedbackIncorrecto;
             }
 
-            modalInstancia.show();
+            // Aquí está la magia: getOrCreateInstance soluciona todos los bugs
+            const feedbackModalEl = document.getElementById('feedbackModal');
+            const modal = bootstrap.Modal.getOrCreateInstance(feedbackModalEl);
+            modal.show();
         }
 
         function siguienteEscenario() {
-            modalInstancia.hide();
+            // Buscamos el modal abierto y lo cerramos
+            const feedbackModalEl = document.getElementById('feedbackModal');
+            const modal = bootstrap.Modal.getInstance(feedbackModalEl);
+            if (modal) {
+                modal.hide();
+            }
             
             setTimeout(() => {
                 escenarioActual++;
