@@ -377,26 +377,19 @@
                     <div class="border border-secondary p-4 mb-4 rounded shadow-sm" id="contenido-simulado" style="background-color: #1a1a1a;">
                         </div>
 
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-4">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-4" id="botones-accion">
                         <button class="btn btn-outline-danger btn-lg me-md-2" onclick="responder(false)"><i class="fas fa-biohazard"></i> Es Phishing</button>
                         <button class="btn btn-outline-success btn-lg" onclick="responder(true)"><i class="fas fa-shield-alt"></i> Es Seguro</button>
                     </div>
-                </div>
-            </div>
 
-            <div class="modal fade" id="feedbackModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content bg-dark text-light border-secondary">
-                        <div class="modal-header border-secondary">
-                            <h5 class="modal-title" id="feedbackTitulo" style="font-family: 'JetBrains Mono', monospace;">Resultado</h5>
-                        </div>
-                        <div class="modal-body">
-                            <p id="feedbackMensaje" class="fs-5"></p>
-                        </div>
-                        <div class="modal-footer border-secondary">
-                            <button type="button" class="btn btn-outline-light" id="btnSiguienteModal">Siguiente >></button>
+                    <div id="panel-feedback" class="mt-4 p-4 border border-secondary rounded hidden" style="display: none; background-color: #111;">
+                        <h5 id="feedbackTitulo" style="font-family: 'JetBrains Mono', monospace; margin-bottom: 15px;">Resultado</h5>
+                        <p id="feedbackMensaje" class="fs-5 text-light"></p>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            <button class="btn btn-light btn-lg" onclick="siguienteEscenario()">Siguiente >></button>
                         </div>
                     </div>
+
                 </div>
             </div>
 
@@ -431,6 +424,8 @@
                     </div>
                 </div>
             </div>
+
+        </div>
 
         </div>
         <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">06</span> Referencias Bibliográficas</h2>
@@ -469,188 +464,118 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-    console.log("[SISTEMA] Quiz vFINAL - Método manual activado");
+        console.log("[SISTEMA] Inicializando módulo de simulación sin modales...");
 
-    let escenarioActual = 0;
-    let score = 0;
-    let temporizadorInterval;
-    let segundosTranscurridos = 0;
-    let tiempoTotal = 0;
-    let alias = "";
+        let escenarioActual = 0;
+        let score = 0;
+        let temporizadorInterval;
+        let segundosTranscurridos = 0;
+        let tiempoTotal = 0; 
+        let alias = "";
 
         const escenarios = [
-            {
-                titulo: "Urgencia Ejecutiva (Fraude del CEO)",
-                descripcion: "Recibes un correo de tu director a tu cuenta corporativa.",
-                contenido: `<strong>De:</strong> director.general@tuempresa.com.co<br><strong>Asunto:</strong> URGENTE: Compra de tarjetas de regalo para clientes<br><br>Ángel, estoy en una reunión y no puedo contestar llamadas. Necesito que compres 5 tarjetas de regalo de Amazon de $1,000 MXN cada una para unos clientes clave hoy mismo. Mándame los códigos por aquí apenas los tengas. Te reembolso en la tarde.<br><br>Enviado desde mi iPhone.`,
-                esLegitimo: false,
-                feedbackCorrecto: "¡Excelente! Identificaste el ataque. Usan urgencia extrema, piden transferencias de valor no rastreables (tarjetas de regalo) y el dominio del remitente termina en '.com.co' en lugar del oficial.",
-                feedbackIncorrecto: "Caíste. Este es un clásico 'Fraude del CEO'. Los atacantes falsifican el nombre de un superior y usan un tono de urgencia para que actúes rápido sin pensar."
-            },
-            {
-                titulo: "Alerta de Seguridad (Ataque Homógrafo)",
-                descripcion: "Llega una notificación a tu correo personal sobre tu cuenta bancaria.",
-                contenido: `<strong>De:</strong> alertas@citiḃank.com<br><strong>Asunto:</strong> Bloqueo preventivo de cuenta<br><br>Estimado cliente, hemos detectado un intento de inicio de sesión sospechoso. Por su seguridad, hemos bloqueado temporalmente sus transferencias. Para verificar su identidad y desbloquear la cuenta, ingrese aquí:<br><br><a href="#" style="color: #00ff41;">https://www.citiḃank.com/verificacion-segura</a>`,
-                esLegitimo: false,
-                feedbackCorrecto: "¡Muy bien! Notaste el carácter extraño en la 'b' de citiḃank. Este es un ataque homógrafo usando caracteres Unicode que se parecen visualmente para engañar tu ojo.",
-                feedbackIncorrecto: "¡Cuidado! Este es un ataque homógrafo. Si observas de cerca la letra 'b' en 'citiḃank', verás que tiene un punto arriba (ḃ). Es un dominio falso."
-            },
-            {
-                titulo: "Correo Interno Legítimo",
-                descripcion: "Mensaje de Recursos Humanos en la bandeja de entrada.",
-                contenido: `<strong>De:</strong> rh@tuempresa.com<br><strong>Asunto:</strong> Recordatorio: Actualización de datos de emergencia<br><br>Hola a todos. Les recordamos que tienen hasta el viernes para actualizar sus contactos de emergencia en el portal interno de empleados (portal.tuempresa.local).<br><br>Cualquier duda, pueden marcar a la extensión 104.`,
-                esLegitimo: true,
-                feedbackCorrecto: "¡Correcto! Es un correo seguro. Proviene del dominio interno oficial, no pide hacer clic en enlaces externos sospechosos ni solicita contraseñas.",
-                feedbackIncorrecto: "Te equivocaste, este correo era seguro. Analiza la falta de urgencia, el remitente válido y que no hay enlaces maliciosos."
-            },
-            {
-                titulo: "Factura con Adjunto (Malware)",
-                descripcion: "El departamento de contabilidad te reenvía esto pidiendo revisión.",
-                contenido: `<strong>De:</strong> facturacion@proveedor-servicios.net<br><strong>Asunto:</strong> Factura de servicios correspondiente a Marzo 2026<br><br>Buen día, adjunto la factura de los servicios de este mes. Por favor, revisa el detalle en el archivo Excel para proceder con el pago.<br><br>📎 <em>Factura_Marzo_2026.xlsx.exe</em>`,
-                esLegitimo: false,
-                feedbackCorrecto: "¡Excelente! Te diste cuenta de la doble extensión (.xlsx.exe). Es un ejecutable malicioso disfrazado de Excel.",
-                feedbackIncorrecto: "¡Peligro crítico! El archivo termina en '.exe', lo que significa que al abrirlo podrías instalar un troyano o ransomware."
-            },
-            {
-                titulo: "Fatiga MFA (Autenticación Multifactor)",
-                descripcion: "Estás trabajando en tu PC y tu celular vibra repetidas veces.",
-                contenido: `<strong>📱 Notificación en tu celular (Microsoft Authenticator):</strong><br><br>¿Aprobar inicio de sesión?<br><strong>Aplicación:</strong> Office 365<br><strong>Ubicación:</strong> Moscú, Rusia<br><br>[ APROBAR ] &nbsp;&nbsp;&nbsp; [ DENEGAR ]`,
-                esLegitimo: false,
-                feedbackCorrecto: "¡Bien hecho! Denegaste el acceso. Los atacantes que ya tienen tu contraseña intentan saturarte de notificaciones esperando que apruebes por desesperación.",
-                feedbackIncorrecto: "¡Mal! Acabas de darle acceso al atacante a tu cuenta corporativa. Nunca apruebes una solicitud MFA que tú no hayas iniciado."
-            },
-            {
-                titulo: "Smishing (SMS Fraudulento)",
-                descripcion: "Recibes un mensaje de texto en tu teléfono móvil.",
-                contenido: `<strong>De:</strong> +52 55 1234 5678<br><br>FEDEX: Su paquete no pudo ser entregado hoy por falta de pago de aduanas ($45 MXN). Pague ahora para reprogramar su entrega: <br><a href="#" style="color: #00ff41;">https://bit.ly/fedex-aduanas-mx</a>`,
-                esLegitimo: false,
-                feedbackCorrecto: "¡Correcto! Es un caso clásico de Smishing. Usan enlaces acortados y piden pagos pequeños para robar tu tarjeta.",
-                feedbackIncorrecto: "Caíste en un ataque de Smishing. Las paqueterías reales rara vez piden pagos de aduana a través de enlaces acortados."
-            },
-            {
-                titulo: "Baiting (Oferta Irresistible)",
-                descripcion: "Navegando por la web, ves un banner en un foro de tecnología.",
-                contenido: `<strong>OFERTA EXCLUSIVA PARA MIEMBROS DEL FORO</strong><br><br>¡Descarga Adobe Creative Cloud Completo GRATIS (Licencia de por vida 2026)!<br>Oferta válida solo por los próximos 15 minutos.<br><br><button class="btn btn-warning btn-sm">DESCARGAR AHORA (.zip)</button>`,
-                esLegitimo: false,
-                feedbackCorrecto: "¡Muy bien! Identificaste el Baiting. Ofrecer software caro de forma gratuita es un gancho común para que descargues malware.",
-                feedbackIncorrecto: "¡Infección exitosa! Este ataque se llama Baiting (Cebo). Te ofrecen algo gratis para que tú mismo descargues el virus."
-            },
-            {
-                titulo: "Boletín Informativo Legítimo",
-                descripcion: "Recibes un correo de una suscripción de noticias de ciberseguridad.",
-                contenido: `<strong>De:</strong> boletin@thehackernews.com<br><strong>Asunto:</strong> Resumen semanal: Nuevas vulnerabilidades Zero-Day<br><br>Hola Ángel. Aquí tienes tu resumen semanal. Esta semana analizamos cómo un grupo APT explotó una falla en routers corporativos. Lee el artículo completo en nuestro blog.`,
-                esLegitimo: true,
-                feedbackCorrecto: "¡Perfecto! Analizaste el remitente y el contexto. Es un correo de marketing/boletín legítimo al que estás suscrito.",
-                feedbackIncorrecto: "Te equivocaste, este correo es legítimo. El dominio es correcto, no hay adjuntos raros y es información esperada."
-            },
-            {
-                titulo: "Spoofing de Soporte Técnico",
-                descripcion: "Un correo llega justo cuando estás teniendo problemas con tu red.",
-                contenido: `<strong>De:</strong> soporte.ti.upslp@gmail.com<br><strong>Asunto:</strong> Mantenimiento de servidores escolares<br><br>Estimado estudiante, estamos migrando los servidores de la universidad. Para no perder el acceso a la plataforma escolar, por favor revalida tu matrícula y contraseña en el siguiente portal de respaldo antes de la medianoche.<br><a href="#" style="color: #00ff41;">http://soporte-upslp.webcindario.com/login</a>`,
-                esLegitimo: false,
-                feedbackCorrecto: "¡Bien detectado! El departamento de TI oficial jamás usaría un correo '@gmail.com' ni un subdominio gratuito ('webcindario').",
-                feedbackIncorrecto: "¡Caíste! Fíjate en el remitente: es un '@gmail.com', no el dominio oficial '@upslp.edu.mx', y el enlace es HTTP sin cifrar."
-            },
-            {
-                titulo: "Subdominio Engañoso",
-                descripcion: "Te llega un recibo de un pago que no reconoces.",
-                contenido: `<strong>De:</strong> recibos@paypal.com.soporte-clientes.net<br><strong>Asunto:</strong> Recibo de su pago a Netflix por $299 MXN<br><br>Has enviado un pago automático. Si tú no autorizaste esta transacción, puedes cancelarla y solicitar un reembolso haciendo clic en el enlace de resolución de disputas inmediatamente.<br><a href="#" style="color: #00ff41;">Ir al Centro de Resoluciones</a>`,
-                esLegitimo: false,
-                feedbackCorrecto: "¡Excelente cierre! Identificaste el engaño. Aunque empieza con 'paypal.com', el dominio real que controla el correo es 'soporte-clientes.net'.",
-                feedbackIncorrecto: "Fallaste. Aunque leas 'paypal.com', el dominio raíz real está al final antes del '.net' ('soporte-clientes.net')."
-            }
+            { titulo: "Urgencia Ejecutiva (Fraude del CEO)", descripcion: "Recibes un correo de tu director a tu cuenta corporativa.", contenido: `<strong>De:</strong> director.general@tuempresa.com.co<br><strong>Asunto:</strong> URGENTE: Compra de tarjetas de regalo para clientes<br><br>Ángel, estoy en una reunión y no puedo contestar llamadas. Necesito que compres 5 tarjetas de regalo de Amazon de $1,000 MXN cada una para unos clientes clave hoy mismo. Mándame los códigos por aquí apenas los tengas. Te reembolso en la tarde.<br><br>Enviado desde mi iPhone.`, esLegitimo: false, feedbackCorrecto: "¡Excelente! Identificaste el ataque. Usan urgencia extrema, piden transferencias de valor no rastreables (tarjetas de regalo) y el dominio del remitente termina en '.com.co' en lugar del oficial.", feedbackIncorrecto: "Caíste. Este es un clásico 'Fraude del CEO'. Los atacantes falsifican el nombre de un superior y usan un tono de urgencia para que actúes rápido sin pensar." },
+            { titulo: "Alerta de Seguridad (Ataque Homógrafo)", descripcion: "Llega una notificación a tu correo personal sobre tu cuenta bancaria.", contenido: `<strong>De:</strong> alertas@citiḃank.com<br><strong>Asunto:</strong> Bloqueo preventivo de cuenta<br><br>Estimado cliente, hemos detectado un intento de inicio de sesión sospechoso. Por su seguridad, hemos bloqueado temporalmente sus transferencias. Para verificar su identidad y desbloquear la cuenta, ingrese aquí:<br><br><a href="#" style="color: #00ff41;">https://www.citiḃank.com/verificacion-segura</a>`, esLegitimo: false, feedbackCorrecto: "¡Muy bien! Notaste el carácter extraño en la 'b' de citiḃank. Este es un ataque homógrafo usando caracteres Unicode que se parecen visualmente para engañar tu ojo.", feedbackIncorrecto: "¡Cuidado! Este es un ataque homógrafo. Si observas de cerca la letra 'b' en 'citiḃank', verás que tiene un punto arriba (ḃ). Es un dominio falso." },
+            { titulo: "Correo Interno Legítimo", descripcion: "Mensaje de Recursos Humanos en la bandeja de entrada.", contenido: `<strong>De:</strong> rh@tuempresa.com<br><strong>Asunto:</strong> Recordatorio: Actualización de datos de emergencia<br><br>Hola a todos. Les recordamos que tienen hasta el viernes para actualizar sus contactos de emergencia en el portal interno de empleados (portal.tuempresa.local).<br><br>Cualquier duda, pueden marcar a la extensión 104.`, esLegitimo: true, feedbackCorrecto: "¡Correcto! Es un correo seguro. Proviene del dominio interno oficial, no pide hacer clic en enlaces externos sospechosos ni solicita contraseñas.", feedbackIncorrecto: "Te equivocaste, este correo era seguro. Analiza la falta de urgencia, el remitente válido y que no hay enlaces maliciosos." },
+            { titulo: "Factura con Adjunto (Malware)", descripcion: "El departamento de contabilidad te reenvía esto pidiendo revisión.", contenido: `<strong>De:</strong> facturacion@proveedor-servicios.net<br><strong>Asunto:</strong> Factura de servicios correspondiente a Marzo 2026<br><br>Buen día, adjunto la factura de los servicios de este mes. Por favor, revisa el detalle en el archivo Excel para proceder con el pago.<br><br>📎 <em>Factura_Marzo_2026.xlsx.exe</em>`, esLegitimo: false, feedbackCorrecto: "¡Excelente! Te diste cuenta de la doble extensión (.xlsx.exe). Es un ejecutable malicioso disfrazado de Excel.", feedbackIncorrecto: "¡Peligro crítico! El archivo termina en '.exe', lo que significa que al abrirlo podrías instalar un troyano o ransomware." },
+            { titulo: "Fatiga MFA (Autenticación Multifactor)", descripcion: "Estás trabajando en tu PC y tu celular vibra repetidas veces.", contenido: `<strong>📱 Notificación en tu celular (Microsoft Authenticator):</strong><br><br>¿Aprobar inicio de sesión?<br><strong>Aplicación:</strong> Office 365<br><strong>Ubicación:</strong> Moscú, Rusia<br><br>[ APROBAR ] &nbsp;&nbsp;&nbsp; [ DENEGAR ]`, esLegitimo: false, feedbackCorrecto: "¡Bien hecho! Denegaste el acceso. Los atacantes que ya tienen tu contraseña intentan saturarte de notificaciones esperando que apruebes por desesperación.", feedbackIncorrecto: "¡Mal! Acabas de darle acceso al atacante a tu cuenta corporativa. Nunca apruebes una solicitud MFA que tú no hayas iniciado." },
+            { titulo: "Smishing (SMS Fraudulento)", descripcion: "Recibes un mensaje de texto en tu teléfono móvil.", contenido: `<strong>De:</strong> +52 55 1234 5678<br><br>FEDEX: Su paquete no pudo ser entregado hoy por falta de pago de aduanas ($45 MXN). Pague ahora para reprogramar su entrega: <br><a href="#" style="color: #00ff41;">https://bit.ly/fedex-aduanas-mx</a>`, esLegitimo: false, feedbackCorrecto: "¡Correcto! Es un caso clásico de Smishing. Usan enlaces acortados y piden pagos pequeños para robar tu tarjeta.", feedbackIncorrecto: "Caíste en un ataque de Smishing. Las paqueterías reales rara vez piden pagos de aduana a través de enlaces acortados." },
+            { titulo: "Baiting (Oferta Irresistible)", descripcion: "Navegando por la web, ves un banner en un foro de tecnología.", contenido: `<strong>OFERTA EXCLUSIVA PARA MIEMBROS DEL FORO</strong><br><br>¡Descarga Adobe Creative Cloud Completo GRATIS (Licencia de por vida 2026)!<br>Oferta válida solo por los próximos 15 minutos.<br><br><button class="btn btn-warning btn-sm">DESCARGAR AHORA (.zip)</button>`, esLegitimo: false, feedbackCorrecto: "¡Muy bien! Identificaste el Baiting. Ofrecer software caro de forma gratuita es un gancho común para que descargues malware.", feedbackIncorrecto: "¡Infección exitosa! Este ataque se llama Baiting (Cebo). Te ofrecen algo gratis para que tú mismo descargues el virus." },
+            { titulo: "Boletín Informativo Legítimo", descripcion: "Recibes un correo de una suscripción de noticias de ciberseguridad.", contenido: `<strong>De:</strong> boletin@thehackernews.com<br><strong>Asunto:</strong> Resumen semanal: Nuevas vulnerabilidades Zero-Day<br><br>Hola Ángel. Aquí tienes tu resumen semanal. Esta semana analizamos cómo un grupo APT explotó una falla en routers corporativos. Lee el artículo completo en nuestro blog.`, esLegitimo: true, feedbackCorrecto: "¡Perfecto! Analizaste el remitente y el contexto. Es un correo de marketing/boletín legítimo al que estás suscrito.", feedbackIncorrecto: "Te equivocaste, este correo es legítimo. El dominio es correcto, no hay adjuntos raros y es información esperada." },
+            { titulo: "Spoofing de Soporte Técnico", descripcion: "Un correo llega justo cuando estás teniendo problemas con tu red.", contenido: `<strong>De:</strong> soporte.ti.upslp@gmail.com<br><strong>Asunto:</strong> Mantenimiento de servidores escolares<br><br>Estimado estudiante, estamos migrando los servidores de la universidad. Para no perder el acceso a la plataforma escolar, por favor revalida tu matrícula y contraseña en el siguiente portal de respaldo antes de la medianoche.<br><a href="#" style="color: #00ff41;">http://soporte-upslp.webcindario.com/login</a>`, esLegitimo: false, feedbackCorrecto: "¡Bien detectado! El departamento de TI oficial jamás usaría un correo '@gmail.com' ni un subdominio gratuito ('webcindario').", feedbackIncorrecto: "¡Caíste! Fíjate en el remitente: es un '@gmail.com', no el dominio oficial '@upslp.edu.mx', y el enlace es HTTP sin cifrar." },
+            { titulo: "Subdominio Engañoso", descripcion: "Te llega un recibo de un pago que no reconoces.", contenido: `<strong>De:</strong> recibos@paypal.com.soporte-clientes.net<br><strong>Asunto:</strong> Recibo de su pago a Netflix por $299 MXN<br><br>Has enviado un pago automático. Si tú no autorizaste esta transacción, puedes cancelarla y solicitar un reembolso haciendo clic en el enlace de resolución de disputas inmediatamente.<br><a href="#" style="color: #00ff41;">Ir al Centro de Resoluciones</a>`, esLegitimo: false, feedbackCorrecto: "¡Excelente cierre! Identificaste el engaño. Aunque empieza con 'paypal.com', el dominio real que controla el correo es 'soporte-clientes.net'.", feedbackIncorrecto: "Fallaste. Aunque leas 'paypal.com', el dominio raíz real está al final antes del '.net' ('soporte-clientes.net')." }
         ];
 
         function mezclarEscenarios(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
         }
-    }
 
-    document.getElementById('btnEmpezar').addEventListener('click', () => {
-        const inputAlias = document.getElementById('aliasUsuario').value.trim();
-        if (inputAlias === "") return alert("🚨 Ingresa un Alias");
-        alias = inputAlias;
-        mezclarEscenarios(escenarios);
+        document.getElementById('btnEmpezar').addEventListener('click', () => {
+            const inputAlias = document.getElementById('aliasUsuario').value.trim();
+            if (inputAlias === "") {
+                alert("🚨 Necesitas ingresar un Alias para registrarte.");
+                return;
+            }
+            alias = inputAlias;
+            
+            mezclarEscenarios(escenarios);
+            
+            document.getElementById('pantalla-registro').setAttribute('style', 'display: none !important');
+            document.getElementById('pantalla-quiz').setAttribute('style', 'display: block !important');
+            
+            cargarEscenario();
+        });
 
-        document.getElementById('pantalla-registro').style.display = 'none';
-        const quiz = document.getElementById('pantalla-quiz');
-        quiz.style.display = 'block';
-        quiz.classList.remove('hidden');
+        function cargarEscenario() {
+            if (escenarioActual >= escenarios.length) {
+                finalizarQuiz();
+                return;
+            }
 
-        cargarEscenario();
-    });
+            // Asegurarnos de que los botones se vean y el feedback esté oculto al iniciar pregunta
+            document.getElementById('botones-accion').style.display = 'flex';
+            document.getElementById('panel-feedback').style.display = 'none';
 
-    function cargarEscenario() {
-        if (escenarioActual >= escenarios.length) return finalizarQuiz();
-        const esc = escenarios[escenarioActual];
-        document.getElementById('progreso-texto').innerText = `> Escenario ${escenarioActual + 1}/10`;
-        document.getElementById('titulo-escenario').innerText = esc.titulo;
-        document.getElementById('descripcion-escenario').innerText = esc.descripcion;
-        document.getElementById('contenido-simulado').innerHTML = esc.contenido;
+            const escenario = escenarios[escenarioActual];
+            document.getElementById('progreso-texto').innerText = `> Escenario ${escenarioActual + 1}/${escenarios.length}`;
+            document.getElementById('titulo-escenario').innerText = escenario.titulo;
+            document.getElementById('descripcion-escenario').innerText = escenario.descripcion;
+            document.getElementById('contenido-simulado').innerHTML = escenario.contenido;
 
-        segundosTranscurridos = 0;
-        document.getElementById('temporizador').innerText = "0";
-        clearInterval(temporizadorInterval);
-        temporizadorInterval = setInterval(() => {
-            segundosTranscurridos++; tiempoTotal++;
+            segundosTranscurridos = 0;
             document.getElementById('temporizador').innerText = segundosTranscurridos;
-        }, 1000);
-    }
-
-    function responder(respuestaUsuario) {
-        clearInterval(temporizadorInterval);
-        const esc = escenarios[escenarioActual];
-        const correcto = (respuestaUsuario === esc.esLegitimo);
-
-        const title = document.getElementById('feedbackTitulo');
-        const msg = document.getElementById('feedbackMensaje');
-
-        if (correcto) {
-            score += 10;
-            title.innerText = "[+] ¡ACIERTO!";
-            title.style.color = "#00ff41";
-            msg.innerText = esc.feedbackCorrecto;
-        } else {
-            title.innerText = "[-] Fallaste";
-            title.style.color = "#ff3333";
-            msg.innerText = esc.feedbackIncorrecto;
+            
+            clearInterval(temporizadorInterval);
+            temporizadorInterval = setInterval(() => {
+                segundosTranscurridos++;
+                tiempoTotal++;
+                document.getElementById('temporizador').innerText = segundosTranscurridos;
+            }, 1000);
         }
 
-        bootstrap.Modal.getOrCreateInstance(document.getElementById('feedbackModal')).show();
-    }
+        function responder(respuestaUsuario) {
+            clearInterval(temporizadorInterval);
+            
+            const escenario = escenarios[escenarioActual];
+            const esCorrecto = (respuestaUsuario === escenario.esLegitimo);
+            
+            const feedbackTitle = document.getElementById('feedbackTitulo');
+            const feedbackMensaje = document.getElementById('feedbackMensaje');
+            
+            if (esCorrecto) {
+                score += 10;
+                feedbackTitle.innerText = "[+] ACCESO DENEGADO - ¡Acierto!";
+                feedbackTitle.style.color = "#00ff41";
+                feedbackMensaje.innerText = escenario.feedbackCorrecto;
+            } else {
+                feedbackTitle.innerText = "[-] SISTEMA COMPROMETIDO - Fallaste";
+                feedbackTitle.style.color = "#ff3333";
+                feedbackMensaje.innerText = escenario.feedbackIncorrecto;
+            }
 
-    function finalizarQuiz() {
-        document.getElementById('pantalla-quiz').style.display = 'none';
-        const res = document.getElementById('pantalla-resultados');
-        res.style.display = 'block';
-        res.classList.remove('hidden');
-        document.getElementById('score-final').innerText = `${score}/100`;
-        document.getElementById('alias-tabla').innerText = alias;
-        document.getElementById('score-tabla').innerText = score;
-        document.getElementById('tiempo-tabla').innerText = `${tiempoTotal}s`;
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const btn = document.getElementById('btnSiguienteModal');
-        if (btn) {
-            btn.addEventListener('click', () => {
-                console.log("Botón Siguiente presionado - avanzando...");
-                const modal = bootstrap.Modal.getInstance(document.getElementById('feedbackModal'));
-                if (modal) modal.hide();
-
-                setTimeout(() => {
-                    escenarioActual++;
-                    if (escenarioActual >= escenarios.length) {
-                        finalizarQuiz();
-                    } else {
-                        cargarEscenario();
-                    }
-                }, 400);
-            });
+            // Ocultar botones y mostrar el panel de feedback in-line
+            document.getElementById('botones-accion').style.display = 'none';
+            document.getElementById('panel-feedback').style.display = 'block';
         }
-    });
+
+        function siguienteEscenario() {
+            escenarioActual++;
+            cargarEscenario();
+        }
+
+        function finalizarQuiz() {
+            document.getElementById('pantalla-quiz').setAttribute('style', 'display: none !important');
+            document.getElementById('pantalla-resultados').setAttribute('style', 'display: block !important');
+            
+            const maxScore = escenarios.length * 10;
+            document.getElementById('score-final').innerText = `${score}/${maxScore}`;
+            document.getElementById('alias-tabla').innerText = alias;
+            document.getElementById('score-tabla').innerText = score;
+            document.getElementById('tiempo-tabla').innerText = `${tiempoTotal}s`;
+        }
     </script>
 </body>
 </html>
