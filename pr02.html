@@ -513,9 +513,12 @@
                 return;
             }
 
-            // Asegurarnos de que los botones se vean y el feedback esté oculto al iniciar pregunta
+            // FORZAR ocultar feedback y mostrar botones de nuevo
             document.getElementById('botones-accion').style.display = 'flex';
-            document.getElementById('panel-feedback').style.display = 'none';
+            
+            const panelFeedback = document.getElementById('panel-feedback');
+            panelFeedback.classList.add('hidden');
+            panelFeedback.setAttribute('style', 'display: none !important;');
 
             const escenario = escenarios[escenarioActual];
             document.getElementById('progreso-texto').innerText = `> Escenario ${escenarioActual + 1}/${escenarios.length}`;
@@ -554,9 +557,13 @@
                 feedbackMensaje.innerText = escenario.feedbackIncorrecto;
             }
 
-            // Ocultar botones y mostrar el panel de feedback in-line
+            // Ocultar botones
             document.getElementById('botones-accion').style.display = 'none';
-            document.getElementById('panel-feedback').style.display = 'block';
+            
+            // FORZAR mostrar panel de feedback (quitando la clase que lo bloquea)
+            const panelFeedback = document.getElementById('panel-feedback');
+            panelFeedback.classList.remove('hidden');
+            panelFeedback.setAttribute('style', 'display: block !important; background-color: #111;');
         }
 
         function siguienteEscenario() {
