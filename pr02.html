@@ -394,7 +394,7 @@
                             <p id="feedbackMensaje" class="fs-5"></p>
                         </div>
                         <div class="modal-footer border-secondary">
-                            <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Siguiente >></button>
+                            <button type="button" class="btn btn-outline-light" id="btnSiguienteModal">Siguiente >></button>
                         </div>
                     </div>
                 </div>
@@ -570,34 +570,29 @@
     document.getElementById('btnEmpezar').addEventListener('click', () => {
         const inputAlias = document.getElementById('aliasUsuario').value.trim();
         if (inputAlias === "") {
-            alert("🚨 Necesitas ingresar un Alias para registrarte en el Scoreboard.");
+            alert("🚨 Necesitas ingresar un Alias");
             return;
         }
         alias = inputAlias;
         mezclarEscenarios(escenarios);
         document.getElementById('pantalla-registro').style.display = 'none';
         document.getElementById('pantalla-quiz').style.display = 'block';
-        document.getElementById('pantalla-quiz').classList.remove('hidden');
         cargarEscenario();
     });
 
     function cargarEscenario() {
-        if (escenarioActual >= escenarios.length) {
-            finalizarQuiz();
-            return;
-        }
+        if (escenarioActual >= escenarios.length) return finalizarQuiz();
         const escenario = escenarios[escenarioActual];
-        document.getElementById('progreso-texto').innerText = `> Escenario ${escenarioActual + 1}/${escenarios.length}`;
+        document.getElementById('progreso-texto').innerText = `> Escenario ${escenarioActual + 1}/10`;
         document.getElementById('titulo-escenario').innerText = escenario.titulo;
         document.getElementById('descripcion-escenario').innerText = escenario.descripcion;
         document.getElementById('contenido-simulado').innerHTML = escenario.contenido;
-        segundosTranscurridos = 0;
-        document.getElementById('temporizador').innerText = segundosTranscurridos;
 
+        segundosTranscurridos = 0;
+        document.getElementById('temporizador').innerText = "0";
         clearInterval(temporizadorInterval);
         temporizadorInterval = setInterval(() => {
-            segundosTranscurridos++;
-            tiempoTotal++;
+            segundosTranscurridos++; tiempoTotal++;
             document.getElementById('temporizador').innerText = segundosTranscurridos;
         }, 1000);
     }
@@ -612,40 +607,41 @@
 
         if (esCorrecto) {
             score += 10;
-            modalTitle.innerText = "[+] ACCESO DENEGADO - ¡Acierto!";
+            modalTitle.innerText = "[+] ¡ACIERTO!";
             modalTitle.style.color = "#00ff41";
             modalMensaje.innerText = escenario.feedbackCorrecto;
         } else {
-            modalTitle.innerText = "[-] SISTEMA COMPROMETIDO - Fallaste";
+            modalTitle.innerText = "[-] Fallaste";
             modalTitle.style.color = "#ff3333";
             modalMensaje.innerText = escenario.feedbackIncorrecto;
         }
 
-        const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('feedbackModal'));
-        modal.show();
+        bootstrap.Modal.getOrCreateInstance(document.getElementById('feedbackModal')).show();
     }
 
     function finalizarQuiz() {
         document.getElementById('pantalla-quiz').style.display = 'none';
         document.getElementById('pantalla-resultados').style.display = 'block';
-        document.getElementById('pantalla-resultados').classList.remove('hidden');
-
-        const maxScore = escenarios.length * 10;
-        document.getElementById('score-final').innerText = `${score}/${maxScore}`;
+        document.getElementById('score-final').innerText = `${score}/100`;
         document.getElementById('alias-tabla').innerText = alias;
         document.getElementById('score-tabla').innerText = score;
         document.getElementById('tiempo-tabla').innerText = `${tiempoTotal}s`;
     }
+
+    // ====================== BOTÓN SIGUIENTE (VERSIÓN QUE SIEMPRE FUNCIONA) ======================
     document.addEventListener('DOMContentLoaded', () => {
-        const modalEl = document.getElementById('feedbackModal');
-        
-        modalEl.addEventListener('hidden.bs.modal', () => {
-            escenarioActual++;
-            if (escenarioActual >= escenarios.length) {
-                finalizarQuiz();
-            } else {
-                cargarEscenario();
-            }
+        document.getElementById('btnSiguienteModal').addEventListener('click', () => {
+            const modal = bootstrap.Modal.getInstance(document.getElementById('feedbackModal'));
+            if (modal) modal.hide();
+
+            setTimeout(() => {
+                escenarioActual++;
+                if (escenarioActual >= escenarios.length) {
+                    finalizarQuiz();
+                } else {
+                    cargarEscenario();
+                }
+            }, 300);
         });
     });
     </script>
