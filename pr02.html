@@ -631,7 +631,8 @@
             modalMensaje.innerText = escenario.feedbackIncorrecto;
         }
 
-        bootstrap.Modal.getOrCreateInstance(document.getElementById('feedbackModal')).show();
+        const modal = new bootstrap.Modal(document.getElementById('feedbackModal'));
+        modal.show();
     }
 
     function finalizarQuiz() {
@@ -649,11 +650,15 @@
     const btnSiguiente = document.getElementById('btnSiguienteModal');
 
 btnSiguiente.addEventListener('click', () => {
-    const modal = bootstrap.Modal.getInstance(document.getElementById('feedbackModal'));
-    if (modal) modal.hide();
+
+    const modalElement = document.getElementById('feedbackModal');
+    const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
+
+    modal.hide();
+
+    escenarioActual++;
 
     setTimeout(() => {
-        escenarioActual++;
 
         if (escenarioActual >= escenarios.length) {
             finalizarQuiz();
@@ -661,7 +666,8 @@ btnSiguiente.addEventListener('click', () => {
             cargarEscenario();
         }
 
-    }, 350);
+    }, 300);
+
 });
     </script>
 </body>
