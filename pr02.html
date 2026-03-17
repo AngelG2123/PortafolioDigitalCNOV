@@ -394,7 +394,7 @@
                             <p id="feedbackMensaje" class="fs-5"></p>
                         </div>
                         <div class="modal-footer border-secondary">
-                            <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal"> Siguiente >> </button>
+                            <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Siguiente >></button>
                         </div>
                     </div>
                 </div>
@@ -665,6 +665,16 @@
             });
         }
     });
+        const feedbackModal = document.getElementById('feedbackModal');
+
+feedbackModal.addEventListener('hidden.bs.modal', function () {    escenarioActual++;
+    
+    if (escenarioActual >= escenarios.length) {
+        finalizarQuiz();
+    } else {
+        cargarEscenario();
+    }
+});
     </script>
 </body>
 </html>
