@@ -567,22 +567,34 @@
         }
     }
 
+    // ====================== INICIO DEL QUIZ ======================
     document.getElementById('btnEmpezar').addEventListener('click', () => {
         const inputAlias = document.getElementById('aliasUsuario').value.trim();
         if (inputAlias === "") {
-            alert("🚨 Necesitas ingresar un Alias");
+            alert("🚨 Necesitas ingresar un Alias para el Scoreboard.");
             return;
         }
         alias = inputAlias;
+
         mezclarEscenarios(escenarios);
-        document.getElementById('pantalla-registro').style.display = 'none';
-        document.getElementById('pantalla-quiz').style.display = 'block';
+
+        // Ocultar registro y mostrar quiz (eliminamos la clase hidden)
+        const registro = document.getElementById('pantalla-registro');
+        const quiz = document.getElementById('pantalla-quiz');
+        
+        registro.style.display = 'none';
+        quiz.classList.remove('hidden');
+        quiz.style.display = 'block';
+
         cargarEscenario();
     });
 
     function cargarEscenario() {
-        if (escenarioActual >= escenarios.length) return finalizarQuiz();
+        if (escenarioActual >= escenarios.length) {
+            return finalizarQuiz();
+        }
         const escenario = escenarios[escenarioActual];
+
         document.getElementById('progreso-texto').innerText = `> Escenario ${escenarioActual + 1}/10`;
         document.getElementById('titulo-escenario').innerText = escenario.titulo;
         document.getElementById('descripcion-escenario').innerText = escenario.descripcion;
@@ -590,15 +602,18 @@
 
         segundosTranscurridos = 0;
         document.getElementById('temporizador').innerText = "0";
+
         clearInterval(temporizadorInterval);
         temporizadorInterval = setInterval(() => {
-            segundosTranscurridos++; tiempoTotal++;
+            segundosTranscurridos++;
+            tiempoTotal++;
             document.getElementById('temporizador').innerText = segundosTranscurridos;
         }, 1000);
     }
 
     function responder(respuestaUsuario) {
         clearInterval(temporizadorInterval);
+
         const escenario = escenarios[escenarioActual];
         const esCorrecto = (respuestaUsuario === escenario.esLegitimo);
 
@@ -621,28 +636,34 @@
 
     function finalizarQuiz() {
         document.getElementById('pantalla-quiz').style.display = 'none';
-        document.getElementById('pantalla-resultados').style.display = 'block';
+        const resultados = document.getElementById('pantalla-resultados');
+        resultados.style.display = 'block';
+        resultados.classList.remove('hidden');
+
         document.getElementById('score-final').innerText = `${score}/100`;
         document.getElementById('alias-tabla').innerText = alias;
         document.getElementById('score-tabla').innerText = score;
         document.getElementById('tiempo-tabla').innerText = `${tiempoTotal}s`;
     }
 
-    // ====================== BOTÓN SIGUIENTE (VERSIÓN QUE SIEMPRE FUNCIONA) ======================
+    // ====================== BOTÓN "SIGUIENTE >>" (AHORA SÍ FUNCIONA) ======================
     document.addEventListener('DOMContentLoaded', () => {
-        document.getElementById('btnSiguienteModal').addEventListener('click', () => {
-            const modal = bootstrap.Modal.getInstance(document.getElementById('feedbackModal'));
-            if (modal) modal.hide();
+        const btnSiguiente = document.getElementById('btnSiguienteModal');
+        if (btnSiguiente) {
+            btnSiguiente.addEventListener('click', () => {
+                const modal = bootstrap.Modal.getInstance(document.getElementById('feedbackModal'));
+                if (modal) modal.hide();
 
-            setTimeout(() => {
-                escenarioActual++;
-                if (escenarioActual >= escenarios.length) {
-                    finalizarQuiz();
-                } else {
-                    cargarEscenario();
-                }
-            }, 300);
-        });
+                setTimeout(() => {
+                    escenarioActual++;
+                    if (escenarioActual >= escenarios.length) {
+                        finalizarQuiz();
+                    } else {
+                        cargarEscenario();
+                    }
+                }, 350);
+            });
+        }
     });
     </script>
 </body>
