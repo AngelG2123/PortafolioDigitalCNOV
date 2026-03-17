@@ -561,120 +561,93 @@
         ];
 
         function mezclarEscenarios(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    document.getElementById('btnEmpezar').addEventListener('click', () => {
+        const inputAlias = document.getElementById('aliasUsuario').value.trim();
+        if (inputAlias === "") {
+            alert("🚨 Necesitas ingresar un Alias para registrarte en el Scoreboard.");
+            return;
+        }
+        alias = inputAlias;
+        mezclarEscenarios(escenarios);
+        document.getElementById('pantalla-registro').style.display = 'none';
+        document.getElementById('pantalla-quiz').style.display = 'block';
+        document.getElementById('pantalla-quiz').classList.remove('hidden');
+        cargarEscenario();
+    });
+
+    function cargarEscenario() {
+        if (escenarioActual >= escenarios.length) {
+            finalizarQuiz();
+            return;
+        }
+        const escenario = escenarios[escenarioActual];
+        document.getElementById('progreso-texto').innerText = `> Escenario ${escenarioActual + 1}/${escenarios.length}`;
+        document.getElementById('titulo-escenario').innerText = escenario.titulo;
+        document.getElementById('descripcion-escenario').innerText = escenario.descripcion;
+        document.getElementById('contenido-simulado').innerHTML = escenario.contenido;
+        segundosTranscurridos = 0;
+        document.getElementById('temporizador').innerText = segundosTranscurridos;
+
+        clearInterval(temporizadorInterval);
+        temporizadorInterval = setInterval(() => {
+            segundosTranscurridos++;
+            tiempoTotal++;
+            document.getElementById('temporizador').innerText = segundosTranscurridos;
+        }, 1000);
+    }
+
+    function responder(respuestaUsuario) {
+        clearInterval(temporizadorInterval);
+        const escenario = escenarios[escenarioActual];
+        const esCorrecto = (respuestaUsuario === escenario.esLegitimo);
+
+        const modalTitle = document.getElementById('feedbackTitulo');
+        const modalMensaje = document.getElementById('feedbackMensaje');
+
+        if (esCorrecto) {
+            score += 10;
+            modalTitle.innerText = "[+] ACCESO DENEGADO - ¡Acierto!";
+            modalTitle.style.color = "#00ff41";
+            modalMensaje.innerText = escenario.feedbackCorrecto;
+        } else {
+            modalTitle.innerText = "[-] SISTEMA COMPROMETIDO - Fallaste";
+            modalTitle.style.color = "#ff3333";
+            modalMensaje.innerText = escenario.feedbackIncorrecto;
         }
 
-        document.getElementById('btnEmpezar').addEventListener('click', () => {
-            const inputAlias = document.getElementById('aliasUsuario').value.trim();
-            if (inputAlias === "") {
-                alert("🚨 Necesitas ingresar un Alias para registrarte en el Scoreboard.");
-                return;
-            }
-            alias = inputAlias;
-            
+        const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('feedbackModal'));
+        modal.show();
+    }
 
-            mezclarEscenarios(escenarios);
-            
-            document.getElementById('pantalla-registro').setAttribute('style', 'display: none !important');
-            document.getElementById('pantalla-quiz').setAttribute('style', 'display: block !important');
-            document.getElementById('pantalla-quiz').classList.remove('hidden');
-            
-            cargarEscenario();
-        });
+    function finalizarQuiz() {
+        document.getElementById('pantalla-quiz').style.display = 'none';
+        document.getElementById('pantalla-resultados').style.display = 'block';
+        document.getElementById('pantalla-resultados').classList.remove('hidden');
 
-        function cargarEscenario() {
+        const maxScore = escenarios.length * 10;
+        document.getElementById('score-final').innerText = `${score}/${maxScore}`;
+        document.getElementById('alias-tabla').innerText = alias;
+        document.getElementById('score-tabla').innerText = score;
+        document.getElementById('tiempo-tabla').innerText = `${tiempoTotal}s`;
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+        const modalEl = document.getElementById('feedbackModal');
+        
+        modalEl.addEventListener('hidden.bs.modal', () => {
+            escenarioActual++;
             if (escenarioActual >= escenarios.length) {
                 finalizarQuiz();
-                return;
-            }
-
-            const escenario = escenarios[escenarioActual];
-            document.getElementById('progreso-texto').innerText = `> Escenario ${escenarioActual + 1}/${escenarios.length}`;
-            document.getElementById('titulo-escenario').innerText = escenario.titulo;
-            document.getElementById('descripcion-escenario').innerText = escenario.descripcion;
-            document.getElementById('contenido-simulado').innerHTML = escenario.contenido;
-
-            segundosTranscurridos = 0;
-            document.getElementById('temporizador').innerText = segundosTranscurridos;
-            
-            clearInterval(temporizadorInterval);
-            temporizadorInterval = setInterval(() => {
-                segundosTranscurridos++;
-                tiempoTotal++;
-                document.getElementById('temporizador').innerText = segundosTranscurridos;
-            }, 1000);
-        }
-
-        function responder(respuestaUsuario) {
-            clearInterval(temporizadorInterval);
-            
-            const escenario = escenarios[escenarioActual];
-            const esCorrecto = (respuestaUsuario === escenario.esLegitimo);
-            
-            const modalTitle = document.getElementById('feedbackTitulo');
-            const modalMensaje = document.getElementById('feedbackMensaje');
-            
-            if (esCorrecto) {
-                score += 10;
-                modalTitle.innerText = "[+] ACCESO DENEGADO - ¡Acierto!";
-                modalTitle.style.color = "#00ff41";
-                modalMensaje.innerText = escenario.feedbackCorrecto;
             } else {
-                modalTitle.innerText = "[-] SISTEMA COMPROMETIDO - Fallaste";
-                modalTitle.style.color = "#ff3333";
-                modalMensaje.innerText = escenario.feedbackIncorrecto;
+                cargarEscenario();
             }
-
-            const feedbackModalEl = document.getElementById('feedbackModal');
-            const modal = bootstrap.Modal.getOrCreateInstance(feedbackModalEl);
-            modal.show();
-        }
-
-        
-
-        function finalizarQuiz() {
-            document.getElementById('pantalla-quiz').setAttribute('style', 'display: none !important');
-            document.getElementById('pantalla-resultados').setAttribute('style', 'display: block !important');
-            document.getElementById('pantalla-resultados').classList.remove('hidden');
-            
-            const maxScore = escenarios.length * 10;
-            document.getElementById('score-final').innerText = `${score}/${maxScore}`;
-            document.getElementById('alias-tabla').innerText = alias;
-            document.getElementById('score-tabla').innerText = score;
-            document.getElementById('tiempo-tabla').innerText = `${tiempoTotal}s`;
-        }
-        document.addEventListener('DOMContentLoaded', () => {
-        const btnSiguiente = document.getElementById('btnSiguienteModal');
-        if (btnSiguiente) {
-            btnSiguiente.addEventListener('click', () => {
-                const modalEl = document.getElementById('feedbackModal');
-                const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
-                
-                modal.hide();
-                setTimeout(() => {
-                    escenarioActual++;
-                    if (escenarioActual >= escenarios.length) {
-                        finalizarQuiz();
-                    } else {
-                        cargarEscenario();
-                    }
-                }, 350);
-            });
-        }
+        });
     });
-        const feedbackModal = document.getElementById('feedbackModal');
-
-feedbackModal.addEventListener('hidden.bs.modal', function () {    escenarioActual++;
-    
-    if (escenarioActual >= escenarios.length) {
-        finalizarQuiz();
-    } else {
-        cargarEscenario();
-    }
-});
     </script>
 </body>
 </html>
