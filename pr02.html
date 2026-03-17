@@ -646,25 +646,23 @@
         document.getElementById('tiempo-tabla').innerText = `${tiempoTotal}s`;
     }
 
-    // ====================== BOTÓN "SIGUIENTE >>" (AHORA SÍ FUNCIONA) ======================
-    document.addEventListener('DOMContentLoaded', () => {
-        const btnSiguiente = document.getElementById('btnSiguienteModal');
-        if (btnSiguiente) {
-            btnSiguiente.addEventListener('click', () => {
-                const modal = bootstrap.Modal.getInstance(document.getElementById('feedbackModal'));
-                if (modal) modal.hide();
+    const btnSiguiente = document.getElementById('btnSiguienteModal');
 
-                setTimeout(() => {
-                    escenarioActual++;
-                    if (escenarioActual >= escenarios.length) {
-                        finalizarQuiz();
-                    } else {
-                        cargarEscenario();
-                    }
-                }, 350);
-            });
+btnSiguiente.addEventListener('click', () => {
+    const modal = bootstrap.Modal.getInstance(document.getElementById('feedbackModal'));
+    if (modal) modal.hide();
+
+    setTimeout(() => {
+        escenarioActual++;
+
+        if (escenarioActual >= escenarios.length) {
+            finalizarQuiz();
+        } else {
+            cargarEscenario();
         }
-    });
+
+    }, 350);
+});
     </script>
 </body>
 </html>
