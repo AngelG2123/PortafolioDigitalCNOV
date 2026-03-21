@@ -90,6 +90,36 @@
         .referencias-lista li { margin-bottom: 1rem; font-size: 0.9rem; color: #bbb; word-break: break-all; }
         .referencias-lista li::before { content: ">> "; color: #00ff41; font-weight: bold; }
 
+        #seccion-simulador .card {
+            border: 1px solid #333;
+            box-shadow: 0 4px 15px rgba(0, 255, 65, 0.05) !important;
+        }
+        
+        #seccion-simulador .form-control {
+            background-color: #1a1a1a !important;
+            border: 1px solid #444;
+            color: #00ff41 !important;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        #seccion-simulador .form-control:focus {
+            border-color: #00ff41;
+            box-shadow: 0 0 5px rgba(0, 255, 65, 0.3);
+        }
+
+        #seccion-simulador label { color: #666; }
+
+        .btn-terminal-success { background-color: transparent; color: #00ff41; border: 1px solid #00ff41; transition: all 0.3s ease; }
+        .btn-terminal-success:hover { background-color: rgba(0, 255, 65, 0.1); color: #fff; box-shadow: 0 0 10px rgba(0, 255, 65, 0.4); }
+
+        .btn-terminal-info { background-color: transparent; color: #00a4ef; border: 1px solid #00a4ef; transition: all 0.3s ease; }
+        .btn-terminal-info:hover { background-color: rgba(0, 164, 239, 0.1); color: #fff; box-shadow: 0 0 10px rgba(0, 164, 239, 0.4); }
+        
+        .btn-terminal-danger { background-color: transparent; color: #ff3333; border: 1px solid #ff3333; transition: all 0.3s ease; }
+        .btn-terminal-danger:hover { background-color: rgba(255, 51, 51, 0.1); color: #fff; box-shadow: 0 0 10px rgba(255, 51, 51, 0.4); }
+
+        #tabla-ranking td, #tabla-solo-ranking td { vertical-align: middle; border-bottom-color: #222; }
+
     </style>
 </head>
 <body>
@@ -343,87 +373,115 @@
             <p>Por último, Cofense se distingue por buscar que los empleados sean sensores activos de seguridad, Infosec IQ resulta ser la plataforma ideal para llevar programas de entrenamiento estructurados y compatibles con plataformas de formación.</p>
         </div>
 
-       <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">05</span> Simulación Phishing Quiz</h2>
-        <div class="scroll-element mb-5" id="seccion-simulador" data-bs-theme="dark">
+       <div class="scroll-element mb-5" id="seccion-simulador" data-bs-theme="dark">
             
             <div id="pantalla-registro" class="card shadow-sm border-secondary text-light" style="background-color: #0f0f0f;">
                 <div class="card-body text-center p-5">
                     <i class="fas fa-user-secret" style="font-size: 3rem; color: #00ff41; margin-bottom: 1rem;"></i>
-                    <h3 class="mb-4 text-white" style="border: none;">El Eslabón Más Débil</h3>
-                    <p class="lead text-muted">Bienvenido a esta simulación educativa.</p>
-                    <div class="alert text-start" role="alert" style="background-color: #1a1a1a; border-left: 4px solid #00ff41; color: #ccc;">
-                        <strong style="color: #00ff41;">Aviso de Consentimiento Informado:</strong><br>
-                        Al continuar, aceptas participar en una prueba de concientización en ciberseguridad. 
-                        <strong>No se capturarán contraseñas ni datos sensibles reales.</strong> Todos los escenarios que veras a continuación, son simulaciones controladas.
-                    </div>
-                    <div class="form-floating mb-3 mt-4 w-75 mx-auto text-dark">
-                        <input type="text" class="form-control bg-dark text-white border-secondary" id="aliasUsuario" placeholder="Tu Alias Hacker">
-                        <label for="aliasUsuario" class="text-muted">Ingresa un Alias</label>
-                    </div>
-                    <button id="btnEmpezar" class="btn btn-outline-success btn-lg mt-2" style="font-family: 'JetBrains Mono', monospace;">> Iniciar_Simulación</button>
-                </div>
-            </div>
-
-            <div id="pantalla-quiz" class="card shadow-sm border-secondary hidden" style="display: none; background-color: #0f0f0f;">
-                <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #111; border-bottom: 1px solid #333;">
-                    <span id="progreso-texto" style="font-family: 'JetBrains Mono', monospace; color: #00ff41;">> Escenario 1/10</span>
-                    <span class="badge text-bg-danger" style="font-family: 'JetBrains Mono', monospace;">Tiempo: <span id="temporizador">0</span>s</span>
-                </div>
-                <div class="card-body p-4 text-light">
-                    <h4 id="titulo-escenario" class="mb-3 text-white" style="border-left: 4px solid #00ff41; padding-left: 10px;">Título del Escenario</h4>
+                    <h3 class="mb-4 text-white" style="border: none; text-transform: uppercase; letter-spacing: 2px;">El Eslabón Más Débil</h3>
+                    <p class="lead text-muted mb-4">Simulación Phishing Quiz.</p>
                     
-                    <div class="border border-secondary p-4 mb-4 rounded shadow-sm" id="contenido-simulado" style="background-color: #1a1a1a;">
-                        </div>
-
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-4" id="botones-accion">
-                        <button class="btn btn-outline-danger btn-lg me-md-2" onclick="responder(false)"><i class="fas fa-biohazard"></i> Phishing</button>
-                        <button class="btn btn-outline-success btn-lg" onclick="responder(true)"><i class="fas fa-shield-alt"></i> Seguro</button>
+                    <div class="alert text-start" role="alert" style="background-color: #111; border: 1px solid #333; border-left: 4px solid #00ff41; color: #ccc; font-size: 0.9rem;">
+                        <strong style="color: #00ff41;"><i class="fas fa-info-circle"></i> Aviso:</strong><br>
+                        Al continuar, aceptas participar en una prueba. <strong>No se capturarán contraseñas ni datos sensibles reales.</strong> Todos los escenarios son simulaciones.
                     </div>
-
-                    <div id="panel-feedback" class="mt-4 p-4 border border-secondary rounded hidden" style="display: none; background-color: #111;">
-                        <h5 id="feedbackTitulo" style="font-family: 'JetBrains Mono', monospace; margin-bottom: 15px;">Resultado</h5>
-                        <p id="feedbackMensaje" class="fs-5 text-light"></p>
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                            <button class="btn btn-light btn-lg" onclick="siguienteEscenario()">Siguiente >></button>
-                        </div>
+                    
+                    <div class="form-floating mb-4 mt-4 w-75 mx-auto text-dark">
+                        <input type="text" class="form-control" id="aliasUsuario" placeholder="Tu Alias Hacker">
+                        <label for="aliasUsuario">Ingresa un Alias para el registro</label>
                     </div>
-
+                    
+                    <div class="d-flex justify-content-center gap-3 flex-wrap">
+                        <button id="btnEmpezar" class="btn btn-terminal-success btn-lg" style="font-family: 'JetBrains Mono', monospace;"><i class="fas fa-play"></i> Iniciar_Simulación</button>
+                        <button id="btnVerRanking" class="btn btn-terminal-info btn-lg" style="font-family: 'JetBrains Mono', monospace;"><i class="fas fa-trophy"></i> Ver_Ranking_Global</button>
+                    </div>
                 </div>
             </div>
 
-            <div id="pantalla-resultados" class="hidden" style="display: none;">
-                <h3 class="mb-4 text-center text-white" style="border: none;">Dashboard de Resultados</h3>
-                <div class="row mb-4">
-                    <div class="col-md-4">
-                        <div class="card text-white mb-3 text-center border-secondary shadow-lg" style="background-color: #111;">
-                            <div class="card-body p-5">
-                                <h5 class="card-title text-uppercase text-muted mb-3" style="font-family: 'JetBrains Mono', monospace;">Tu Score</h5>
-                                <h2 id="score-final" class="display-5 fw-bold" style="color: #00ff41;">0/100</h2>
+            <div id="pantalla-quiz" class="card shadow-sm border-secondary hidden" style="display: none; background-color: #000;">
+                <div class="card-body p-4 text-light">
+                    <div class="d-flex justify-content-between align-items-center mb-4" style="border-bottom: 1px solid #333; padding-bottom: 10px;">
+                        <span id="progreso-texto" style="font-family: 'JetBrains Mono', monospace; color: #00ff41; font-weight: bold;">> Escenario 1/10</span>
+                        <span class="badge text-bg-dark border border-secondary" style="font-family: 'JetBrains Mono', monospace; padding: 8px 12px; font-size: 0.9rem;"><i class="far fa-clock"></i> <span id="temporizador" style="color:#ffcc00;">0</span>s</span>
+                    </div>
+                    
+                    <h4 id="titulo-escenario" class="mb-4 text-white" style="border-left: 4px solid #00ff41; padding-left: 15px; letter-spacing: 1px;">Título del Escenario</h4>
+                    
+                    <div class="border border-secondary p-4 mb-4 rounded shadow-sm" id="contenido-simulado" style="background-color: #111;">
+                        </div>
+
+                    <div class="d-grid gap-3 d-md-flex justify-content-md-center mt-4" id="botones-accion">
+                        <button class="btn btn-terminal-danger btn-lg me-md-2 px-5" onclick="responder(false)"><i class="fas fa-biohazard"></i> Phishing</button>
+                        <button class="btn btn-terminal-success btn-lg px-5" onclick="responder(true)"><i class="fas fa-shield-alt"></i> Seguro</button>
+                    </div>
+
+                    <div id="panel-feedback" class="mt-4 p-4 border border-secondary rounded hidden" style="display: none; background-color: #0a0a0a;">
+                        <h5 id="feedbackTitulo" style="font-family: 'JetBrains Mono', monospace; margin-bottom: 15px; text-transform: uppercase;">Resultado</h5>
+                        <p id="feedbackMensaje" class="fs-6 text-light" style="line-height: 1.6;"></p>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            <button class="btn btn-outline-light" onclick="siguienteEscenario()" style="font-family: 'JetBrains Mono', monospace;">Siguiente >></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="pantalla-resultados" class="hidden card shadow-sm border-secondary text-light" style="display: none; background-color: #0f0f0f; padding: 2rem;">
+                <h3 class="mb-4 text-center text-white" style="border: none; text-transform: uppercase; letter-spacing: 2px;"><i class="fas fa-server"></i> Dashboard Central</h3>
+                
+                <div class="row mb-4 align-items-center" id="seccion-tu-score">
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card text-white text-center border-secondary shadow-lg h-100" style="background-color: #111;">
+                            <div class="card-body p-4 d-flex flex-column justify-content-center">
+                                <h6 class="card-title text-uppercase text-muted mb-3" style="font-family: 'JetBrains Mono', monospace;">Tu Score</h6>
+                                <h2 id="score-final" class="display-4 fw-bold m-0" style="color: #00ff41;">0/100</h2>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-8">
-                        <div class="tabla-container">
+                        <div class="tabla-container m-0">
                             <table class="table table-dark table-striped table-hover mb-0" style="background: transparent;">
                                 <thead>
                                     <tr>
-                                        <th class="px-4" style="color: #00ff41;">POS</th>
-                                        <th style="color: #00ff41;">ALIAS</th>
-                                        <th style="color: #00ff41;">PUNTOS</th>
-                                        <th style="color: #00ff41;">TIEMPO</th>
+                                        <th class="px-4" style="color: #00ff41; border-bottom: 2px solid #333;">POS</th>
+                                        <th style="color: #00ff41; border-bottom: 2px solid #333;">ALIAS</th>
+                                        <th style="color: #00ff41; border-bottom: 2px solid #333;">PUNTOS</th>
+                                        <th style="color: #00ff41; border-bottom: 2px solid #333;">TIEMPO</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tabla-ranking">
-                                    <tr><td class="px-4 fw-bold">#2</td><td id="alias-tabla">TuAlias</td><td id="score-tabla">-</td><td id="tiempo-tabla">-</td></tr>
+                                    <tr><td colspan="4" class="text-center text-muted">Cargando base de datos...</td></tr>
                                 </tbody>
                             </table>
                         </div>
-                        <div class="text-center mt-4">
-                            <button class="btn btn-outline-success btn-lg" onclick="reiniciarQuiz()" style="font-family: 'JetBrains Mono', monospace;">> Reiniciar_Quiz</button>
+                    </div>
+                </div>
+
+                <div class="row mb-4 align-items-center hidden" id="seccion-solo-ranking" style="display: none;">
+                    <div class="col-12">
+                         <div class="tabla-container m-0">
+                            <table class="table table-dark table-striped table-hover mb-0" style="background: transparent;">
+                                <thead>
+                                    <tr>
+                                        <th class="px-4" style="color: #00a4ef; border-bottom: 2px solid #333;">POS</th>
+                                        <th style="color: #00a4ef; border-bottom: 2px solid #333;">ALIAS</th>
+                                        <th style="color: #00a4ef; border-bottom: 2px solid #333;">PUNTOS</th>
+                                        <th style="color: #00a4ef; border-bottom: 2px solid #333;">TIEMPO</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabla-solo-ranking">
+                                    <tr><td colspan="4" class="text-center text-muted">Cargando conexión segura...</td></tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
+
+                <div class="text-center mt-2">
+                    <button class="btn btn-outline-secondary" onclick="volverAlInicio()" style="font-family: 'JetBrains Mono', monospace;"><i class="fas fa-undo"></i> Volver_al_Inicio</button>
+                </div>
             </div>
+
+        </div>
 
         </div>
         <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">06</span> Referencias Bibliográficas</h2>
@@ -466,9 +524,7 @@
     <script>
         console.log("[SISTEMA] Inicializando módulo de simulación con Base de Datos...");
 
-        // ==========================================
-        // 1. CONFIGURACIÓN DE FIREBASE (¡PEGA TUS DATOS AQUÍ!)
-        // ==========================================
+
         const firebaseConfig = {
             apiKey: "AIzaSyATL8rEB9C9Hky-CKuYYWBWMmUljvGAEXM",
             authDomain: "quiz-ac792.firebaseapp.com",
@@ -479,13 +535,11 @@
             measurementId: "G-XHEES3NMPR"
         };
 
-        // Inicializar Firebase
+
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        // ==========================================
-        // 2. VARIABLES GLOBALES Y CANDADOS
-        // ==========================================
+
         let escenarioActual = 0;
         let score = 0;
         let temporizadorInterval;
@@ -507,9 +561,7 @@
             { titulo: "Recibo de Plataforma de Pagos", contenido: `<div style="background: #222; padding: 15px; border-radius: 5px; font-family: Arial, sans-serif; color: #ddd; text-align: left;"><div style="border-bottom: 1px solid #444; padding-bottom: 10px; margin-bottom: 15px;"><strong>De:</strong> PayPal Services &lt;recibos@paypal.com.soporte-clientes.net&gt;<br><strong>Asunto:</strong> Recibo de su pago a Spotify. por $299 MXN</div><p>Has enviado un pago automático a Spotify. por $299.00 MXN.</p><p>Si tú no autorizaste esta transacción o crees que se trata de un error, puedes cancelarla y solicitar un reembolso haciendo clic en el enlace de resolución de disputas inmediatamente, antes de que el cargo se procese en tu tarjeta vinculada.</p><div style="text-align: center; margin: 20px 0;"><button style="background: transparent; color: #00a4ef; border: 1px solid #00a4ef; padding: 8px 20px; font-weight: bold; border-radius: 20px; cursor: pointer;">Ir al Centro de Resoluciones</button></div></div>`, esLegitimo: false, feedbackCorrecto: "Correcto. El correo utiliza la técnica de spoofing mediante el uso de subdominios. El dominio raíz real es 'soporte-clientes.net', diseñado para evadir una inspección rápida y crear alarma sobre un cargo financiero no reconocido.", feedbackIncorrecto: "Fallo. El dominio del remitente es engañoso. Aunque comienza con la marca suplantada, el dominio de nivel superior administrado por el atacante es 'soporte-clientes.net', utilizando la estructura de subdominios para ocultar su origen real." }
         ];
 
-        // ==========================================
-        // 3. LÓGICA DEL QUIZ
-        // ==========================================
+
 
         function mezclarEscenarios(array) {
             for (let i = array.length - 1; i > 0; i--) {
@@ -532,6 +584,16 @@
             document.getElementById('pantalla-quiz').setAttribute('style', 'display: block !important');
             
             cargarEscenario();
+        });
+        document.getElementById('btnVerRanking').addEventListener('click', () => {
+            document.getElementById('pantalla-registro').setAttribute('style', 'display: none !important');
+            document.getElementById('pantalla-resultados').setAttribute('style', 'display: block !important');
+            
+            // Ocultar sección de score personal, mostrar tabla completa
+            document.getElementById('seccion-tu-score').setAttribute('style', 'display: none !important');
+            document.getElementById('seccion-solo-ranking').setAttribute('style', 'display: block !important');
+            
+            cargarScoreboard('tabla-solo-ranking', false);
         });
 
         function cargarEscenario() {
@@ -566,7 +628,6 @@
         function responder(respuestaUsuario) {
             if (escenarioRespondido) return; 
             escenarioRespondido = true;
-
             clearInterval(temporizadorInterval);
             
             const escenario = escenarios[escenarioActual];
@@ -577,11 +638,11 @@
             
             if (esCorrecto) {
                 score += 10;
-                feedbackTitle.innerText = "[+] ACCESO DENEGADO - ¡Acierto!";
+                feedbackTitle.innerHTML = `<i class="fas fa-check-circle"></i> ACCESO DENEGADO - ¡Acierto!`;
                 feedbackTitle.style.color = "#00ff41";
                 feedbackMensaje.innerText = escenario.feedbackCorrecto;
             } else {
-                feedbackTitle.innerText = "[-] SISTEMA COMPROMETIDO - Fallaste";
+                feedbackTitle.innerHTML = `<i class="fas fa-skull-crossbones"></i> SISTEMA COMPROMETIDO - Fallo`;
                 feedbackTitle.style.color = "#ff3333";
                 feedbackMensaje.innerText = escenario.feedbackIncorrecto;
             }
@@ -590,7 +651,7 @@
             
             const panelFeedback = document.getElementById('panel-feedback');
             panelFeedback.classList.remove('hidden');
-            panelFeedback.setAttribute('style', 'display: block !important; background-color: #111; border-color: #333 !important;');
+            panelFeedback.setAttribute('style', 'display: block !important; background-color: #1a1a1a; border-left: 4px solid ' + (esCorrecto ? '#00ff41' : '#ff3333') + ' !important;');
         }
 
         function siguienteEscenario() {
@@ -606,11 +667,15 @@
             document.getElementById('pantalla-quiz').setAttribute('style', 'display: none !important');
             document.getElementById('pantalla-resultados').setAttribute('style', 'display: block !important');
             
+            // Mostrar configuración para quien sí jugó
+            document.getElementById('seccion-solo-ranking').setAttribute('style', 'display: none !important');
+            document.getElementById('seccion-tu-score').setAttribute('style', 'display: flex !important');
+
             const maxScore = escenarios.length * 10;
             document.getElementById('score-final').innerText = `${score}/${maxScore}`;
             
             const tabla = document.getElementById('tabla-ranking');
-            tabla.innerHTML = "<tr><td colspan='4' class='text-center text-muted'>Enviando datos al servidor seguro...</td></tr>";
+            tabla.innerHTML = "<tr><td colspan='4' class='text-center text-muted'><i class='fas fa-circle-notch fa-spin'></i> Cifrando y transmitiendo datos...</td></tr>";
 
             // Guardar en Firebase
             db.collection("scores").add({
@@ -619,23 +684,22 @@
                 tiempo: tiempoTotal,
                 fecha: firebase.firestore.FieldValue.serverTimestamp()
             }).then(() => {
-                console.log("[SISTEMA] Puntaje guardado exitosamente.");
-                // Llamamos a la tabla solo cuando ya se guardó tu puntaje
-                cargarScoreboard();
+                console.log("[SISTEMA] Registro completado.");
+                cargarScoreboard('tabla-ranking', true);
             }).catch((error) => {
-                console.error("[ERROR] No se pudo guardar: ", error);
-                tabla.innerHTML = "<tr><td colspan='4' class='text-center text-danger'>Error al guardar los datos.</td></tr>";
+                console.error("[ERROR] Conexión fallida: ", error);
+                tabla.innerHTML = "<tr><td colspan='4' class='text-center text-danger'>Error de comunicación con el servidor central.</td></tr>";
             });
         }
 
         let conexionTiempoReal = null;
 
-        function cargarScoreboard() {
-            const tabla = document.getElementById('tabla-ranking');
+        // Modificada para pintar en la tabla correcta y resaltar al jugador
+        function cargarScoreboard(idTabla, resaltarUsuarioActual) {
+            const tabla = document.getElementById(idTabla);
             
             if(conexionTiempoReal) { conexionTiempoReal(); }
 
-            // AQUÍ ESTÁ EL DOBLE FILTRO QUE PEDISTE
             conexionTiempoReal = db.collection("scores")
               .orderBy("score", "desc")
               .orderBy("tiempo", "asc")
@@ -648,15 +712,20 @@
                       const data = doc.data();
                       
                       let claseColor = 'text-light';
-                      if (posicion === 1) claseColor = 'text-warning fw-bold';
-                      else if (data.alias === alias && data.score === score && data.tiempo === tiempoTotal) {
+                      let iconoMedalla = '';
+
+                      if (posicion === 1) {
+                          claseColor = 'text-warning fw-bold';
+                          iconoMedalla = '<i class="fas fa-crown"></i> ';
+                      }
+                      else if (resaltarUsuarioActual && data.alias === alias && data.score === score && data.tiempo === tiempoTotal) {
                           claseColor = 'text-success fw-bold'; 
                       }
                       
                       const fila = `<tr>
-                          <td class="px-4 ${claseColor}">#${posicion}</td>
+                          <td class="px-4 ${claseColor}">${iconoMedalla}#${posicion}</td>
                           <td class="${claseColor}">${data.alias}</td>
-                          <td class="${claseColor}">${data.score}</td>
+                          <td class="${claseColor}">${data.score} pts</td>
                           <td class="${claseColor}">${data.tiempo}s</td>
                       </tr>`;
                       
@@ -664,27 +733,21 @@
                       posicion++;
                   });
               }, (error) => {
-                  // ESTE ERROR ES CLAVE PARA EL PASO 2
-                  console.error("🔥 ERROR DE FIREBASE: Falta crear el Índice Compuesto.");
                   console.error(error.message);
-                  tabla.innerHTML = "<tr><td colspan='4' class='text-center text-danger'>Falta crear el Índice en Firebase. Revisa la consola (F12).</td></tr>";
+                  tabla.innerHTML = "<tr><td colspan='4' class='text-center text-danger'>No se pudo cargar la base de datos.</td></tr>";
               });
         }
 
-        // Función enlazada al nuevo botón que agregaste en el HTML
-        function reiniciarQuiz() {
-            // Limpiar variables
+        function volverAlInicio() {
             escenarioActual = 0;
             score = 0;
             tiempoTotal = 0;
             alias = "";
             
-            // Limpiar caja de texto y cambiar pantallas
             document.getElementById('aliasUsuario').value = "";
             document.getElementById('pantalla-resultados').setAttribute('style', 'display: none !important');
             document.getElementById('pantalla-registro').setAttribute('style', 'display: block !important');
         }
-
     </script>
 </body>
 </html>
