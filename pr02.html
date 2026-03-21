@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
-        /* ESTILOS GENERALES */
         .hidden { display: none !important; }
         body { 
             background-color: #050505;
@@ -43,27 +42,27 @@
         }
         .rubrica-tag { background: #222; color: #aaa; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; margin-right: 10px; vertical-align: middle; }
         
-        /* Párrafos y Textos */
+
         .contenedor-articulo p { line-height: 1.8; margin-bottom: 1.2rem; text-align: justify; font-size: 1rem; color: #d1d1d1; }
         .contenedor-articulo ul { line-height: 1.8; margin-bottom: 1.2rem; font-size: 1rem; color: #d1d1d1; }
         .contenedor-articulo li { margin-bottom: 10px; }
         strong { color: #fff; }
         h3 { color: #fff; margin-top: 3rem; margin-bottom: 1rem; font-size: 1.2rem; border-left: 4px solid #00ff41; padding-left: 10px; padding-top: 5px; padding-bottom: 5px;}
 
-        /* Metadata */
+
         .box-metadata { background: #111; border: 1px solid #333; padding: 1.5rem; margin-bottom: 3rem; border-left: 4px solid #00ff41; }
         .box-metadata ul { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px;}
         .box-metadata li { font-size: 0.9rem; color: #aaa; margin-bottom: 5px;}
         .box-metadata li i { color: #00ff41; margin-right: 8px; }
 
-        /* Tablas */
+
         .tabla-container { background: #0a0a0a; overflow-x: auto; margin-bottom: 2rem; border: 1px solid #333; border-radius: 4px; }
         table { width: 100%; border-collapse: collapse; font-size: 0.9rem; font-family: 'JetBrains Mono', monospace; }
         th { background: #1a1a1a; color: #00ff41; padding: 12px; text-align: left; border-bottom: 2px solid #444; min-width: 180px; }
         td { padding: 12px; border: 1px solid #333; vertical-align: top; color: #ccc; }
         tr:nth-child(even) td { background: rgba(255,255,255,0.03); }
 
-        /* Multimedia y Placeholders */
+
         .multimedia-area { background: #0f0f0f; border: 1px dashed #444; padding: 1.5rem; text-align: center; margin: 2rem 0; border-radius: 6px; }
         
         .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 1rem; border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
@@ -78,7 +77,7 @@
         .espacio-imagen img { max-width: 100%; height: auto; border: 1px solid #333; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
         .caption-imagen { font-size: 0.8rem; color: #666; margin-top: 10px; font-style: italic; }
 
-        /* Botón Exportar */
+
         .btn-exportar {
             display: block; width: 100%; max-width: 350px; margin: 3rem auto; padding: 1.2rem; background: #b71c1c; 
             color: white; text-align: center; text-decoration: none; font-weight: bold; border-radius: 4px; font-family: 'JetBrains Mono', monospace; 
@@ -86,7 +85,7 @@
         }
         .btn-exportar:hover { background: #d32f2f; box-shadow: 0 0 20px rgba(229, 57, 53, 0.6); transform: translateY(-2px); }
 
-        /* Referencias */
+
         .referencias-lista { list-style: none; padding: 0; background: #111; padding: 1.5rem; border-left: 2px solid #555; }
         .referencias-lista li { margin-bottom: 1rem; font-size: 0.9rem; color: #bbb; word-break: break-all; }
         .referencias-lista li::before { content: ">> "; color: #00ff41; font-weight: bold; }
@@ -355,13 +354,13 @@
                     <div class="alert text-start" role="alert" style="background-color: #1a1a1a; border-left: 4px solid #00ff41; color: #ccc;">
                         <strong style="color: #00ff41;">Aviso de Consentimiento Informado:</strong><br>
                         Al continuar, aceptas participar en una prueba de concientización en ciberseguridad. 
-                        <strong>No se capturarán contraseñas ni datos sensibles reales.</strong> Todos los escenarios son simulaciones controladas.
+                        <strong>No se capturarán contraseñas ni datos sensibles reales.</strong> Todos los escenarios que veras a continuación, son simulaciones controladas.
                     </div>
                     <div class="form-floating mb-3 mt-4 w-75 mx-auto text-dark">
                         <input type="text" class="form-control bg-dark text-white border-secondary" id="aliasUsuario" placeholder="Tu Alias Hacker">
-                        <label for="aliasUsuario" class="text-muted">Ingresa un Alias para el Scoreboard</label>
+                        <label for="aliasUsuario" class="text-muted">Ingresa un Alias</label>
                     </div>
-                    <button id="btnEmpezar" class="btn btn-outline-success btn-lg mt-2" style="font-family: 'JetBrains Mono', monospace;">> Inicializar_Simulación</button>
+                    <button id="btnEmpezar" class="btn btn-outline-success btn-lg mt-2" style="font-family: 'JetBrains Mono', monospace;">> Iniciar_Simulación</button>
                 </div>
             </div>
 
@@ -372,14 +371,13 @@
                 </div>
                 <div class="card-body p-4 text-light">
                     <h4 id="titulo-escenario" class="mb-3 text-white" style="border-left: 4px solid #00ff41; padding-left: 10px;">Título del Escenario</h4>
-                    <p id="descripcion-escenario" class="text-muted fw-bold">Lee cuidadosamente el siguiente mensaje y decide tu acción.</p>
                     
                     <div class="border border-secondary p-4 mb-4 rounded shadow-sm" id="contenido-simulado" style="background-color: #1a1a1a;">
                         </div>
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-4" id="botones-accion">
-                        <button class="btn btn-outline-danger btn-lg me-md-2" onclick="responder(false)"><i class="fas fa-biohazard"></i> Es Phishing</button>
-                        <button class="btn btn-outline-success btn-lg" onclick="responder(true)"><i class="fas fa-shield-alt"></i> Es Seguro</button>
+                        <button class="btn btn-outline-danger btn-lg me-md-2" onclick="responder(false)"><i class="fas fa-biohazard"></i> Phishing</button>
+                        <button class="btn btn-outline-success btn-lg" onclick="responder(true)"><i class="fas fa-shield-alt"></i> Seguro</button>
                     </div>
 
                     <div id="panel-feedback" class="mt-4 p-4 border border-secondary rounded hidden" style="display: none; background-color: #111;">
@@ -461,7 +459,7 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        console.log("[SISTEMA] Inicializando módulo de simulación sin modales...");
+        console.log("[SISTEMA] Inicializando módulo de simulación - Diseño Limpio...");
 
         let escenarioActual = 0;
         let score = 0;
@@ -471,16 +469,190 @@
         let alias = "";
 
         const escenarios = [
-            { titulo: "Urgencia Ejecutiva (Fraude del CEO)", descripcion: "Recibes un correo de tu director a tu cuenta corporativa.", contenido: `<strong>De:</strong> director.general@tuempresa.com.co<br><strong>Asunto:</strong> URGENTE: Compra de tarjetas de regalo para clientes<br><br>Ángel, estoy en una reunión y no puedo contestar llamadas. Necesito que compres 5 tarjetas de regalo de Amazon de $1,000 MXN cada una para unos clientes clave hoy mismo. Mándame los códigos por aquí apenas los tengas. Te reembolso en la tarde.<br><br>Enviado desde mi iPhone.`, esLegitimo: false, feedbackCorrecto: "¡Excelente! Identificaste el ataque. Usan urgencia extrema, piden transferencias de valor no rastreables (tarjetas de regalo) y el dominio del remitente termina en '.com.co' en lugar del oficial.", feedbackIncorrecto: "Caíste. Este es un clásico 'Fraude del CEO'. Los atacantes falsifican el nombre de un superior y usan un tono de urgencia para que actúes rápido sin pensar." },
-            { titulo: "Alerta de Seguridad (Ataque Homógrafo)", descripcion: "Llega una notificación a tu correo personal sobre tu cuenta bancaria.", contenido: `<strong>De:</strong> alertas@citiḃank.com<br><strong>Asunto:</strong> Bloqueo preventivo de cuenta<br><br>Estimado cliente, hemos detectado un intento de inicio de sesión sospechoso. Por su seguridad, hemos bloqueado temporalmente sus transferencias. Para verificar su identidad y desbloquear la cuenta, ingrese aquí:<br><br><a href="#" style="color: #00ff41;">https://www.citiḃank.com/verificacion-segura</a>`, esLegitimo: false, feedbackCorrecto: "¡Muy bien! Notaste el carácter extraño en la 'b' de citiḃank. Este es un ataque homógrafo usando caracteres Unicode que se parecen visualmente para engañar tu ojo.", feedbackIncorrecto: "¡Cuidado! Este es un ataque homógrafo. Si observas de cerca la letra 'b' en 'citiḃank', verás que tiene un punto arriba (ḃ). Es un dominio falso." },
-            { titulo: "Correo Interno Legítimo", descripcion: "Mensaje de Recursos Humanos en la bandeja de entrada.", contenido: `<strong>De:</strong> rh@tuempresa.com<br><strong>Asunto:</strong> Recordatorio: Actualización de datos de emergencia<br><br>Hola a todos. Les recordamos que tienen hasta el viernes para actualizar sus contactos de emergencia en el portal interno de empleados (portal.tuempresa.local).<br><br>Cualquier duda, pueden marcar a la extensión 104.`, esLegitimo: true, feedbackCorrecto: "¡Correcto! Es un correo seguro. Proviene del dominio interno oficial, no pide hacer clic en enlaces externos sospechosos ni solicita contraseñas.", feedbackIncorrecto: "Te equivocaste, este correo era seguro. Analiza la falta de urgencia, el remitente válido y que no hay enlaces maliciosos." },
-            { titulo: "Factura con Adjunto (Malware)", descripcion: "El departamento de contabilidad te reenvía esto pidiendo revisión.", contenido: `<strong>De:</strong> facturacion@proveedor-servicios.net<br><strong>Asunto:</strong> Factura de servicios correspondiente a Marzo 2026<br><br>Buen día, adjunto la factura de los servicios de este mes. Por favor, revisa el detalle en el archivo Excel para proceder con el pago.<br><br>📎 <em>Factura_Marzo_2026.xlsx.exe</em>`, esLegitimo: false, feedbackCorrecto: "¡Excelente! Te diste cuenta de la doble extensión (.xlsx.exe). Es un ejecutable malicioso disfrazado de Excel.", feedbackIncorrecto: "¡Peligro crítico! El archivo termina en '.exe', lo que significa que al abrirlo podrías instalar un troyano o ransomware." },
-            { titulo: "Fatiga MFA (Autenticación Multifactor)", descripcion: "Estás trabajando en tu PC y tu celular vibra repetidas veces.", contenido: `<strong>📱 Notificación en tu celular (Microsoft Authenticator):</strong><br><br>¿Aprobar inicio de sesión?<br><strong>Aplicación:</strong> Office 365<br><strong>Ubicación:</strong> Moscú, Rusia<br><br>[ APROBAR ] &nbsp;&nbsp;&nbsp; [ DENEGAR ]`, esLegitimo: false, feedbackCorrecto: "¡Bien hecho! Denegaste el acceso. Los atacantes que ya tienen tu contraseña intentan saturarte de notificaciones esperando que apruebes por desesperación.", feedbackIncorrecto: "¡Mal! Acabas de darle acceso al atacante a tu cuenta corporativa. Nunca apruebes una solicitud MFA que tú no hayas iniciado." },
-            { titulo: "Smishing (SMS Fraudulento)", descripcion: "Recibes un mensaje de texto en tu teléfono móvil.", contenido: `<strong>De:</strong> +52 55 1234 5678<br><br>FEDEX: Su paquete no pudo ser entregado hoy por falta de pago de aduanas ($45 MXN). Pague ahora para reprogramar su entrega: <br><a href="#" style="color: #00ff41;">https://bit.ly/fedex-aduanas-mx</a>`, esLegitimo: false, feedbackCorrecto: "¡Correcto! Es un caso clásico de Smishing. Usan enlaces acortados y piden pagos pequeños para robar tu tarjeta.", feedbackIncorrecto: "Caíste en un ataque de Smishing. Las paqueterías reales rara vez piden pagos de aduana a través de enlaces acortados." },
-            { titulo: "Baiting (Oferta Irresistible)", descripcion: "Navegando por la web, ves un banner en un foro de tecnología.", contenido: `<strong>OFERTA EXCLUSIVA PARA MIEMBROS DEL FORO</strong><br><br>¡Descarga Adobe Creative Cloud Completo GRATIS (Licencia de por vida 2026)!<br>Oferta válida solo por los próximos 15 minutos.<br><br><button class="btn btn-warning btn-sm">DESCARGAR AHORA (.zip)</button>`, esLegitimo: false, feedbackCorrecto: "¡Muy bien! Identificaste el Baiting. Ofrecer software caro de forma gratuita es un gancho común para que descargues malware.", feedbackIncorrecto: "¡Infección exitosa! Este ataque se llama Baiting (Cebo). Te ofrecen algo gratis para que tú mismo descargues el virus." },
-            { titulo: "Boletín Informativo Legítimo", descripcion: "Recibes un correo de una suscripción de noticias de ciberseguridad.", contenido: `<strong>De:</strong> boletin@thehackernews.com<br><strong>Asunto:</strong> Resumen semanal: Nuevas vulnerabilidades Zero-Day<br><br>Hola Ángel. Aquí tienes tu resumen semanal. Esta semana analizamos cómo un grupo APT explotó una falla en routers corporativos. Lee el artículo completo en nuestro blog.`, esLegitimo: true, feedbackCorrecto: "¡Perfecto! Analizaste el remitente y el contexto. Es un correo de marketing/boletín legítimo al que estás suscrito.", feedbackIncorrecto: "Te equivocaste, este correo es legítimo. El dominio es correcto, no hay adjuntos raros y es información esperada." },
-            { titulo: "Spoofing de Soporte Técnico", descripcion: "Un correo llega justo cuando estás teniendo problemas con tu red.", contenido: `<strong>De:</strong> soporte.ti.upslp@gmail.com<br><strong>Asunto:</strong> Mantenimiento de servidores escolares<br><br>Estimado estudiante, estamos migrando los servidores de la universidad. Para no perder el acceso a la plataforma escolar, por favor revalida tu matrícula y contraseña en el siguiente portal de respaldo antes de la medianoche.<br><a href="#" style="color: #00ff41;">http://soporte-upslp.webcindario.com/login</a>`, esLegitimo: false, feedbackCorrecto: "¡Bien detectado! El departamento de TI oficial jamás usaría un correo '@gmail.com' ni un subdominio gratuito ('webcindario').", feedbackIncorrecto: "¡Caíste! Fíjate en el remitente: es un '@gmail.com', no el dominio oficial '@upslp.edu.mx', y el enlace es HTTP sin cifrar." },
-            { titulo: "Subdominio Engañoso", descripcion: "Te llega un recibo de un pago que no reconoces.", contenido: `<strong>De:</strong> recibos@paypal.com.soporte-clientes.net<br><strong>Asunto:</strong> Recibo de su pago a Netflix por $299 MXN<br><br>Has enviado un pago automático. Si tú no autorizaste esta transacción, puedes cancelarla y solicitar un reembolso haciendo clic en el enlace de resolución de disputas inmediatamente.<br><a href="#" style="color: #00ff41;">Ir al Centro de Resoluciones</a>`, esLegitimo: false, feedbackCorrecto: "¡Excelente cierre! Identificaste el engaño. Aunque empieza con 'paypal.com', el dominio real que controla el correo es 'soporte-clientes.net'.", feedbackIncorrecto: "Fallaste. Aunque leas 'paypal.com', el dominio raíz real está al final antes del '.net' ('soporte-clientes.net')." }
+            { 
+                titulo: "Urgencia Ejecutiva", 
+                contenido: `
+                    <div style="background: #222; padding: 15px; border-radius: 5px; font-family: Arial, sans-serif; color: #ddd; text-align: left;">
+                        <div style="border-bottom: 1px solid #444; padding-bottom: 10px; margin-bottom: 15px;">
+                            <strong>De:</strong> RH Pagina Corporativa &lt;rh@tuempresa.com.co&gt;<br>
+                            <strong>Para:</strong> angel.gonzalez@tuempresa.com<br>
+                            <strong>Asunto:</strong> URGENTE: Confirmación de nómina de Marzo
+                        </div>
+                        <p>Estimado empleado,</p>
+                        <p>Debido a una actualización en el sistema de pagos, su nómina de este mes se encuentra retenida. Necesitamos que confirme sus datos bancarios en el portal actualizado antes de las 12:00 PM del día de hoy para procesar la transferencia sin penalizaciones.</p>
+                        <div style="text-align: center; margin: 20px 0;">
+                            <a href="#" style="background: #0056b3; color: white; padding: 10px 20px; text-decoration: none; border-radius: 3px; font-weight: bold;">Acceder al Portal de Nómina</a>
+                        </div>
+                        <p style="font-size: 0.8rem; color: #888;">Atentamente,<br>Departamento de Recursos Humanos</p>
+                    </div>`, 
+                esLegitimo: false, 
+                feedbackCorrecto: "Bien visto. Aunque el nombre dice 'RH', si te fijas en el correo real (entre los signos < >), el dominio termina en '.com.co', que no corresponde al oficial de la empresa. La táctica de urgencia ('antes de las 12:00 PM') y la amenaza de retener dinero son alertas rojas clásicas.", 
+                feedbackIncorrecto: "Te fuiste con la finta. Este es un ataque de phishing muy común. Los atacantes juegan con tu miedo a no recibir tu sueldo para que actúes sin pensar. Fíjate siempre en el dominio del remitente, en este caso terminaba en '.com.co' en lugar del dominio oficial." 
+            },
+            { 
+                titulo: "Alerta de Plataforma Bancaria", 
+                contenido: `
+                    <div style="background: #222; padding: 15px; border-radius: 5px; font-family: Arial, sans-serif; color: #ddd; text-align: left;">
+                        <div style="border-bottom: 1px solid #444; padding-bottom: 10px; margin-bottom: 15px;">
+                            <strong>De:</strong> Alertas de Seguridad &lt;alertas@citiḃank.com&gt;<br>
+                            <strong>Asunto:</strong> Bloqueo preventivo de cuenta
+                        </div>
+                        <p>Estimado cliente,</p>
+                        <p>Hemos detectado un intento de inicio de sesión sospechoso en su cuenta desde una dirección IP no reconocida. Por su seguridad, hemos bloqueado temporalmente sus transferencias.</p>
+                        <p>Para verificar su identidad y reactivar sus servicios, ingrese a la siguiente dirección en su navegador:</p>
+                        <p style="background: #111; padding: 10px; font-family: monospace; color: #00ff41;">https://www.citiḃank.com/verificacion-segura</p>
+                    </div>`, 
+                esLegitimo: false, 
+                feedbackCorrecto: "Buen ojo. Este era un ataque homógrafo bastante escurridizo. Usaron un carácter Unicode especial (la 'b' con un punto arriba: ḃ) para engañar tu cerebro haciéndole creer que era el dominio real.", 
+                feedbackIncorrecto: "Cuidado aquí. Era una trampa visual (ataque homógrafo). Si miras muy de cerca la letra 'b' en el enlace y en el remitente, verás que tiene un punto extraño arriba (ḃ). Te habría llevado a un sitio clonado." 
+            },
+            { 
+                titulo: "Comunicado Interno", 
+                contenido: `
+                    <div style="background: #222; padding: 15px; border-radius: 5px; font-family: Arial, sans-serif; color: #ddd; text-align: left;">
+                        <div style="border-bottom: 1px solid #444; padding-bottom: 10px; margin-bottom: 15px;">
+                            <strong>De:</strong> Soporte TI &lt;soporte@tuempresa.local&gt;<br>
+                            <strong>Asunto:</strong> Mantenimiento de servidores programado para el viernes
+                        </div>
+                        <p>Hola equipo,</p>
+                        <p>Les informamos que este viernes, a partir de las 10:00 PM, realizaremos un mantenimiento general en los servidores de almacenamiento. Es posible que experimenten intermitencias si intentan acceder a la intranet durante el fin de semana.</p>
+                        <p>No se requiere ninguna acción por su parte.</p>
+                        <p style="font-size: 0.8rem; color: #888;">Saludos,<br>Equipo de Infraestructura TI</p>
+                    </div>`, 
+                esLegitimo: true, 
+                feedbackCorrecto: "Correcto. A veces dudar de todo también es malo. Este correo es legítimo: viene del dominio interno correcto, no te pide hacer clic en nada, no genera urgencia y es meramente informativo.", 
+                feedbackIncorrecto: "Esta vez fallaste. Era un correo completamente seguro. Parte de la concientización es saber distinguir lo normal de lo malicioso. Nota que no te pedían contraseñas, clics ni te amenazaban con nada." 
+            },
+            { 
+                titulo: "Revisión de Facturación", 
+                contenido: `
+                    <div style="background: #222; padding: 15px; border-radius: 5px; font-family: Arial, sans-serif; color: #ddd; text-align: left;">
+                        <div style="border-bottom: 1px solid #444; padding-bottom: 10px; margin-bottom: 15px;">
+                            <strong>De:</strong> Facturación &lt;facturacion@proveedor-servicios.net&gt;<br>
+                            <strong>Asunto:</strong> Factura de servicios correspondiente a Marzo 2026
+                        </div>
+                        <p>Buen día,</p>
+                        <p>Adjunto la factura por los servicios prestados durante este último mes. Por favor, revisa el detalle en el archivo Excel adjunto para que puedan proceder con el pago lo antes posible.</p>
+                        <div style="margin-top: 15px; border: 1px solid #444; display: inline-block; padding: 10px; border-radius: 4px; background: #1a1a1a;">
+                            <i class="fas fa-paperclip" style="color: #888;"></i> <em>Factura_Marzo_2026.xlsx.exe</em> (1.2 MB)
+                        </div>
+                    </div>`, 
+                esLegitimo: false, 
+                feedbackCorrecto: "Bien detectado. Esa doble extensión (.xlsx.exe) es la trampa más vieja del manual. Querían hacerte creer que era un Excel, pero en realidad es un ejecutable (malware) listo para infectar tu máquina.", 
+                feedbackIncorrecto: "Si hubieras abierto ese archivo en la vida real, posiblemente toda la red de la empresa estaría secuestrada por ransomware ahora mismo. Fíjate siempre en la extensión final: decía '.exe', no '.xlsx'." 
+            },
+            { 
+                titulo: "Notificación Móvil Inesperada", 
+                contenido: `
+                    <div style="background: #111; border: 2px solid #333; border-radius: 15px; width: 280px; margin: 0 auto; overflow: hidden; font-family: Arial, sans-serif;">
+                        <div style="background: #000; padding: 15px; text-align: left; color: white;">
+                            <i class="fas fa-shield-alt" style="color: #00a4ef;"></i> <strong>Microsoft Authenticator</strong>
+                        </div>
+                        <div style="background: #222; padding: 20px; text-align: center; color: #ddd;">
+                            <h4 style="margin-top: 0;">¿Aprobar inicio de sesión?</h4>
+                            <p style="font-size: 0.9rem; text-align: left; margin-bottom: 5px;"><strong>Aplicación:</strong> Office 365</p>
+                            <p style="font-size: 0.9rem; text-align: left;"><strong>Ubicación:</strong> Moscú, Rusia</p>
+                            <div style="margin-top: 20px; display: flex; justify-content: space-between;">
+                                <button style="background: #ff3333; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold;">DENEGAR</button>
+                                <button style="background: #00a4ef; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold;">APROBAR</button>
+                            </div>
+                        </div>
+                    </div>`, 
+                esLegitimo: false, 
+                feedbackCorrecto: "Excelente. Un ataque de fatiga MFA (Autenticación Multifactor) de manual. El atacante ya tiene tu contraseña y está mandando solicitudes sin parar esperando que apruebes una por distracción o cansancio.", 
+                feedbackIncorrecto: "Error crítico. Al darle 'Seguro', básicamente dejaste pasar al atacante a tu cuenta corporativa. Nunca, bajo ninguna circunstancia, apruebes una solicitud de autenticación (MFA) si no estás iniciando sesión tú en ese mismo momento." 
+            },
+            { 
+                titulo: "Mensaje SMS", 
+                contenido: `
+                    <div style="background: #111; border: 2px solid #333; border-radius: 15px; width: 300px; margin: 0 auto; overflow: hidden; font-family: Arial, sans-serif;">
+                        <div style="background: #000; padding: 10px; text-align: center; color: white; border-bottom: 1px solid #333;">
+                            <strong>+52 55 1234 5678</strong>
+                        </div>
+                        <div style="background: #1a1a1a; padding: 20px; min-height: 150px; display: flex; flex-direction: column; justify-content: flex-end;">
+                            <div style="background: #2a2a2a; color: #ddd; padding: 12px; border-radius: 15px 15px 15px 0; max-width: 85%; font-size: 0.95rem; line-height: 1.4; align-self: flex-start;">
+                                FEDEX: Su paquete no pudo ser entregado hoy por falta de pago de aduanas ($45 MXN). Pague ahora para reprogramar su entrega:<br><br>
+                                <a href="#" style="color: #00a4ef; text-decoration: none;">https://bit.ly/fedex-aduanas-mx</a>
+                            </div>
+                        </div>
+                    </div>`, 
+                esLegitimo: false, 
+                feedbackCorrecto: "Bien identificado. Esto es Smishing (Phishing por SMS). Usan montos pequeños ($45) para que no sospeches, pero el enlace acortado con 'bit.ly' es la evidencia clara de que te quieren robar los datos de tu tarjeta.", 
+                feedbackIncorrecto: "Caíste en la trampa del Smishing. Las empresas de paquetería reales tienen sitios oficiales para rastreo, no usan enlaces acortados (bit.ly) enviados desde números móviles aleatorios pidiendo dinero para soltar un paquete." 
+            },
+            { 
+                titulo: "Búsqueda en Foros", 
+                contenido: `
+                    <div style="background: #111; padding: 20px; border: 1px solid #444; text-align: center; border-radius: 5px; font-family: Arial, sans-serif;">
+                        <h2 style="color: #ffcc00; margin-top: 0; text-transform: uppercase; font-weight: 800;">¡Oferta exclusiva para miembros!</h2>
+                        <p style="color: #fff; font-size: 1.1rem; margin-bottom: 20px;">Descarga Adobe Creative Cloud 2026 Completo (Licencia de por vida) <strong>TOTALMENTE GRATIS</strong>.</p>
+                        <p style="color: #aaa; font-size: 0.8rem;">El enlace expira en: 04:59 minutos</p>
+                        <div style="margin-top: 15px;">
+                            <button style="background: #00ff41; color: #000; border: none; padding: 10px 30px; font-size: 1.1rem; font-weight: bold; border-radius: 3px; cursor: pointer; display: inline-flex; align-items: center; gap: 10px;">
+                                <i class="fas fa-download"></i> DESCARGAR .ZIP AHORA
+                            </button>
+                        </div>
+                    </div>`, 
+                esLegitimo: false, 
+                feedbackCorrecto: "Exacto. Eso es 'Baiting' (o cebo). Si es demasiado bueno para ser verdad, usualmente es malware. Los atacantes saben que el software original es caro y usan esto para que tú mismo instales el virus con gusto.", 
+                feedbackIncorrecto: "Acabas de infectar tu equipo de forma voluntaria. Este ataque se llama Baiting. Juegan con ofrecerte algo de mucho valor (software caro o juegos gratis) para esconder un troyano en ese archivo .ZIP." 
+            },
+            { 
+                titulo: "Suscripción a Noticias", 
+                contenido: `
+                    <div style="background: #222; padding: 15px; border-radius: 5px; font-family: Arial, sans-serif; color: #ddd; text-align: left;">
+                        <div style="border-bottom: 1px solid #444; padding-bottom: 10px; margin-bottom: 15px;">
+                            <strong>De:</strong> The Hacker News &lt;boletin@thehackernews.com&gt;<br>
+                            <strong>Asunto:</strong> Resumen semanal: Nuevas vulnerabilidades Zero-Day detectadas
+                        </div>
+                        <p>Hola Ángel,</p>
+                        <p>Aquí tienes tu resumen semanal de ciberseguridad. Esta semana analizamos cómo un grupo de ciberdelincuentes explotó una falla crítica en routers corporativos.</p>
+                        <p>Lee el artículo completo en nuestro blog principal para conocer los detalles técnicos y los parches de seguridad.</p>
+                        <hr style="border-color: #333; margin: 20px 0;">
+                        <p style="font-size: 0.75rem; color: #777; text-align: center;">Si deseas dejar de recibir estos correos, haz clic en <a href="#" style="color: #777; text-decoration: underline;">Desuscribirse</a>.</p>
+                    </div>`, 
+                esLegitimo: true, 
+                feedbackCorrecto: "Bien. Identificaste que no todo es una amenaza. El dominio coincide, es un servicio al que estás suscrito y el lenguaje es informativo, sin intentar forzarte a revelar información sensible.", 
+                feedbackIncorrecto: "Dudaste de más. Este correo es totalmente legítimo. Analiza el contexto: es un boletín de noticias, el correo del remitente es válido y no te pide hacer acciones urgentes con tu cuenta." 
+            },
+            { 
+                titulo: "Comunicación de la Universidad", 
+                contenido: `
+                    <div style="background: #222; padding: 15px; border-radius: 5px; font-family: Arial, sans-serif; color: #ddd; text-align: left;">
+                        <div style="border-bottom: 1px solid #444; padding-bottom: 10px; margin-bottom: 15px;">
+                            <strong>De:</strong> Soporte Técnico UPSLP &lt;soporte.ti.upslp@gmail.com&gt;<br>
+                            <strong>Asunto:</strong> URGENTE: Restablecimiento de credenciales escolares
+                        </div>
+                        <p>Estimado estudiante,</p>
+                        <p>Estamos migrando los servidores de la universidad para mejorar la plataforma durante el periodo de evaluaciones. Para no perder el acceso a sus materias y calificaciones, es obligatorio que revalide su matrícula y contraseña en el nuevo portal de respaldo antes de la medianoche.</p>
+                        <div style="background: #1a1a1a; padding: 10px; margin: 15px 0; text-align: center; border-left: 4px solid #ffcc00;">
+                            <a href="#" style="color: #ffcc00; text-decoration: none; font-weight: bold; font-family: monospace;">http://soporte-upslp.webcindario.com/login</a>
+                        </div>
+                        <p style="font-size: 0.8rem; color: #888;">Atentamente,<br>Área de Sistemas - Universidad Politécnica de San Luis Potosí</p>
+                    </div>`, 
+                esLegitimo: false, 
+                feedbackCorrecto: "Muy bien detectado. Las banderas rojas son claras: el departamento de TI de una universidad nunca usaría un correo gratuito '@gmail.com' para asuntos oficiales, y menos alojaría un portal en un subdominio gratuito y sin certificado SSL (HTTP en vez de HTTPS).", 
+                feedbackIncorrecto: "Caíste. Le acabas de regalar tu matrícula y contraseña de la escuela a un tercero. Revisa los detalles: el correo viene de un '@gmail.com' (no un dominio .edu.mx) y el enlace te lleva a una página HTTP alojada en un servicio de hosting gratuito." 
+            },
+            { 
+                titulo: "Recibo de Plataforma de Pagos", 
+                contenido: `
+                    <div style="background: #222; padding: 15px; border-radius: 5px; font-family: Arial, sans-serif; color: #ddd; text-align: left;">
+                        <div style="border-bottom: 1px solid #444; padding-bottom: 10px; margin-bottom: 15px;">
+                            <strong>De:</strong> PayPal Services &lt;recibos@paypal.com.soporte-clientes.net&gt;<br>
+                            <strong>Asunto:</strong> Recibo de su pago a Netflix Inc. por $299 MXN
+                        </div>
+                        <p>Hola Ángel,</p>
+                        <p>Has enviado un pago automático a Netflix Inc. por $299.00 MXN.</p>
+                        <p>Si tú no autorizaste esta transacción o crees que se trata de un error, puedes cancelarla y solicitar un reembolso haciendo clic en el enlace de resolución de disputas inmediatamente, antes de que el cargo se procese en tu tarjeta vinculada.</p>
+                        <div style="text-align: center; margin: 20px 0;">
+                            <button style="background: transparent; color: #00a4ef; border: 1px solid #00a4ef; padding: 8px 20px; font-weight: bold; border-radius: 20px; cursor: pointer;">Ir al Centro de Resoluciones</button>
+                        </div>
+                    </div>`, 
+                esLegitimo: false, 
+                feedbackCorrecto: "Excelente cierre. Identificaste el engaño del subdominio. Aunque empieza con 'paypal.com', el dominio real que controla el correo se lee al final, justo antes del '.net' ('soporte-clientes.net'). Generan pánico por un cargo falso para que reacciones.", 
+                feedbackIncorrecto: "Esta técnica engaña a muchos. El correo intenta asustarte con un cargo falso para que pidas un reembolso. Si te fijas en el remitente, dice 'paypal.com' al principio, pero el dominio real está al final: 'soporte-clientes.net'. Era un engaño por subdominio." 
+            }
         ];
 
         function mezclarEscenarios(array) {
@@ -512,7 +684,6 @@
                 return;
             }
 
-            // FORZAR ocultar feedback y mostrar botones de nuevo
             document.getElementById('botones-accion').style.display = 'flex';
             
             const panelFeedback = document.getElementById('panel-feedback');
@@ -522,7 +693,9 @@
             const escenario = escenarios[escenarioActual];
             document.getElementById('progreso-texto').innerText = `> Escenario ${escenarioActual + 1}/${escenarios.length}`;
             document.getElementById('titulo-escenario').innerText = escenario.titulo;
-            document.getElementById('descripcion-escenario').innerText = escenario.descripcion;
+            
+            // Ya no llenamos la descripción porque la borraste del HTML
+            
             document.getElementById('contenido-simulado').innerHTML = escenario.contenido;
 
             segundosTranscurridos = 0;
@@ -556,13 +729,11 @@
                 feedbackMensaje.innerText = escenario.feedbackIncorrecto;
             }
 
-            // Ocultar botones
             document.getElementById('botones-accion').style.display = 'none';
             
-            // FORZAR mostrar panel de feedback (quitando la clase que lo bloquea)
             const panelFeedback = document.getElementById('panel-feedback');
             panelFeedback.classList.remove('hidden');
-            panelFeedback.setAttribute('style', 'display: block !important; background-color: #111;');
+            panelFeedback.setAttribute('style', 'display: block !important; background-color: #111; border-color: #333 !important;');
         }
 
         function siguienteEscenario() {
