@@ -459,7 +459,7 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        console.log("[SISTEMA] Inicializando módulo de simulación - Diseño Limpio...");
+        console.log("[SISTEMA] Inicializando módulo de simulación - Textos Formales...");
 
         let escenarioActual = 0;
         let score = 0;
@@ -486,8 +486,8 @@
                         <p style="font-size: 0.8rem; color: #888;">Atentamente,<br>Departamento de Recursos Humanos</p>
                     </div>`, 
                 esLegitimo: false, 
-                feedbackCorrecto: "Bien visto. Aunque el nombre dice 'RH', si te fijas en el correo real (entre los signos < >), el dominio termina en '.com.co', que no corresponde al oficial de la empresa. La táctica de urgencia ('antes de las 12:00 PM') y la amenaza de retener dinero son alertas rojas clásicas.", 
-                feedbackIncorrecto: "Te fuiste con la finta. Este es un ataque de phishing muy común. Los atacantes juegan con tu miedo a no recibir tu sueldo para que actúes sin pensar. Fíjate siempre en el dominio del remitente, en este caso terminaba en '.com.co' en lugar del dominio oficial." 
+                feedbackCorrecto: "Acierto. La suplantación de identidad es evidente al revisar el dominio del remitente (.com.co). Además, el uso de sentido de urgencia y la presión económica son tácticas comunes en ataques de ingeniería social para forzar la interacción del usuario.", 
+                feedbackIncorrecto: "Respuesta incorrecta. El correo utiliza ingeniería social basada en la urgencia para manipular a la víctima. El principal indicador de compromiso es el dominio falso del remitente, el cual no pertenece a la organización." 
             },
             { 
                 titulo: "Alerta de Plataforma Bancaria", 
@@ -503,8 +503,8 @@
                         <p style="background: #111; padding: 10px; font-family: monospace; color: #00ff41;">https://www.citiḃank.com/verificacion-segura</p>
                     </div>`, 
                 esLegitimo: false, 
-                feedbackCorrecto: "Buen ojo. Este era un ataque homógrafo bastante escurridizo. Usaron un carácter Unicode especial (la 'b' con un punto arriba: ḃ) para engañar tu cerebro haciéndole creer que era el dominio real.", 
-                feedbackIncorrecto: "Cuidado aquí. Era una trampa visual (ataque homógrafo). Si miras muy de cerca la letra 'b' en el enlace y en el remitente, verás que tiene un punto extraño arriba (ḃ). Te habría llevado a un sitio clonado." 
+                feedbackCorrecto: "Correcto. El enlace contiene un ataque homógrafo, utilizando caracteres Unicode (ḃ) para simular ser un dominio legítimo de una institución financiera y evadir la detección visual rápida.", 
+                feedbackIncorrecto: "Fallo. Se trata de un ataque homógrafo. El dominio real contiene un carácter manipulado (ḃ) que engaña visualmente al usuario para redirigirlo a un portal de captura de credenciales fraudulento." 
             },
             { 
                 titulo: "Comunicado Interno", 
@@ -520,8 +520,8 @@
                         <p style="font-size: 0.8rem; color: #888;">Saludos,<br>Equipo de Infraestructura TI</p>
                     </div>`, 
                 esLegitimo: true, 
-                feedbackCorrecto: "Correcto. A veces dudar de todo también es malo. Este correo es legítimo: viene del dominio interno correcto, no te pide hacer clic en nada, no genera urgencia y es meramente informativo.", 
-                feedbackIncorrecto: "Esta vez fallaste. Era un correo completamente seguro. Parte de la concientización es saber distinguir lo normal de lo malicioso. Nota que no te pedían contraseñas, clics ni te amenazaban con nada." 
+                feedbackCorrecto: "Acierto. Se trata de un comunicado interno legítimo. El dominio corresponde a la organización, no solicita validación de credenciales, no contiene enlaces externos y no utiliza tácticas de coerción.", 
+                feedbackIncorrecto: "Falso positivo. Este mensaje proviene de un dominio interno verificado y su contenido es puramente informativo. Parte de la concientización es discernir comunicaciones corporativas normales de amenazas reales." 
             },
             { 
                 titulo: "Revisión de Facturación", 
@@ -538,8 +538,8 @@
                         </div>
                     </div>`, 
                 esLegitimo: false, 
-                feedbackCorrecto: "Bien detectado. Esa doble extensión (.xlsx.exe) es la trampa más vieja del manual. Querían hacerte creer que era un Excel, pero en realidad es un ejecutable (malware) listo para infectar tu máquina.", 
-                feedbackIncorrecto: "Si hubieras abierto ese archivo en la vida real, posiblemente toda la red de la empresa estaría secuestrada por ransomware ahora mismo. Fíjate siempre en la extensión final: decía '.exe', no '.xlsx'." 
+                feedbackCorrecto: "Correcto. El archivo adjunto utiliza una técnica de doble extensión (.xlsx.exe) para ocultar un script o binario malicioso. La ejecución de este archivo comprometería el equipo del usuario.", 
+                feedbackIncorrecto: "Respuesta incorrecta. El archivo adjunto no es una hoja de cálculo, sino un archivo ejecutable (.exe) oculto mediante doble extensión. Esta es una técnica clásica para la distribución de malware o ransomware." 
             },
             { 
                 titulo: "Notificación Móvil Inesperada", 
@@ -559,8 +559,8 @@
                         </div>
                     </div>`, 
                 esLegitimo: false, 
-                feedbackCorrecto: "Excelente. Un ataque de fatiga MFA (Autenticación Multifactor) de manual. El atacante ya tiene tu contraseña y está mandando solicitudes sin parar esperando que apruebes una por distracción o cansancio.", 
-                feedbackIncorrecto: "Error crítico. Al darle 'Seguro', básicamente dejaste pasar al atacante a tu cuenta corporativa. Nunca, bajo ninguna circunstancia, apruebes una solicitud de autenticación (MFA) si no estás iniciando sesión tú en ese mismo momento." 
+                feedbackCorrecto: "Acierto. Se denegó el acceso correctamente. Esto simula un ataque de fatiga de MFA, donde el atacante ya posee las credenciales comprometidas y busca que el usuario apruebe la solicitud por descuido o saturación de notificaciones.", 
+                feedbackIncorrecto: "Fallo de seguridad. Aprobar una solicitud de autenticación multifactor (MFA) no iniciada por el usuario otorga acceso inmediato al atacante a los recursos y plataformas corporativas." 
             },
             { 
                 titulo: "Mensaje SMS", 
@@ -577,8 +577,8 @@
                         </div>
                     </div>`, 
                 esLegitimo: false, 
-                feedbackCorrecto: "Bien identificado. Esto es Smishing (Phishing por SMS). Usan montos pequeños ($45) para que no sospeches, pero el enlace acortado con 'bit.ly' es la evidencia clara de que te quieren robar los datos de tu tarjeta.", 
-                feedbackIncorrecto: "Caíste en la trampa del Smishing. Las empresas de paquetería reales tienen sitios oficiales para rastreo, no usan enlaces acortados (bit.ly) enviados desde números móviles aleatorios pidiendo dinero para soltar un paquete." 
+                feedbackCorrecto: "Correcto. Es un caso claro de Smishing. Los atacantes suplantan la identidad de servicios de logística utilizando enlaces acortados para evadir filtros de seguridad y recopilar datos financieros mediante pagos mínimos.", 
+                feedbackIncorrecto: "Respuesta incorrecta. El mensaje es un intento de Smishing. Las empresas de paquetería legítimas no solicitan pagos de aduana mediante enlaces acortados (bit.ly) enviados por SMS desde números no oficiales." 
             },
             { 
                 titulo: "Búsqueda en Foros", 
@@ -594,8 +594,8 @@
                         </div>
                     </div>`, 
                 esLegitimo: false, 
-                feedbackCorrecto: "Exacto. Eso es 'Baiting' (o cebo). Si es demasiado bueno para ser verdad, usualmente es malware. Los atacantes saben que el software original es caro y usan esto para que tú mismo instales el virus con gusto.", 
-                feedbackIncorrecto: "Acabas de infectar tu equipo de forma voluntaria. Este ataque se llama Baiting. Juegan con ofrecerte algo de mucho valor (software caro o juegos gratis) para esconder un troyano en ese archivo .ZIP." 
+                feedbackCorrecto: "Acierto. El escenario presenta un ataque de Baiting. Se ofrece software comercial de alto valor de manera gratuita como cebo para engañar al usuario y lograr la instalación de código malicioso.", 
+                feedbackIncorrecto: "Fallo. Este es un ataque de Baiting. Prometer software de pago de forma gratuita es un gancho psicológico comúnmente utilizado para distribuir troyanos u otro software malicioso a usuarios que buscan evitar licenciamientos." 
             },
             { 
                 titulo: "Suscripción a Noticias", 
@@ -605,15 +605,14 @@
                             <strong>De:</strong> The Hacker News &lt;boletin@thehackernews.com&gt;<br>
                             <strong>Asunto:</strong> Resumen semanal: Nuevas vulnerabilidades Zero-Day detectadas
                         </div>
-                        <p>Hola Ángel,</p>
                         <p>Aquí tienes tu resumen semanal de ciberseguridad. Esta semana analizamos cómo un grupo de ciberdelincuentes explotó una falla crítica en routers corporativos.</p>
                         <p>Lee el artículo completo en nuestro blog principal para conocer los detalles técnicos y los parches de seguridad.</p>
                         <hr style="border-color: #333; margin: 20px 0;">
                         <p style="font-size: 0.75rem; color: #777; text-align: center;">Si deseas dejar de recibir estos correos, haz clic en <a href="#" style="color: #777; text-decoration: underline;">Desuscribirse</a>.</p>
                     </div>`, 
                 esLegitimo: true, 
-                feedbackCorrecto: "Bien. Identificaste que no todo es una amenaza. El dominio coincide, es un servicio al que estás suscrito y el lenguaje es informativo, sin intentar forzarte a revelar información sensible.", 
-                feedbackIncorrecto: "Dudaste de más. Este correo es totalmente legítimo. Analiza el contexto: es un boletín de noticias, el correo del remitente es válido y no te pide hacer acciones urgentes con tu cuenta." 
+                feedbackCorrecto: "Correcto. Es un correo de marketing automatizado legítimo. Cumple con los estándares de comunicación habituales, proviene del dominio oficial de la plataforma y no solicita acciones riesgosas o información confidencial.", 
+                feedbackIncorrecto: "Falso positivo. El correo es seguro. Pertenece a una suscripción de noticias donde el dominio emisor es auténtico y la estructura del contenido concuerda con el servicio de boletín esperado." 
             },
             { 
                 titulo: "Comunicación de la Universidad", 
@@ -631,8 +630,8 @@
                         <p style="font-size: 0.8rem; color: #888;">Atentamente,<br>Área de Sistemas - Universidad Politécnica de San Luis Potosí</p>
                     </div>`, 
                 esLegitimo: false, 
-                feedbackCorrecto: "Muy bien detectado. Las banderas rojas son claras: el departamento de TI de una universidad nunca usaría un correo gratuito '@gmail.com' para asuntos oficiales, y menos alojaría un portal en un subdominio gratuito y sin certificado SSL (HTTP en vez de HTTPS).", 
-                feedbackIncorrecto: "Caíste. Le acabas de regalar tu matrícula y contraseña de la escuela a un tercero. Revisa los detalles: el correo viene de un '@gmail.com' (no un dominio .edu.mx) y el enlace te lleva a una página HTTP alojada en un servicio de hosting gratuito." 
+                feedbackCorrecto: "Acierto. La suplantación de identidad es clara: el remitente utiliza un proveedor de correo genérico (@gmail.com) en lugar del dominio institucional (.edu.mx), y el enlace redirige a un subdominio gratuito utilizando un protocolo no seguro (HTTP).", 
+                feedbackIncorrecto: "Respuesta incorrecta. El área de TI de la universidad nunca usaría correos comerciales para comunicaciones oficiales ni alojaría portales de autenticación críticos en servidores de terceros sin cifrado SSL/TLS." 
             },
             { 
                 titulo: "Recibo de Plataforma de Pagos", 
@@ -640,18 +639,17 @@
                     <div style="background: #222; padding: 15px; border-radius: 5px; font-family: Arial, sans-serif; color: #ddd; text-align: left;">
                         <div style="border-bottom: 1px solid #444; padding-bottom: 10px; margin-bottom: 15px;">
                             <strong>De:</strong> PayPal Services &lt;recibos@paypal.com.soporte-clientes.net&gt;<br>
-                            <strong>Asunto:</strong> Recibo de su pago a Netflix Inc. por $299 MXN
+                            <strong>Asunto:</strong> Recibo de su pago a Spotify. por $299 MXN
                         </div>
-                        <p>Hola Ángel,</p>
-                        <p>Has enviado un pago automático a Netflix Inc. por $299.00 MXN.</p>
+                        <p>Has enviado un pago automático a Spotify. por $299.00 MXN.</p>
                         <p>Si tú no autorizaste esta transacción o crees que se trata de un error, puedes cancelarla y solicitar un reembolso haciendo clic en el enlace de resolución de disputas inmediatamente, antes de que el cargo se procese en tu tarjeta vinculada.</p>
                         <div style="text-align: center; margin: 20px 0;">
                             <button style="background: transparent; color: #00a4ef; border: 1px solid #00a4ef; padding: 8px 20px; font-weight: bold; border-radius: 20px; cursor: pointer;">Ir al Centro de Resoluciones</button>
                         </div>
                     </div>`, 
                 esLegitimo: false, 
-                feedbackCorrecto: "Excelente cierre. Identificaste el engaño del subdominio. Aunque empieza con 'paypal.com', el dominio real que controla el correo se lee al final, justo antes del '.net' ('soporte-clientes.net'). Generan pánico por un cargo falso para que reacciones.", 
-                feedbackIncorrecto: "Esta técnica engaña a muchos. El correo intenta asustarte con un cargo falso para que pidas un reembolso. Si te fijas en el remitente, dice 'paypal.com' al principio, pero el dominio real está al final: 'soporte-clientes.net'. Era un engaño por subdominio." 
+                feedbackCorrecto: "Correcto. El correo utiliza la técnica de spoofing mediante el uso de subdominios. El dominio raíz real es 'soporte-clientes.net', diseñado para evadir una inspección rápida y crear alarma sobre un cargo financiero no reconocido.", 
+                feedbackIncorrecto: "Fallo. El dominio del remitente es engañoso. Aunque comienza con la marca suplantada, el dominio de nivel superior administrado por el atacante es 'soporte-clientes.net', utilizando la estructura de subdominios para ocultar su origen real." 
             }
         ];
 
@@ -693,9 +691,6 @@
             const escenario = escenarios[escenarioActual];
             document.getElementById('progreso-texto').innerText = `> Escenario ${escenarioActual + 1}/${escenarios.length}`;
             document.getElementById('titulo-escenario').innerText = escenario.titulo;
-            
-            // Ya no llenamos la descripción porque la borraste del HTML
-            
             document.getElementById('contenido-simulado').innerHTML = escenario.contenido;
 
             segundosTranscurridos = 0;
