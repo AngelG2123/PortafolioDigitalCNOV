@@ -609,42 +609,49 @@
             const maxScore = escenarios.length * 10;
             document.getElementById('score-final').innerText = `${score}/${maxScore}`;
             
-            // Mostrar texto de carga mientras Firebase guarda los datos
             const tabla = document.getElementById('tabla-ranking');
             tabla.innerHTML = "<tr><td colspan='4' class='text-center text-muted'>Enviando datos al servidor seguro...</td></tr>";
 
-            // Guardar el resultado en Firestore
+            // Guardar en Firebase
             db.collection("scores").add({
                 alias: alias,
                 score: score,
                 tiempo: tiempoTotal,
                 fecha: firebase.firestore.FieldValue.serverTimestamp()
             }).then(() => {
-                // Una vez guardado, descargar el top global
+                console.log("[SISTEMA] Puntaje guardado exitosamente.");
+                // Llamamos a la tabla solo cuando ya se guardó tu puntaje
                 cargarScoreboard();
             }).catch((error) => {
-                console.error("Error al guardar en Firebase: ", error);
-                tabla.innerHTML = "<tr><td colspan='4' class='text-center text-danger'>Error de conexión. Mostrando datos locales.</td></tr>";
+                console.error("[ERROR] No se pudo guardar: ", error);
+                tabla.innerHTML = "<tr><td colspan='4' class='text-center text-danger'>Error al guardar los datos.</td></tr>";
             });
         }
+
+        let conexionTiempoReal = null;
 
         function cargarScoreboard() {
             const tabla = document.getElementById('tabla-ranking');
             
-            // Consultar a Firebase: Ordenar por Puntos (mayor a menor) y luego por Tiempo (menor a mayor)
-            db.collection("scores")
+            if(conexionTiempoReal) { conexionTiempoReal(); }
+
+            // AQUÍ ESTÁ EL DOBLE FILTRO QUE PEDISTE
+            conexionTiempoReal = db.collection("scores")
               .orderBy("score", "desc")
               .orderBy("tiempo", "asc")
-              .limit(5) // Solo traer el Top 5
-              .get()
-              .then((querySnapshot) => {
-                  tabla.innerHTML = ""; // Limpiar tabla
+              .limit(5)
+              .onSnapshot((querySnapshot) => {
+                  tabla.innerHTML = ""; 
                   let posicion = 1;
                   
                   querySnapshot.forEach((doc) => {
                       const data = doc.data();
-                      // Si la posición es 1, lo pintamos de dorado/amarillo
-                      const claseColor = posicion === 1 ? 'text-warning fw-bold' : 'text-light';
+                      
+                      let claseColor = 'text-light';
+                      if (posicion === 1) claseColor = 'text-warning fw-bold';
+                      else if (data.alias === alias && data.score === score && data.tiempo === tiempoTotal) {
+                          claseColor = 'text-success fw-bold'; 
+                      }
                       
                       const fila = `<tr>
                           <td class="px-4 ${claseColor}">#${posicion}</td>
@@ -656,6 +663,11 @@
                       tabla.innerHTML += fila;
                       posicion++;
                   });
+              }, (error) => {
+                  // ESTE ERROR ES CLAVE PARA EL PASO 2
+                  console.error("🔥 ERROR DE FIREBASE: Falta crear el Índice Compuesto.");
+                  console.error(error.message);
+                  tabla.innerHTML = "<tr><td colspan='4' class='text-center text-danger'>Falta crear el Índice en Firebase. Revisa la consola (F12).</td></tr>";
               });
         }
 
