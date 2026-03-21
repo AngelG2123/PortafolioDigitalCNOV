@@ -666,7 +666,7 @@
         document.getElementById('btnEmpezar').addEventListener('click', () => {
             const inputAlias = document.getElementById('aliasUsuario').value.trim();
             if (inputAlias === "") {
-                alert("Necesitas ingresar un Alias.");
+                alert("🚨 Necesitas ingresar un Alias para registrarte.");
                 return;
             }
             alias = inputAlias;
@@ -685,6 +685,7 @@
                 return;
             }
 
+            // ABRIR CANDADO: Al cargar una nueva pregunta, permitimos que el usuario responda
             escenarioRespondido = false;
 
             document.getElementById('botones-accion').style.display = 'flex';
@@ -710,12 +711,12 @@
         }
 
         function responder(respuestaUsuario) {
-
+            // VERIFICACIÓN DEL CANDADO: Si ya se respondió, no hacer absolutamente nada
             if (escenarioRespondido) {
                 return; 
             }
 
-
+            // CERRAR CANDADO: Bloqueamos futuros clics en esta pregunta
             escenarioRespondido = true;
 
             clearInterval(temporizadorInterval);
