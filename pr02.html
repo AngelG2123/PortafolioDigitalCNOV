@@ -454,6 +454,25 @@
                             </table>
                         </div>
                     </div>
+                    <div class="col-md-8">
+                        </div>
+                </div> <div class="row mt-4" id="seccion-estadisticas" style="border-top: 1px solid #333; padding-top: 2rem;">
+                    <div class="col-12 mb-3">
+                        <h5 class="text-uppercase" style="color: #00a4ef; font-family: 'JetBrains Mono', monospace;"><i class="fas fa-chart-line"></i> Análisis de Tendencias Globales</h5>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="card bg-dark border-secondary p-3 h-100">
+                            <p class="text-muted mb-1" style="font-size: 0.85rem;">TIEMPO PROMEDIO DE RESPUESATA</p>
+                            <h3 id="stat-tiempo-promedio" style="color: #fff;">Calculando...</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="card bg-dark border-secondary p-3 h-100">
+                            <p class="text-muted mb-1" style="font-size: 0.85rem;">ESCENARIO MÁS FALLADO</p>
+                            <h4 id="stat-escenario-fallado" style="color: #ff3333; font-size: 1rem; line-height: 1.4;">Calculando...</h4>
+                        </div>
+                    </div>
+                </div>
                 </div>
 
                 <div class="row mb-4 align-items-center hidden" id="seccion-solo-ranking" style="display: none;">
@@ -545,6 +564,7 @@
         let tiempoTotal = 0; 
         let alias = "";
         let escenarioRespondido = false; 
+        let escenariosFalladosIntento = [];
 
         const escenarios = [
             { titulo: "Urgencia Ejecutiva", contenido: `<div style="background: #222; padding: 15px; border-radius: 5px; font-family: Arial, sans-serif; color: #ddd; text-align: left;"><div style="border-bottom: 1px solid #444; padding-bottom: 10px; margin-bottom: 15px;"><strong>De:</strong> RH Pagina Corporativa &lt;rh@tuempresa.com.co&gt;<br><strong>Para:</strong> angel.gonzalez@tuempresa.com<br><strong>Asunto:</strong> URGENTE: Confirmación de nómina de Marzo</div><p>Estimado empleado,</p><p>Debido a una actualización en el sistema de pagos, su nómina de este mes se encuentra retenida. Necesitamos que confirme sus datos bancarios en el portal actualizado antes de las 12:00 PM del día de hoy para procesar la transferencia sin penalizaciones.</p><div style="text-align: center; margin: 20px 0;"><a href="#" style="background: #0056b3; color: white; padding: 10px 20px; text-decoration: none; border-radius: 3px; font-weight: bold;">Acceder al Portal de Nómina</a></div><p style="font-size: 0.8rem; color: #888;">Atentamente,<br>Departamento de Recursos Humanos</p></div>`, esLegitimo: false, feedbackCorrecto: "Acierto. La suplantación de identidad se puede encontrar al revisar el dominio del remitente (.com.co). Además, utilizar la urgencia y la presión económica son tácticas comunes en ataques de ingeniería social para forzar la interacción del usuario.", feedbackIncorrecto: "Respuesta incorrecta. El correo utiliza ingeniería social basada en la urgencia para manipular a la víctima. La principal alerta es el dominio falso del remitente, el cual no pertenece a la organización." },
@@ -583,15 +603,16 @@
             
             cargarEscenario();
         });
-        document.getElementById('btnVerRanking').addEventListener('click', () => {
+       document.getElementById('btnVerRanking').addEventListener('click', () => {
             document.getElementById('pantalla-registro').setAttribute('style', 'display: none !important');
             document.getElementById('pantalla-resultados').setAttribute('style', 'display: block !important');
             
-            // Ocultar sección de score personal, mostrar tabla completa
             document.getElementById('seccion-tu-score').setAttribute('style', 'display: none !important');
             document.getElementById('seccion-solo-ranking').setAttribute('style', 'display: block !important');
+            document.getElementById('seccion-estadisticas').style.display = 'flex';
             
             cargarScoreboard('tabla-solo-ranking', false);
+            calcularEstadisticas();
         });
 
         function cargarEscenario() {
@@ -643,6 +664,7 @@
                 feedbackTitle.innerHTML = `<i class="fas fa-skull-crossbones"></i> SISTEMA COMPROMETIDO - Fallo`;
                 feedbackTitle.style.color = "#ff3333";
                 feedbackMensaje.innerText = escenario.feedbackIncorrecto;
+                escenariosFalladosIntento.push(escenario.titulo);
             }
 
             document.getElementById('botones-accion').style.display = 'none';
@@ -662,28 +684,78 @@
             document.getElementById('pantalla-quiz').setAttribute('style', 'display: none !important');
             document.getElementById('pantalla-resultados').setAttribute('style', 'display: block !important');
             
-
             document.getElementById('seccion-solo-ranking').setAttribute('style', 'display: none !important');
             document.getElementById('seccion-tu-score').setAttribute('style', 'display: flex !important');
+            document.getElementById('seccion-estadisticas').style.display = 'flex'; // Mostrar estadísticas
 
             const maxScore = escenarios.length * 10;
             document.getElementById('score-final').innerText = `${score}/${maxScore}`;
             
             const tabla = document.getElementById('tabla-ranking');
-            tabla.innerHTML = "<tr><td colspan='4' class='text-center text-muted'><i class='fas fa-circle-notch fa-spin'></i> Cifrando y transmitiendo datos...</td></tr>";
+            tabla.innerHTML = "<tr><td colspan='4' class='text-center text-muted'><i class='fas fa-circle-notch fa-spin'></i> Transmitiendo datos...</td></tr>";
 
-
+            // Guardar en Firebase (Score normal + fallos)
             db.collection("scores").add({
                 alias: alias,
                 score: score,
                 tiempo: tiempoTotal,
+                fallos: escenariosFalladosIntento, // Guardamos los títulos fallados
                 fecha: firebase.firestore.FieldValue.serverTimestamp()
             }).then(() => {
                 console.log("[SISTEMA] Registro completado.");
                 cargarScoreboard('tabla-ranking', true);
+                calcularEstadisticas(); // Llamamos a calcular las métricas
             }).catch((error) => {
                 console.error("[ERROR] Conexión fallida: ", error);
-                tabla.innerHTML = "<tr><td colspan='4' class='text-center text-danger'>Error de comunicación con el servidor central.</td></tr>";
+                tabla.innerHTML = "<tr><td colspan='4' class='text-center text-danger'>Error de comunicación.</td></tr>";
+            });
+        }
+
+        function calcularEstadisticas() {
+            db.collection("scores").get().then((querySnapshot) => {
+                let sumaTiempos = 0;
+                let conteoUsuarios = 0;
+                let conteoFallos = {};
+
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+
+                    if (data.tiempo) {
+                        sumaTiempos += data.tiempo;
+                        conteoUsuarios++;
+                    }
+
+                    if (data.fallos && data.fallos.length > 0) {
+                        data.fallos.forEach(falla => {
+                            conteoFallos[falla] = (conteoFallos[falla] || 0) + 1;
+                        });
+                    }
+                });
+
+                if (conteoUsuarios > 0) {
+                    let promedio = Math.round(sumaTiempos / conteoUsuarios);
+                    document.getElementById('stat-tiempo-promedio').innerText = `${promedio} segundos`;
+                } else {
+                    document.getElementById('stat-tiempo-promedio').innerText = "Sin datos";
+                }
+                let escenarioMasFallado = "Ninguno (100% de aciertos)";
+                let maxFallos = 0;
+                
+                for (const escenario in conteoFallos) {
+                    if (conteoFallos[escenario] > maxFallos) {
+                        maxFallos = conteoFallos[escenario];
+                        escenarioMasFallado = escenario;
+                    }
+                }
+                
+                if(maxFallos > 0) {
+                     document.getElementById('stat-escenario-fallado').innerHTML = `> ${escenarioMasFallado} <br><span style="font-size: 0.8rem; color:#888;">(${maxFallos} usuarios cayeron aquí)</span>`;
+                } else {
+                     document.getElementById('stat-escenario-fallado').innerText = escenarioMasFallado;
+                }
+
+            }).catch(error => {
+                console.error("Error calculando stats:", error);
             });
         }
 
