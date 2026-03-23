@@ -388,7 +388,7 @@
                     
                     <div class="form-floating mb-4 mt-4 w-75 mx-auto text-dark">
                         <input type="text" class="form-control" id="aliasUsuario" placeholder="Tu Alias Hacker">
-                        <label for="aliasUsuario">Ingresa un Alias: </label>
+                        <label for="aliasUsuario">Ingresa un Alias:</label>
                     </div>
                     
                     <div class="d-flex justify-content-center gap-3 flex-wrap">
@@ -454,15 +454,15 @@
                             </table>
                         </div>
                     </div>
-                    <div class="col-md-8">
-                        </div>
-                </div> <div class="row mt-4" id="seccion-estadisticas" style="border-top: 1px solid #333; padding-top: 2rem;">
+                </div>
+
+                <div class="row mt-4" id="seccion-estadisticas" style="border-top: 1px solid #333; padding-top: 2rem;">
                     <div class="col-12 mb-3">
                         <h5 class="text-uppercase" style="color: #00a4ef; font-family: 'JetBrains Mono', monospace;"><i class="fas fa-chart-line"></i> Análisis de Tendencias Globales</h5>
                     </div>
                     <div class="col-md-6 mb-3">
                         <div class="card bg-dark border-secondary p-3 h-100">
-                            <p class="text-muted mb-1" style="font-size: 0.85rem;">TIEMPO PROMEDIO DE RESPUESATA</p>
+                            <p class="text-muted mb-1" style="font-size: 0.85rem;">TIEMPO PROMEDIO DE RESPUESTA</p>
                             <h3 id="stat-tiempo-promedio" style="color: #fff;">Calculando...</h3>
                         </div>
                     </div>
@@ -472,7 +472,6 @@
                             <h4 id="stat-escenario-fallado" style="color: #ff3333; font-size: 1rem; line-height: 1.4;">Calculando...</h4>
                         </div>
                     </div>
-                </div>
                 </div>
 
                 <div class="row mb-4 align-items-center hidden" id="seccion-solo-ranking" style="display: none;">
@@ -495,7 +494,7 @@
                     </div>
                 </div>
 
-                <div class="text-center mt-2">
+                <div class="text-center mt-4">
                     <button class="btn btn-outline-secondary" onclick="volverAlInicio()" style="font-family: 'JetBrains Mono', monospace;"><i class="fas fa-undo"></i> Volver_al_Inicio</button>
                 </div>
             </div>
@@ -595,6 +594,7 @@
                 return;
             }
             alias = inputAlias;
+            escenariosFalladosIntento = [];
             
             mezclarEscenarios(escenarios);
             
@@ -810,7 +810,7 @@
             score = 0;
             tiempoTotal = 0;
             alias = "";
-            
+            escenariosFalladosIntento = [];
             document.getElementById('aliasUsuario').value = "";
             document.getElementById('pantalla-resultados').setAttribute('style', 'display: none !important');
             document.getElementById('pantalla-registro').setAttribute('style', 'display: block !important');
