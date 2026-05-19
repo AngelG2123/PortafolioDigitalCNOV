@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificaciones | Seguridad Informática</title>
+    <link rel="stylesheet" href="style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        body { background-color: #050505; color: #e0e0e0; font-family: 'Inter', sans-serif; margin: 0; }
+
+        /* CABECERA CON LETRAS BLANCAS */
+        .info-materia p {
+            margin: 0 !important; padding: 1px 0 !important; line-height: 1.1 !important; text-align: right !important;
+            font-size: 0.85rem !important; color: #ffffff !important; font-family: 'JetBrains Mono', monospace !important; display: block !important;
+        }
+        .info-materia span.simbolo, .info-materia span.cursor { color: #00ff41 !important; }
+
+        /* Título de la sección */
+        .titulo-seccion {
+            text-align: center; margin-top: 40px; margin-bottom: 2rem;
+        }
+        .titulo-seccion h1 {
+            font-family: 'JetBrains Mono', monospace; color: #00ff41; font-size: 2.5rem; margin: 0;
+        }
+        .titulo-seccion p {
+            color: #888; font-size: 1.1rem; margin-top: 10px;
+        }
+
+        /* Contenedor Grid de Certificaciones */
+        .contenedor-certificaciones { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); 
+            gap: 2.5rem; 
+            width: 100%; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 2rem; 
+            box-sizing: border-box;
+        }
+
+        /* Estilos de la Tarjeta */
+        .card-cert {
+            background: #0f0f0f; 
+            border: 1px solid #333; 
+            border-radius: 8px; 
+            padding: 2rem; 
+            display: flex; 
+            flex-direction: column;
+            transition: all 0.4s ease; 
+            position: relative; 
+            overflow: hidden;
+        }
+        .card-cert:hover { 
+            transform: translateY(-5px); 
+            border-color: #00ff41; 
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.15); 
+        }
+
+        /* Insignia Top */
+        .cert-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-bottom: 1px dashed #333;
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .badge-img {
+            width: 110px;
+            height: 110px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            background: #1a1a1a;
+            padding: 10px;
+            border: 1px solid #222;
+        }
+        
+        /* Contenido Central */
+        .cert-body { flex-grow: 1; }
+        .cert-body h2 { 
+            font-family: 'JetBrains Mono', monospace; 
+            color: #fff; 
+            font-size: 1.3rem; 
+            margin: 0 0 1rem 0; 
+            text-align: center;
+        }
+        .cert-body h2 .simbolo { color: #00ff41; }
+        .cert-body p { 
+            color: #aaa; 
+            font-size: 0.9rem; 
+            line-height: 1.6; 
+            text-align: justify; 
+            margin-bottom: 1.5rem;
+        }
+
+        /* Evidencia Bottom */
+        .cert-footer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-top: 1px dashed #333;
+            padding-top: 1.5rem;
+            margin-top: auto;
+        }
+        .cert-preview-img {
+            width: 100%;
+            max-width: 280px;
+            height: auto;
+            border: 1px solid #333;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+        .card-cert:hover .cert-preview-img {
+            opacity: 1;
+            border-color: #555;
+        }
+
+        /* Botones Terminal */
+        .btn-terminal {
+            font-family: 'JetBrains Mono', monospace;
+            color: #00ff41;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-terminal:hover { text-shadow: 0 0 8px #00ff41; color: #fff; }
+        
+        .btn-outline {
+            border: 1px solid #00ff41;
+            padding: 8px 15px;
+            border-radius: 4px;
+            width: 100%;
+            justify-content: center;
+            box-sizing: border-box;
+            background: transparent;
+        }
+        .btn-outline:hover {
+            background: rgba(0, 255, 65, 0.1);
+        }
+
+        /* Scroll Animation */
+        .scroll-element { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+        .scroll-element.visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+    <header class="cabecera-principal">
+        <div class="contenedor contenido-cabecera">
+            <div class="logo-terminal">
+                <span class="simbolo">></span> Ángel Josué González Delgado<span class="cursor">_</span>
+                <br>
+                <span class="simbolo">></span> VenusWatch<span class="cursor">_</span>
+            </div>
+            <div class="info-materia">
+                <p><span class="simbolo">></span> CNO V - Seguridad Informática <span class="cursor">_</span></p>
+                <p><span class="simbolo">></span> Universidad Politécnica de San Luis Potosí <span class="cursor">_</span></p>
+                <p><span class="simbolo">></span> Octavo semestre <span class="cursor">_</span></p>
+            </div>
+        </div>
+        
+        <nav class="barra-navegacion">
+            <ul class="enlaces">
+                <li><a href="index.html">/Inicio</a></li>
+                <li><a href="actividades.html">/Actividades</a></li>
+                <li><a href="parcial1.html">/Parcial 1</a></li>
+                <li><a href="parcial2.html">/Parcial 2</a></li>
+                <li><a href="#" class="deshabilitado">/Parcial 3</a></li>
+                <li><a href="proyectos.html">/Proyectos</a></li>
+                <li><a href="certificaciones.html" class="activo">/Certificaciones</a></li>
+                <li><a href="hall-of-fame.html">/Hall_of_Fame</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="seccion-certificaciones">
+        <div class="titulo-seccion scroll-element">
+            <h1>>_ CERTIFICATIONS_VAULT</h1>
+            <p>Registro de Acreditaciones, Insignias y Formación Técnica</p>
+        </div>
+
+        <div class="contenedor-certificaciones">
+
+            <!-- CERTIFICACIÓN 1 -->
+            <article class="card-cert scroll-element">
+                <div class="cert-header">
+                    <img src="RUTA_IMAGEN_BADGE_1.png" alt="Badge Intro Ciberseguridad" class="badge-img">
+                    <a href="LINK_A_TU_INSIGNIA_1" target="_blank" class="btn-terminal">[Ver_Insignia_Digital]</a>
+                </div>
+                <div class="cert-body">
+                    <h2><span class="simbolo">></span> Introducción a la Ciberseguridad</h2>
+                    <p>
+                        Avanzar en mi formación en ingeniería me hizo darme cuenta de que la tecnología va mucho más allá de ensamblar sistemas de alto rendimiento o desarrollar aplicaciones; el verdadero reto actual es proteger esos ecosistemas. Este curso marcó un punto de inflexión en mi visión profesional, ayudándome a comprender que la ciberseguridad no es una función aislada, sino una responsabilidad transversal. Aprendí a identificar cómo las vulnerabilidades más simples pueden comprometer infraestructuras enteras si no se manejan adecuadamente. Ya no veo los sistemas informáticos únicamente en términos de velocidad o eficiencia, sino a través del lente de la confidencialidad, la integridad y la disponibilidad. Esta introducción cimentó mi interés por especializarme de manera formal en la defensa corporativa, demostrándome que la protección de la información exige una evolución constante frente a un panorama de amenazas cibernéticas que no descansa.
+                    </p>
+                </div>
+                <div class="cert-footer">
+                    <img src="RUTA_IMAGEN_CERTIFICADO_1.jpg" alt="Preview Certificado 1" class="cert-preview-img">
+                    <a href="RUTA_PDF_CERTIFICADO_1.pdf" target="_blank" class="btn-terminal btn-outline">>> Descargar_PDF</a>
+                </div>
+            </article>
+
+            <!-- CERTIFICACIÓN 2 -->
+            <article class="card-cert scroll-element" style="transition-delay: 100ms;">
+                <div class="cert-header">
+                    <img src="RUTA_IMAGEN_BADGE_2.png" alt="Badge Conceptos Básicos Redes" class="badge-img">
+                    <a href="LINK_A_TU_INSIGNIA_2" target="_blank" class="btn-terminal">[Ver_Insignia_Digital]</a>
+                </div>
+                <div class="cert-body">
+                    <h2><span class="simbolo">></span> Conceptos Básicos de Redes</h2>
+                    <p>
+                        Entender la estructura del modelo OSI y la pila TCP/IP es indispensable para cualquier labor seria de administración de TI. Este curso me proporcionó la base arquitectónica necesaria para comprender con exactitud cómo viajan los paquetes de datos entre distintos nodos. Al profundizar en el direccionamiento IPv4 e IPv6, el enrutamiento y la conmutación, adquirí la capacidad de visualizar la topología lógica y física de una red empresarial. Esto resulta vital en mi desarrollo técnico, ya que al colaborar en tareas de soporte o en la operación diaria de un centro de datos, necesito saber dónde se origina una falla de comunicación. Además, comprender la infraestructura subyacente es el paso previo ineludible para asegurarla; es imposible auditar o proteger un entorno si no se entiende a la perfección cómo fue diseñado desde sus cimientos.
+                    </p>
+                </div>
+                <div class="cert-footer">
+                    <img src="RUTA_IMAGEN_CERTIFICADO_2.jpg" alt="Preview Certificado 2" class="cert-preview-img">
+                    <a href="RUTA_PDF_CERTIFICADO_2.pdf" target="_blank" class="btn-terminal btn-outline">>> Descargar_PDF</a>
+                </div>
+            </article>
+
+            <!-- CERTIFICACIÓN 3 -->
+            <article class="card-cert scroll-element" style="transition-delay: 200ms;">
+                <div class="cert-header">
+                    <img src="RUTA_IMAGEN_BADGE_3.png" alt="Badge Dispositivos de Red" class="badge-img">
+                    <a href="LINK_A_TU_INSIGNIA_3" target="_blank" class="btn-terminal">[Ver_Insignia_Digital]</a>
+                </div>
+                <div class="cert-body">
+                    <h2><span class="simbolo">></span> Dispositivos de Red y Config.</h2>
+                    <p>
+                        Pasar de la teoría de redes a la práctica directa con el hardware corporativo es un salto cualitativo enorme. En este módulo, me enfoqué en la configuración por consola de switches y routers, aplicando comandos esenciales para establecer parámetros de conectividad segura. Aprendí la importancia crítica del endurecimiento (hardening) inicial: desde la encriptación de contraseñas locales hasta la configuración de accesos remotos vía SSH. Durante las labores técnicas donde la gestión de la infraestructura es constante, saber cómo inicializar correctamente un dispositivo previene brechas de seguridad que los atacantes automatizan para explotar. Un equipo mal configurado desde su instalación es un vector de ataque silencioso, por lo que dominar estas prácticas operativas asegura que la base lógica de la red sea robusta, confiable y segura desde el momento de su despliegue inicial.
+                    </p>
+                </div>
+                <div class="cert-footer">
+                    <img src="RUTA_IMAGEN_CERTIFICADO_3.jpg" alt="Preview Certificado 3" class="cert-preview-img">
+                    <a href="RUTA_PDF_CERTIFICADO_3.pdf" target="_blank" class="btn-terminal btn-outline">>> Descargar_PDF</a>
+                </div>
+            </article>
+
+            <!-- CERTIFICACIÓN 4 -->
+            <article class="card-cert scroll-element">
+                <div class="cert-header">
+                    <img src="RUTA_IMAGEN_BADGE_4.png" alt="Badge Seguridad en Terminales" class="badge-img">
+                    <a href="LINK_A_TU_INSIGNIA_4" target="_blank" class="btn-terminal">[Ver_Insignia_Digital]</a>
+                </div>
+                <div class="cert-body">
+                    <h2><span class="simbolo">></span> Seguridad en Terminales</h2>
+                    <p>
+                        Con la evolución de los entornos de trabajo híbridos, el perímetro tradicional de la red ha desaparecido, convirtiendo a los dispositivos de usuario en la principal línea de batalla. Esta certificación me permitió analizar en detalle las vulnerabilidades a nivel de endpoint, abarcando desde la ejecución de malware avanzado hasta técnicas de ingeniería social. Aprendí a auditar sistemas operativos y a comprender el rol de los sistemas de prevención en el host. Como alguien que disfruta optimizando equipos y evaluando componentes de alto rendimiento, como unidades de almacenamiento NVMe, tengo muy claro que el hardware más veloz no sirve de nada si el sistema operativo subyacente está comprometido por un ransomware. Asegurar las terminales es vital para garantizar que los equipos locales no se conviertan inadvertidamente en la puerta de entrada a la red corporativa.
+                    </p>
+                </div>
+                <div class="cert-footer">
+                    <img src="RUTA_IMAGEN_CERTIFICADO_4.jpg" alt="Preview Certificado 4" class="cert-preview-img">
+                    <a href="RUTA_PDF_CERTIFICADO_4.pdf" target="_blank" class="btn-terminal btn-outline">>> Descargar_PDF</a>
+                </div>
+            </article>
+
+            <!-- CERTIFICACIÓN 5 -->
+            <article class="card-cert scroll-element" style="transition-delay: 100ms;">
+                <div class="cert-header">
+                    <img src="RUTA_IMAGEN_BADGE_5.png" alt="Badge Administración de Amenazas" class="badge-img">
+                    <a href="LINK_A_TU_INSIGNIA_5" target="_blank" class="btn-terminal">[Ver_Insignia_Digital]</a>
+                </div>
+                <div class="cert-body">
+                    <h2><span class="simbolo">></span> Administración de Amenazas</h2>
+                    <p>
+                        El panorama de la ciberseguridad actual exige abandonar las posturas puramente reactivas para adoptar estrategias de defensa proactivas. Este curso me adentró en el mundo de la inteligencia de amenazas, capacitándome para recopilar y correlacionar indicadores de compromiso (IoC). Aprendí a interpretar reportes de vulnerabilidades y a priorizar la gestión de parches basándome en el impacto real para el negocio. Entender cómo operan los cibercriminales y mapear sus tácticas, técnicas y procedimientos (TTP) me resulta un campo fascinante de estudio. Esta formación técnica es un pilar indispensable en mi camino hacia el monitoreo continuo, ya que me otorga el criterio analítico para anticipar vectores de ataque y ajustar las herramientas de detección antes de que ocurra una brecha, minimizando significativamente el nivel de exposición.
+                    </p>
+                </div>
+                <div class="cert-footer">
+                    <img src="RUTA_IMAGEN_CERTIFICADO_5.jpg" alt="Preview Certificado 5" class="cert-preview-img">
+                    <a href="RUTA_PDF_CERTIFICADO_5.pdf" target="_blank" class="btn-terminal btn-outline">>> Descargar_PDF</a>
+                </div>
+            </article>
+
+            <!-- CERTIFICACIÓN 6 -->
+            <article class="card-cert scroll-element" style="transition-delay: 200ms;">
+                <div class="cert-header">
+                    <img src="RUTA_IMAGEN_BADGE_6.png" alt="Badge Analista Junior" class="badge-img">
+                    <a href="LINK_A_TU_INSIGNIA_6" target="_blank" class="btn-terminal">[Ver_Insignia_Digital]</a>
+                </div>
+                <div class="cert-body">
+                    <h2><span class="simbolo">></span> Analista Junior en Ciberseguridad</h2>
+                    <p>
+                        Esta acreditación representa la consolidación directa de mi objetivo profesional a corto plazo: integrarme de lleno a las operaciones de un Centro de Operaciones de Seguridad (SOC). Durante el desarrollo del programa, me familiaricé con el análisis de tráfico anómalo, la interpretación crítica de logs y los protocolos estandarizados de respuesta a incidentes. Desarrollé la capacidad técnica para discernir entre falsos positivos y amenazas activas, una habilidad que pongo en práctica al evaluar registros y alertas de seguridad. Aprender a clasificar la severidad de un evento, entender las metodologías de aislamiento y comprender cómo se mantiene la integridad de la evidencia me prepara para afrontar incidentes con una mentalidad metódica y resolutiva, demostrando que poseo las competencias necesarias para operar en la primera línea de defensa.
+                    </p>
+                </div>
+                <div class="cert-footer">
+                    <img src="RUTA_IMAGEN_CERTIFICADO_6.jpg" alt="Preview Certificado 6" class="cert-preview-img">
+                    <a href="RUTA_PDF_CERTIFICADO_6.pdf" target="_blank" class="btn-terminal btn-outline">>> Descargar_PDF</a>
+                </div>
+            </article>
+
+            <!-- CERTIFICACIÓN 7 -->
+            <article class="card-cert scroll-element">
+                <div class="cert-header">
+                    <img src="RUTA_IMAGEN_BADGE_7.png" alt="Badge Hacker Ético" class="badge-img">
+                    <a href="LINK_A_TU_INSIGNIA_7" target="_blank" class="btn-terminal">[Ver_Insignia_Digital]</a>
+                </div>
+                <div class="cert-body">
+                    <h2><span class="simbolo">></span> Hacker Ético</h2>
+                    <p>
+                        Para blindar una red de manera efectiva, es imprescindible pensar, analizar y operar como aquel que intenta vulnerarla. En esta certificación, me sumergí de lleno en la seguridad ofensiva, explorando las fases del pentesting y el uso de herramientas especializadas para el escaneo, la enumeración y la explotación de servicios. Ejecutar laboratorios enfocados en el bypassing de controles, descubrimiento de vulnerabilidades web e inyecciones estructuradas me otorgó una perspectiva técnica invaluable. Documentar estos hallazgos para transformarlos en planes de remediación accionables me enseñó que el hacking ético no consiste únicamente en vulnerar accesos, sino en aportar valor mitigando el riesgo. Esta mentalidad ofensiva complementa y perfecciona mi perfil defensivo, dándome la agudeza necesaria para evaluar infraestructuras e identificar brechas lógicas antes de que sean explotadas maliciosamente.
+                    </p>
+                </div>
+                <div class="cert-footer">
+                    <img src="RUTA_IMAGEN_CERTIFICADO_7.jpg" alt="Preview Certificado 7" class="cert-preview-img">
+                    <a href="RUTA_PDF_CERTIFICADO_7.pdf" target="_blank" class="btn-terminal btn-outline">>> Descargar_PDF</a>
+                </div>
+            </article>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="contenedor contenido-footer">
+            <p>&copy; 2026 Ángel Josué González Delgado. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        window.onload = function() {
+            const observador = new IntersectionObserver((entradas) => {
+                entradas.forEach((entrada) => {
+                    if (entrada.isIntersecting) { entrada.target.classList.add('visible'); }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.scroll-element').forEach((el) => observador.observe(el));
+        }
+    </script>
+</body>
+</html>
