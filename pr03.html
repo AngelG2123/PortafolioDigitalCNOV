@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propuesta SGSI – Robert Bosch México | Portafolio</title>
+    <link rel="stylesheet" href="style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- 1. ESTILOS GENERALES (FONDO NEGRO PURO) --- */
+        body { 
+            background-color: #050505; 
+            color: #e0e0e0; 
+            font-family: 'Inter', sans-serif; 
+            margin: 0;
+        }
+
+        /* --- 2. CABECERA (LETRAS BLANCAS Y COMPACTAS) --- */
+        .info-materia p {
+            margin: 0 !important;
+            padding: 1px 0 !important;
+            line-height: 1.1 !important;
+            text-align: right !important;
+            font-size: 0.85rem !important;
+            color: #ffffff !important; 
+            font-family: 'JetBrains Mono', monospace !important;
+            display: block !important;
+        }
+        .info-materia span.simbolo, 
+        .info-materia span.cursor {
+            color: #00ff41 !important; 
+        }
+
+        /* --- 3. ESTILOS DEL ARTÍCULO --- */
+        .contenedor-articulo { max-width: 950px; margin: 0 auto; padding: 2rem 1rem; position: relative; z-index: 1; }
+        
+        h1 { font-size: 2.2rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
+
+        .rubrica-titulo {
+            font-family: 'JetBrains Mono', monospace; font-size: 1.3rem; color: #00ff41; 
+            border-bottom: 2px solid #333; padding-bottom: 0.5rem; margin-top: 4rem; margin-bottom: 1.5rem; text-transform: uppercase;
+        }
+        .rubrica-tag { background: #222; color: #aaa; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; margin-right: 10px; vertical-align: middle; }
+        
+        .contenedor-articulo p { line-height: 1.8; margin-bottom: 1.2rem; text-align: justify; font-size: 1rem; color: #d1d1d1; }
+        .contenedor-articulo ul, .contenedor-articulo ol { color: #d1d1d1; line-height: 1.8; margin-bottom: 1.2rem; }
+        strong { color: #fff; }
+        h3 { color: #fff; margin-top: 2rem; margin-bottom: 1rem; font-size: 1.1rem; border-left: 3px solid #00ff41; padding-left: 10px; }
+        h4 { color: #ccc; margin-top: 1.5rem; margin-bottom: 0.5rem; font-size: 1rem; }
+        h5 { color: #aaa; margin-top: 1rem; margin-bottom: 0.5rem; font-size: 0.95rem; }
+
+        /* --- 4. COMPONENTES --- */
+        .box-metadata { background: #111; border: 1px solid #333; padding: 1.5rem; margin-bottom: 3rem; border-left: 4px solid #00ff41; }
+        .box-metadata ul { list-style: none; padding: 0; }
+        .box-metadata li { font-size: 0.9rem; color: #aaa; margin-bottom: 5px; line-height: 1.6;}
+        .box-metadata li i { color: #00ff41; margin-right: 8px; }
+
+        .alert-box {
+            background: #1a0505;
+            border-left: 4px solid #e53935;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+            font-size: 0.95rem;
+        }
+        .alert-box strong { color: #e53935; }
+
+        /* --- 5. TABLAS --- */
+        table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.85rem; }
+        th, td { border: 1px solid #333; padding: 10px; text-align: left; vertical-align: top; }
+        th { background-color: #111; color: #00ff41; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; }
+        td { color: #ccc; }
+        tr:hover { background-color: #0a0a0a; }
+
+        /* --- 6. PRESENTACIONES (SLIDES) --- */
+        .slide-container { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin: 2rem 0; }
+        .slide-card { background: #0a0a0a; border: 1px solid #333; border-top: 3px solid #00ff41; border-radius: 6px; padding: 1.5rem; position: relative; }
+        .slide-card h4 { color: #00ff41; margin-top: 0; text-align: center; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #222; padding-bottom: 10px; }
+        .slide-card p.slide-footer { position: absolute; bottom: 10px; right: 15px; font-size: 0.7rem; color: #555; margin: 0; font-family: 'JetBrains Mono', monospace;}
+
+        /* ESPACIOS PARA IMAGEN */
+        .espacio-imagen {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background-color: #0f0f0f; border: 2px dashed #333; padding: 1.5rem; margin: 2rem 0; border-radius: 6px; transition: 0.3s;
+        }
+        .espacio-imagen:hover { border-color: #00ff41; }
+        .espacio-imagen img, .espacio-imagen iframe { max-width: 100%; height: auto; border: 1px solid #333; box-shadow: 0 5px 15px rgba(0,0,0,0.5); border-radius: 8px; }
+        .caption-imagen { font-size: 0.85rem !important; color: #888 !important; margin-top: 15px !important; font-style: italic; text-align: center !important; }
+
+        .btn-exportar {
+            display: block; width: 100%; max-width: 350px; margin: 3rem auto; padding: 1.2rem; background: #b71c1c; 
+            color: white; text-align: center; text-decoration: none; font-weight: bold; border-radius: 4px; font-family: 'JetBrains Mono', monospace; 
+            transition: 0.3s; border: 1px solid #e53935; box-shadow: 0 4px 10px rgba(183, 28, 28, 0.3);
+        }
+        .btn-exportar:hover { background: #d32f2f; box-shadow: 0 0 20px rgba(229, 57, 53, 0.6); transform: translateY(-2px); }
+
+    </style>
+</head>
+<body>
+
+    <header class="cabecera-principal">
+        <div class="contenedor contenido-cabecera">
+            <div class="logo-terminal">
+                <span class="simbolo">></span> Ángel Josué González Delgado<span class="cursor">_</span>
+                <br>
+                <span class="simbolo">></span> VenusWatch<span class="cursor">_</span>
+            </div>
+            <div class="info-materia">
+                <p><span class="simbolo">></span> CNO V - Seguridad Informática <span class="cursor">_</span></p>
+                <p><span class="simbolo">></span> Universidad Politécnica de San Luis Potosí <span class="cursor">_</span></p>
+                <p><span class="simbolo">></span> Octavo semestre <span class="cursor">_</span></p>
+            </div>
+        </div>
+        
+        <nav class="barra-navegacion">
+            <ul class="enlaces">
+                <li><a href="index.html">/Inicio</a></li>
+                <li><a href="actividades.html" class="activo">/Actividades</a></li>
+                <li><a href="parcial1.html">/Parcial 1</a></li>
+                <li><a href="parcial2.html">/Parcial 2</a></li>
+                <li><a href="parcial3.html" >/Parcial 3</a></li>
+                <li><a href="proyectos.html">/Proyectos</a></li>
+                <li><a href="certificaciones.html">/Certificaciones</a></li>
+                <li><a href="hall-of-fame.html">/Hall_of_Fame</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="contenedor-articulo">
+        
+        <div class="header-section scroll-element">
+            <h1>PROPUESTA SGSI – ROBERT BOSCH MÉXICO</h1>
+            <p style="color: #00ff41; font-family: 'JetBrains Mono'; margin-top: 0;">Proyecto Final | Equipo 02</p>
+            
+            <div class="box-metadata">
+                <h4 style="margin-top:0; color:#fff;">// DATOS:</h4>
+                <ul>
+                    <li><i class="fas fa-users"></i> Equipo 02 Integrantes:<br>
+                        - Hazel Mario Ávalos Rangel<br>
+                        - Jorge Alejandro Cabrera Meza<br>
+                        - Ángel Josué González Delgado <br>
+                        - Diego López Castro<br>
+                        - Jorge Emmanuel López Monsiváis
+                    </li>
+                    <li><i class="fas fa-chalkboard-teacher"></i> Profesor: Mtro. Servando López Contreras</li>
+                    <li><i class="fas fa-calendar-alt"></i> Fecha en que se redacta: 26 de Abril de 2026</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">01</span> Alcance</h2>
+        <div class="scroll-element">
+            <p><strong>¿Qué tan seguro es el software que desarrollas hoy?</strong> En entornos de desarrollo ágil como OutSystems, cada despliegue sin un marco de control es una puerta entreabierta para amenazas complejas. Este documento presenta la propuesta de un <strong>Sistema de Gestión de Seguridad de la Información (SGSI)</strong> basado en el <strong>Anexo SL de las normas ISO/IEC</strong>.</p>
+            
+            <div class="espacio-imagen">
+                <img src="bosch.png" alt="Propuesta SGSI Robert Bosch">
+                <p class="caption-imagen">Representación del Proyecto SGSI para Robert Bosch San Luis Potosí.</p>
+            </div>
+
+            <h3>1.1 a 1.4 Contexto Empresarial</h3>
+            <ul>
+                <li><strong>Empresa:</strong> Robert Bosch México Sistemas Automotrices, S.A. de C.V.</li>
+                <li><strong>Dirección:</strong> Eje Central 245, Zona Industrial, 78395 San Luis Potosí, S.L.P., México.</li>
+                <li><strong>Misión:</strong> Ofrecer soluciones tecnológicas a los retos actuales, promoviendo el equilibrio social y ecológico, innovación, seguridad y eficiencia.</li>
+                <li><strong>Visión:</strong> Estrategia "New Dimensions", centrada en la creación de valor, sostenibilidad, movilidad y eficiencia energética.</li>
+                <li><strong>Área de alcance:</strong> Electronic Data Interchange (EDI/4) - Departamento Easy.Go.</li>
+            </ul>
+
+            <h3>1.5 Propuesta de SGSI</h3>
+            <p>Establecer, implementar, mantener y mejorar continuamente un marco de protección de la información conforme a la familia ISO 27000 (particularmente ISO/IEC 27001 e ISO/IEC 27002), para salvaguardar la confidencialidad, integridad y disponibilidad de los activos de información en el ciclo de vida del desarrollo de software mediante la plataforma OutSystems (Low-Code).</p>
+
+            <h3>1.6 Organigrama de la empresa</h3>
+            <div class="espacio-imagen">
+                <img src="organigrama.png" alt="Organigrama de BOSCH México">
+                <p class="caption-imagen">Estructura organizacional de Robert Bosch México (EDI/4).</p>
+            </div>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">02</span> Referencias Normativas</h2>
+        <div class="scroll-element">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Norma ISO</th>
+                        <th>Descripción e Implementación en el SGSI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>ISO/IEC 27000</strong></td><td>Principios, conceptos y definiciones fundamentales (vocabulario).</td></tr>
+                    <tr><td><strong>ISO/IEC 27001:2022</strong></td><td>Requisitos de los SGSI. Marco contra el cual se evaluará la conformidad del departamento Easy.Go.</td></tr>
+                    <tr><td><strong>ISO/IEC 27002:2022</strong></td><td>Guía de referencia para selección de controles de seguridad (accesos e identidades).</td></tr>
+                    <tr><td><strong>ISO/IEC 27034</strong></td><td>Marco para integrar la seguridad en el ciclo de vida del desarrollo de software (OutSystems seguro por diseño).</td></tr>
+                    <tr><td><strong>ISO/IEC 27005</strong></td><td>Directrices para identificación, análisis y tratamiento de riesgos de seguridad.</td></tr>
+                    <tr><td><strong>ISO/IEC 27031</strong></td><td>Preparación de las TIC para la continuidad del negocio y resiliencia ante incidentes.</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">03</span> Términos y Condiciones</h2>
+        <div class="scroll-element">
+            <ul>
+                <li><strong>Activo de Información:</strong> Datos con valor para EDI/4 (código fuente OutSystems, bases de datos, credenciales).</li>
+                <li><strong>Confidencialidad, Integridad y Disponibilidad (CIA):</strong> Pilares fundamentales de la seguridad.</li>
+                <li><strong>Riesgo de Seguridad:</strong> Efecto de la incertidumbre sobre los objetivos (Probabilidad x Amenaza x Vulnerabilidad).</li>
+                <li><strong>OutSystems (Low-Code):</strong> Plataforma de desarrollo de alta productividad, entorno tecnológico principal.</li>
+            </ul>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">04</span> Contexto de la Organización</h2>
+        <div class="scroll-element">
+            <p>Se identificaron los siguientes activos críticos dentro del alcance del SGSI:</p>
+            
+            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 300px;">
+                    <h4>Activos Internos</h4>
+                    <ol>
+                        <li>Personal EDI, Laptops, Móviles full-time.</li>
+                        <li>Gestor de bases de datos e Información.</li>
+                        <li>Aplicaciones y Plataforma OutSystems.</li>
+                        <li>Almacenamiento físico/nube y Respaldos.</li>
+                        <li>Control de versiones.</li>
+                        <li>Routers, Switches, Firewall, Servidores Cisco.</li>
+                        <li>Cámaras, Controles de acceso físico/lógico, VPN.</li>
+                    </ol>
+                </div>
+                <div style="flex: 1; min-width: 300px;">
+                    <h4>Activos Externos</h4>
+                    <ol>
+                        <li>Proveedores Cloud (SaaS, IaaS, PaaS).</li>
+                        <li>Redes VAN (EDI) y Conexiones B2B.</li>
+                        <li>APIs y Webhooks externos.</li>
+                        <li>Consultores, MSSP/SOC y Soporte remoto.</li>
+                        <li>Librerías Open Source y Repositorios públicos.</li>
+                        <li>Proveedores IdP, CDNs y Custodia off-site.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">05</span> Liderazgo y Políticas</h2>
+        <div class="scroll-element">
+            <h3>Política General: Activos Internos</h3>
+            <p><strong>Objetivo:</strong> Garantizar confidencialidad, integridad y disponibilidad en la infraestructura interna EDI/4.</p>
+            <ul>
+                <li><strong>Bases de Datos (DBMS e Información):</strong> Clasificación obligatoria. Cifrado AES-256 para datos confidenciales. Acceso estrictamente controlado mediante Autenticación Multifactor (MFA).</li>
+                <li><strong>Servidores Físicos y Respaldos:</strong> Acceso biométrico al Site. Instalación de SO "Core". Cumplimiento de regla de respaldo 3-2-1 con retención inmutable de 30 días.</li>
+                <li><strong>Almacenamiento (Nube y USBs):</strong> Buckets en nube con bloqueo de acceso público. Prohibición de USBs personales; configuración GPO a "Solo lectura" para dispositivos no registrados.</li>
+                <li><strong>Dispositivos (Laptops y Móviles):</strong> Discos cifrados, EDR instalado. Bloqueo de sesión a los 5 minutos. Dispositivos móviles gestionados vía MDM con PIN numérico o biometría forzada.</li>
+                <li><strong>Control de Versiones y VPN:</strong> Prohibido commits directos a main (requiere Pull Request). Accesos externos exclusivos por cliente VPN Cisco con MFA y túnel dividido bloqueado.</li>
+            </ul>
+
+            <h3>Política General: Activos Externos</h3>
+            <p><strong>Objetivo:</strong> Mitigar riesgos en la cadena de suministro y entidades fuera del perímetro de EDI/4.</p>
+            <ul>
+                <li><strong>Proveedores Cloud y VAN:</strong> Exigencia de SOC 2 Tipo II o ISO 27001. Transacciones EDI vía AS2/SFTP con cifrado TLS 1.2+.</li>
+                <li><strong>APIs, Webhooks y Librerías:</strong> Prohibido API Keys en texto plano (uso de Secret Vault). Análisis de composición de software (SCA) obligatorio; bloqueo en CI/CD si CVSS > 7.0.</li>
+                <li><strong>Redes B2B y Consultores:</strong> VPNs finalizan en DMZ. Cuentas externas con expiración automática desde su creación (Principio de menor privilegio).</li>
+                <li><strong>MSSP y Soporte Remoto:</strong> Enmascaramiento de datos PII antes de enviar logs al SOC. Soporte de terceros estrictamente vía plataforma PAM con sesiones grabadas en video.</li>
+                <li><strong>Custodia Off-site e IdP:</strong> Cintas magnéticas cifradas en AES-256 con cadena de custodia. Proveedores de Identidad vía SAML 2.0 / OIDC con Geo-blocking activado por defecto.</li>
+            </ul>
+
+            <div class="alert-box">
+                <strong>Cláusula de Cumplimiento:</strong> El incumplimiento de políticas internas o el uso de <em>Shadow IT</em> externamente resultará en revocación de accesos, investigaciones y acciones legales o disciplinarias.
+            </div>
+
+            <h3>Matriz RACI de Seguridad (Extracto)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Política</th>
+                        <th>Project Manager</th>
+                        <th>Team Lead</th>
+                        <th>Developer</th>
+                        <th>Tester</th>
+                        <th>Stakeholder</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Información en bases de datos</td><td>A (Aprobador)</td><td>R (Responsable)</td><td>C (Consultado)</td><td>-</td><td>I (Informado)</td></tr>
+                    <tr><td>Gestor de BD híbridas (DBMS)</td><td>I</td><td>A</td><td>I</td><td>I</td><td>I</td></tr>
+                    <tr><td>Control de versiones (OutSystems/Git)</td><td>I</td><td>A</td><td>I</td><td>I</td><td>I</td></tr>
+                    <tr><td>Bibliotecas y dependencias de terceros</td><td>I</td><td>A</td><td>R</td><td>C</td><td>I</td></tr>
+                    <tr><td>Proveedores de Identidad (IdP)</td><td>A</td><td>R</td><td>C</td><td>I</td><td>C</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">06</span> Planificación (Matriz de Riesgos)</h2>
+        <div class="scroll-element">
+            <div class="espacio-imagen">
+                <img src="matriz de Riesgo.png" alt="Matriz de Riesgo SGSI EDI/4">
+                <p class="caption-imagen">Mapa de calor y evaluación probabilística de riesgos.</p>
+            </div>
+
+            <h3>Tabla de Detalle de Riesgos (Top Críticos)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Activo / Política</th>
+                        <th>Riesgo a prevenir</th>
+                        <th>Nivel de Riesgo</th>
+                        <th>Acción de la Política (Mitigación)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>INT-1</td><td>Bases de datos</td><td>Fuga o robo de información confidencial en texto plano.</td><td><strong style="color:#e53935;">20 (Extremo)</strong></td><td>Cifrado AES-256 y clasificación.</td></tr>
+                    <tr><td>INT-4</td><td>Almacenamiento Nube</td><td>Exposición accidental de datos corporativos a internet.</td><td><strong style="color:#e53935;">20 (Extremo)</strong></td><td>Bloqueo de acceso público e IaC.</td></tr>
+                    <tr><td>INT-5</td><td>Respaldos (Backups)</td><td>Pérdida irrecuperable por ransomware o desastres.</td><td><strong style="color:#e53935;">20 (Extremo)</strong></td><td>Regla 3-2-1 e inmutabilidad.</td></tr>
+                    <tr><td>EXT-8</td><td>Dependencias Software</td><td>Explotación de vulnerabilidades heredadas (Cadena de suministro).</td><td><strong style="color:#e53935;">20 (Extremo)</strong></td><td>Análisis SCA, bloqueo por CVSS > 7.0.</td></tr>
+                    <tr><td>INT-6</td><td>USB / Físico</td><td>Infección por malware e infiltración/exfiltración.</td><td><strong style="color:#fb8c00;">16 (Muy Alto)</strong></td><td>GPO solo lectura, USBs cifradas.</td></tr>
+                    <tr><td>INT-10</td><td>VPN Cisco</td><td>Interceptación de tráfico remoto o acceso no autorizado.</td><td><strong style="color:#fb8c00;">16 (Muy Alto)</strong></td><td>Túnel cifrado sin división, MFA.</td></tr>
+                    <tr><td>EXT-3</td><td>APIs y Webhooks</td><td>Abuso de consumo, ataques DDoS.</td><td><strong style="color:#fb8c00;">16 (Muy Alto)</strong></td><td>Rate limiting, Bóveda de secretos.</td></tr>
+                </tbody>
+            </table>
+        </div>
+<h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">07</span> Soporte</h2>
+        <div class="scroll-element">
+            <h3>7.1 Minuta de Concientización en Seguridad de la Información</h3>
+            
+            <table>
+                <tbody>
+                    <tr><td><strong>Empresa:</strong></td><td>Robert Bosch Sistemas Automotrices</td></tr>
+                    <tr><td><strong>Departamento:</strong></td><td>Easy.Go – EDI/4</td></tr>
+                    <tr><td><strong>Tema:</strong></td><td>Concientización sobre Seguridad de la Información y SGSI</td></tr>
+                    <tr><td><strong>Fecha:</strong></td><td>15 de mayo de 2026</td></tr>
+                    <tr><td><strong>Hora:</strong></td><td>10:00 AM – 10:46 AM</td></tr>
+                    <tr><td><strong>Lugar:</strong></td><td>Sala de juntas EDI/4 / Microsoft Teams</td></tr>
+                    <tr><td><strong>Responsable:</strong></td><td>Departamento de Ciberseguridad UPSLP</td></tr>
+                    <tr><td><strong>Moderadores:</strong></td><td>Diego López Castro, Hazel Mario Ávalos Rangel</td></tr>
+                </tbody>
+            </table>
+
+            <h4>Objetivo de la reunión</h4>
+            <p>Concientizar al personal del departamento EDI/4 sobre la importancia del Sistema de Gestión de Seguridad de la Información (SGSI), así como reforzar buenas prácticas de seguridad para proteger la confidencialidad, integridad y disponibilidad de la información corporativa.</p>
+
+            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 250px;">
+                    <h4>Temas tratados</h4>
+                    <ul>
+                        <li><strong>Introducción al SGSI:</strong> Definición, ISO/IEC 27001, Riesgos.</li>
+                        <li><strong>Políticas:</strong> VPN Cisco, Contraseñas, MFA, Control de acceso.</li>
+                        <li><strong>Riesgos comunes:</strong> Phishing, Robo de credenciales, USBs, Fuga de información.</li>
+                        <li><strong>Buenas prácticas:</strong> Bloquear equipos, No compartir accesos, Reportar incidentes.</li>
+                        <li><strong>Responsabilidades:</strong> Cumplir políticas, Participar en capacitaciones, Proteger activos.</li>
+                    </ul>
+                </div>
+                <div style="flex: 1; min-width: 250px;">
+                    <h4>Acuerdos establecidos</h4>
+                    <table>
+                        <thead>
+                            <tr><th>Acuerdo</th><th>Responsable</th><th>Fecha</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Capacitación anual phishing</td><td>TI / Seguridad</td><td>Semestral</td></tr>
+                            <tr><td>Revisión de accesos</td><td>Team Leads</td><td>Trimestral</td></tr>
+                            <tr><td>Validación de MFA</td><td>TI</td><td>Inmediato</td></tr>
+                            <tr><td>Simulacros de incidentes</td><td>Seguridad Informática</td><td>Próximo trimestre</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 3rem; text-align: center; border: none;">// MATERIAL DE PRESENTACIÓN INFORMATIVA //</h3>
+            <div class="slide-container">
+                <div class="slide-card">
+                    <h4>Diapositiva 1: Concientización en Seguridad de la Información</h4>
+                    <p><strong>Tema:</strong> ISO/IEC 27001 | Robert Bosch Sistemas Automotrices.</p>
+                    <p><strong>Responsables:</strong> Ávalos Rangel, Cabrera Meza, González Delgado, López Castro, López Monsiváis.</p>
+                    <p class="slide-footer">Bosch EDI/4</p>
+                </div>
+                
+                <div class="slide-card">
+                    <h4>Diapositiva 2: ¿Qué es un SGSI?</h4>
+                    <p>Un Sistema de Gestión de Seguridad de la Información es un conjunto de políticas, procesos y controles diseñados para proteger la información de la organización de forma sistemática y segura.</p>
+                    <ul>
+                        <li><strong>Confidencialidad:</strong> Solo autorizados acceden.</li>
+                        <li><strong>Integridad:</strong> Información sin alteraciones.</li>
+                        <li><strong>Disponibilidad:</strong> Acceso cuando se requiere.</li>
+                    </ul>
+                    <p class="slide-footer">Bosch EDI/4</p>
+                </div>
+
+                <div class="slide-card">
+                    <h4>Diapositiva 3: Importancia de la Seguridad</h4>
+                    <p>En el entorno EDI/4, la información es nuestro activo más valioso. Protegernos asegura:</p>
+                    <ul>
+                        <li>Continuidad operativa de la planta.</li>
+                        <li>Protección de propiedad intelectual.</li>
+                        <li>Cumplimiento legal y normativo.</li>
+                        <li>Confianza de clientes y socios.</li>
+                    </ul>
+                    <p class="slide-footer">Bosch EDI/4</p>
+                </div>
+
+                <div class="slide-card">
+                    <h4>Diapositiva 4: Amenazas más comunes</h4>
+                    <ul>
+                        <li><strong>Phishing:</strong> Correos falsos que buscan robar credenciales.</li>
+                        <li><strong>Malware:</strong> Software malicioso que daña sistemas.</li>
+                        <li><strong>Social Eng.:</strong> Manipulación para obtener acceso.</li>
+                        <li><strong>USB Inseguro:</strong> Fuga de datos por medios extraíbles.</li>
+                    </ul>
+                    <p><em>"El eslabón más débil suele ser el factor humano. La prevención es nuestra mejor arma."</em></p>
+                    <p class="slide-footer">Bosch EDI/4</p>
+                </div>
+
+                <div class="slide-card">
+                    <h4>Diapositiva 5: Políticas EDI/4</h4>
+                    <ul>
+                        <li><strong>MFA:</strong> Autenticación Multifactor obligatoria.</li>
+                        <li><strong>VPN Cisco:</strong> Acceso remoto cifrado seguro.</li>
+                        <li><strong>AES-256:</strong> Cifrado de datos en reposo.</li>
+                        <li><strong>Respaldo 3-2-1:</strong> 3 copias, 2 medios, 1 fuera de sitio.</li>
+                        <li><strong>EDR:</strong> Detección y respuesta en Laptops.</li>
+                    </ul>
+                    <p><strong>Cláusula de Cumplimiento:</strong> El incumplimiento puede resultar en la revocación de accesos y sanciones disciplinarias. La seguridad es responsabilidad de cada colaborador.</p>
+                    <p class="slide-footer">Bosch EDI/4</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">08</span> Operación</h2>
+        <div class="scroll-element">
+            <p>Dentro de las 20 políticas establecidas, la política sobre el uso de los teléfonos móviles del personal full-time establece: <em>"Los dispositivos móviles que procesen o accedan a datos del departamento EDI deben ser gestionados de manera segura."</em> Esto debido a que si se llega a hacer un mal uso se puede lograr una escala de privilegios mediante el dispositivo móvil hacia la red del sistema u otros dispositivos de la empresa.</p>
+            <p>La línea base de la política menciona: <em>"La política del MDM forzará un código de desbloqueo (PIN) mínimo de 6 dígitos numéricos o autenticación biométrica de forma predeterminada."</em></p>
+            
+            <h3>Configuración Operativa (FaceID & Passcode)</h3>
+            <ol>
+                <li>Ingresar a la aplicación de configuración en el dispositivo.</li>
+                <li>Seleccionar la opción <strong>FaceID & Passcode</strong>.</li>
+                <li>Activar el FaceID y realizar la prueba para la configuración del biométrico.</li>
+                <li>Seleccionar la opción de agregar un passcode e ingresar el código de 6 dígitos de preferencia.</li>
+            </ol>
+
+            <div class="espacio-imagen">
+                <img src="op1.png" alt="Evidencia de configuración biométrica – Paso 1 y 2">
+                <img src="op2.png" alt="Evidencia de configuración biométrica – Paso 3 y 4">
+                <p class="caption-imagen">Evidencia de configuración biométrica en dispositivos móviles administrados por el MDM corporativo.</p>
+            </div>
+
+            <h3>8.1 Planificación y control operacional</h3>
+            <p>El departamento EDI/4 planifica, implementa, controla, supervisa y revisa los procesos necesarios para cumplir con los requisitos de seguridad de la información establecidos en el SGSI.</p>
+            <ul>
+                <li><strong>Criterios para los procesos:</strong> Procedimientos documentados con criterios de aceptación.</li>
+                <li><strong>Control de cambios planificados:</strong> Evaluación del impacto en la seguridad antes de cualquier implementación o modificación de infraestructura o OutSystems.</li>
+                <li><strong>Procesos externalizados:</strong> Control estricto de servicios SaaS, proveedores VAN y soporte remoto de terceros.</li>
+                <li><strong>Documentación de la información:</strong> Mantenimiento de registros de acceso, logs SIEM, actas y reportes.</li>
+            </ul>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">09</span> Evaluación del Rendimiento</h2>
+        <div class="scroll-element">
+            <h3>Checklist de Auditoría Interna del SGSI</h3>
+            <p>Auditoría interna evaluando 20 políticas y controles clave basados en ISO/IEC 27001.</p>
+            
+            <table>
+                <thead>
+                    <tr><th>No.</th><th>Política / Control de Seguridad</th><th>Estado</th><th>Evidencias / Observaciones (Hallazgos)</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>Política General: Aprobada y comunicada.</td><td><span style="color:#00ff41;">Cumple</span></td><td>Documento firmado. Boletín interno 15/01/2026.</td></tr>
+                    <tr><td>2</td><td>Revisión de Políticas anual.</td><td><strong style="color:#e53935;">No Cumple</strong></td><td>Política de teletrabajo sin actualizar por 18 meses.</td></tr>
+                    <tr><td>3</td><td>Roles y Responsabilidades asignados.</td><td><span style="color:#00ff41;">Cumple</span></td><td>Matriz RACI en intranet corporativa.</td></tr>
+                    <tr><td>4</td><td>Seguridad en Proyectos (Security by Design).</td><td><strong style="color:#fb8c00;">Parcial</strong></td><td>2 de 5 proyectos omitieron evaluación inicial.</td></tr>
+                    <tr><td>5</td><td>Inventario de Activos actualizado.</td><td><span style="color:#00ff41;">Cumple</span></td><td>Plataforma GLPI coincide en 98%.</td></tr>
+                    <tr><td>6</td><td>Clasificación de la Información.</td><td><strong style="color:#e53935;">No Cumple</strong></td><td>Reportes financieros sin etiqueta "Confidencial".</td></tr>
+                    <tr><td>7</td><td>Borrado Seguro y Destrucción.</td><td><span style="color:#00ff41;">Cumple</span></td><td>Actas de destrucción magnética (Folio #8472).</td></tr>
+                    <tr><td>8</td><td>Principio de Mínimo Privilegio.</td><td><span style="color:#00ff41;">Cumple</span></td><td>No hay usuarios operativos en Domain Admins.</td></tr>
+                    <tr><td>9</td><td>MFA y VPN.</td><td><span style="color:#00ff41;">Cumple</span></td><td>100% accesos VPN exigen validación.</td></tr>
+                    <tr><td>10</td><td>Gestión de Altas y Bajas.</td><td><strong style="color:#e53935;">No Cumple</strong></td><td>2 cuentas de ex-empleados activas por >72h.</td></tr>
+                    <tr><td>11</td><td>Monitoreo de Accesos.</td><td><span style="color:#00ff41;">Cumple</span></td><td>Bloqueo tras 5 intentos fallidos comprobado.</td></tr>
+                    <tr><td>12</td><td>Control de Acceso Físico en CPD.</td><td><span style="color:#00ff41;">Cumple</span></td><td>Lectores biométricos y cámaras operativas.</td></tr>
+                    <tr><td>13</td><td>Regla de Backup 3-2-1.</td><td><span style="color:#00ff41;">Cumple</span></td><td>Copias inmutables en AWS S3 verificadas.</td></tr>
+                    <tr><td>14</td><td>Pruebas de Restauración (Disaster Recovery).</td><td><strong style="color:#e53935;">No Cumple</strong></td><td>No existe evidencia de simulacro en el último año.</td></tr>
+                    <tr><td>15</td><td>Protección Endpoint (EDR).</td><td><span style="color:#00ff41;">Cumple</span></td><td>99.5% de equipos con CrowdStrike óptimo.</td></tr>
+                    <tr><td>16</td><td>Cifrado AES-256 en Laptops.</td><td><span style="color:#00ff41;">Cumple</span></td><td>BitLocker activo por GPO.</td></tr>
+                    <tr><td>17</td><td>Gestión de Vulnerabilidades y Parches.</td><td><span style="color:#00ff41;">Cumple</span></td><td>Nessus sin críticos; WSUS desplegado.</td></tr>
+                    <tr><td>18</td><td>Plan de Respuesta a Incidentes.</td><td><span style="color:#00ff41;">Cumple</span></td><td>CSIRT interno conformado y actualizado.</td></tr>
+                    <tr><td>19</td><td>Firma de NDA.</td><td><span style="color:#00ff41;">Cumple</span></td><td>100% en muestreo aleatorio de RRHH.</td></tr>
+                    <tr><td>20</td><td>Campañas de Concientización y Phishing.</td><td><strong style="color:#fb8c00;">Parcial</strong></td><td>Campaña de simulacro con 1 año de atraso.</td></tr>
+                </tbody>
+            </table>
+
+            <div class="box-metadata" style="margin-top: 2rem;">
+                <h4 style="margin-top:0; color:#fff;">// RESULTADOS DE AUDITORÍA:</h4>
+                <ul>
+                    <li><i class="fas fa-chart-pie"></i> <strong>Total de controles:</strong> 20</li>
+                    <li><i class="fas fa-check-circle"></i> <strong>Cumplimiento total:</strong> 14</li>
+                    <li><i class="fas fa-exclamation-triangle"></i> <strong>Incumplimientos:</strong> 4</li>
+                    <li><i class="fas fa-adjust"></i> <strong>Cumplimiento Parcial:</strong> 2</li>
+                    <li style="margin-top: 15px;"><i class="fas fa-file-signature"></i> <strong>Validado por:</strong> Ailton Israel Dominguez Hernandez (Auditor Líder) y Diego Lopez Castro (Responsable SGSI) - 13/05/2026.</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">10</span> Mejora (Gestión de Incidentes)</h2>
+        <div class="scroll-element">
+            <h3>10.1 Descripción del Incidente: ¿Qué sucedió?</h3>
+            <p>El día de ayer, un colaborador del equipo EDI/4 fue víctima del robo de su laptop corporativa mientras laboraba remotamente en una cafetería pública. El colaborador se levantó a atender una llamada dejando el equipo encendido y desbloqueado. Existió una ventana de riesgo crítica donde un tercero pudo acceder a información antes del bloqueo automático de pantalla.</p>
+
+            <h3>10.2 Análisis de Causa Raíz</h3>
+            <ul>
+                <li><strong>Falla en Seguridad Física:</strong> Violación a los principios de custodia de activos en espacios públicos de alto tránsito. Vacío en la concientización sobre ingeniería social presencial.</li>
+                <li><strong>Brecha en Línea Base:</strong> El bloqueo a los 5 minutos permitió que el equipo fuera sustraído con la sesión activa, neutralizando temporalmente la protección de primer nivel (cifrado de disco).</li>
+                <li><strong>Efectividad Reactiva:</strong> El protocolo de respuesta funcionó. El reporte en la primera hora permitió contener la brecha mediante borrado remoto antes de una extracción prolongada de datos.</li>
+            </ul>
+
+            <h3>10.3 Cronología del Incidente</h3>
+            <div class="console-block">
+                <strong>[09:15 AM]</strong> Usuario inicia jornada en cafetería. EDR reporta conexión estable y disco cifrado.
+                <strong>[10:42 AM]</strong> Usuario abandona la mesa. Laptop desbloqueada. Inicia temporizador de 5 minutos.
+                <strong>[10:44 AM]</strong> Individuo sustrae el equipo. Sesión aún activa (minuto 2).
+                <strong>[10:48 AM]</strong> Usuario regresa y confirma ausencia del equipo.
+                <strong>[11:15 AM]</strong> Notificación a la mesa de ayuda TI (Cumplimiento de reporte &lt; 1 hora).
+                <strong>[11:22 AM]</strong> TI localiza dispositivo vía EDR y ejecuta bloqueo y borrado remoto (Wipe).
+                <strong>[11:25 AM]</strong> Consola confirma ejecución exitosa del Wipe. Entra en vigor el cifrado de disco total.
+                <strong>[01:30 PM]</strong> Usuario levanta acta en Ministerio Público.
+            </div>
+
+            <h3>10.4 Plan de Acción Preventivo</h3>
+            <p>Aunque los controles técnicos reactivos (EDR, Wipe) funcionaron, se ajustarán las políticas preventivas:</p>
+            <ol>
+                <li><strong>Actualización de Línea Base:</strong> Reducir el tiempo de bloqueo de pantalla de 5 a <strong>3 minutos</strong>.</li>
+                <li><strong>Formación Obligatoria:</strong> Inclusión del módulo de "Seguridad Física de Activos" y adopción mandatoria del atajo manual de bloqueo (<strong>Windows + L</strong>) al alejarse del equipo.</li>
+            </ol>
+
+            <h3 style="margin-top: 3rem; text-align: center; border: none;">// MATERIAL: GESTIÓN DE INCIDENTES //</h3>
+            <div class="slide-container">
+                <div class="slide-card">
+                    <h4>Diapositiva 1: SGSI - Mejora Continua</h4>
+                    <p>Gestión de Incidentes y Plan de Acción Preventivo.</p>
+                    <p>Departamento EDI/4 - Robert Bosch Sistemas Automotrices.</p>
+                    <p class="slide-footer">Bosch EDI/4</p>
+                </div>
+
+                <div class="slide-card">
+                    <h4>Diapositiva 2: Análisis de Incidente Crítico</h4>
+                    <p>Evaluación forense y lecciones aprendidas tras el compromiso físico de un activo corporativo.</p>
+                    <ul>
+                        <li><strong>Negligencia:</strong> El equipo se dejó desbloqueado y sin supervisión.</li>
+                        <li><strong>Exposición:</strong> Sesión activa durante el robo, facilitando acceso.</li>
+                        <li><strong>Riesgo:</strong> Ventana crítica antes del bloqueo automático.</li>
+                    </ul>
+                    <p class="slide-footer">Bosch EDI/4</p>
+                </div>
+
+                <div class="slide-card">
+                    <h4>Diapositiva 3: Efectividad del Protocolo</h4>
+                    <ul>
+                        <li><strong>33m:</strong> Tiempo de Reporte (Notificación rápida del usuario).</li>
+                        <li><strong>10m:</strong> Respuesta de TI (Localización y comando).</li>
+                        <li><strong>100%:</strong> Integridad Salvada (Borrado exitoso).</li>
+                    </ul>
+                    <p><em>"La contención rápida evitó que el incidente escalara a una brecha de datos masiva."</em></p>
+                    <p class="slide-footer">Bosch EDI/4</p>
+                </div>
+
+                <div class="slide-card">
+                    <h4>Diapositiva 4: Estrategia Preventiva</h4>
+                    <ul>
+                        <li><strong>Baseline 3.0:</strong> Reducción del bloqueo de 5 a 3 minutos.</li>
+                        <li><strong>Formación Física:</strong> Ingeniería Social Presencial.</li>
+                        <li><strong>Cultura Win+L:</strong> Bloqueo manual instantáneo.</li>
+                    </ul>
+                    <p class="slide-footer">Bosch EDI/4</p>
+                </div>
+
+                <div class="slide-card" style="border-top: 3px solid #e53935;">
+                    <h4 style="color: #e53935;">Lección Aprendida: Un segundo es suficiente</h4>
+                    <p>El cifrado AES-256 queda neutralizado si el equipo es extraído con la sesión activa.</p>
+                    <h5 style="color: #fff; text-align: center;">HÁBITO DE SUPERVIVENCIA DIGITAL: WIN + L</h5>
+                    <ol>
+                        <li><strong>BLOQUEA:</strong> Presiona Win+L al levantarte.</li>
+                        <li><strong>VIGILA:</strong> Tú eres el custodio de la propiedad intelectual. Nunca dejes activos desatendidos.</li>
+                        <li><strong>REPORTA:</strong> Notifica de inmediato a TI en &lt; 1 hora. La rapidez es crítica.</li>
+                    </ol>
+                    <p style="text-align: center; color: #fb8c00; font-weight: bold;">¡NO CONFÍES EN EL BLOQUEO AUTOMÁTICO!</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">11</span> Conclusión de la propuesta</h2>
+        <div class="scroll-element">
+            <p>La estructuración de esta propuesta técnica demuestra que el diseño de un SGSI bajo las directrices de <strong>ISO/IEC 27001</strong> no debe verse como una limitante burocrática, sino como un habilitador tecnológico crítico. Al aterrizar el marco normativo internacional al contexto de la trinchera operativa del área EDI/4, se logra blindar un ecosistema de alta velocidad como es el desarrollo <em>Low-Code</em> en OutSystems sin mermar su agilidad característica.</p>
+            <p>El aprendizaje fundamental radica en que el gobierno corporativo de la seguridad exige una granularidad técnica estricta: desde la inmutabilidad de los logs transaccionales en un DBMS hasta el blindaje de los flujos de control en la cadena de suministro de software externo. La ciberseguridad efectiva no depende de herramientas aisladas, sino de la estricta cohesión entre políticas claras, procedimientos reproducibles y una sólida cultura organizacional de cumplimiento.</p>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">12</span> Referencias Bibliográficas</h2>
+        <div class="scroll-element">
+            <ul class="referencias-lista">
+                <li>International Organization for Standardization. (2022). Information security, cybersecurity and privacy protection — ISMS — Requirements (ISO/IEC Standard No. 27001).</li>
+                <li>International Organization for Standardization. (2022). Information security controls (ISO/IEC Standard No. 27002).</li>
+                <li>Robert Bosch Sistemas Automotrices. (2026). Global Directives on Security of Information and Data Protection. Corporate Network Division.</li>
+                <li>OutSystems Platform. (2025). Secure Architecture and Cloud Governance Implementation Guide. Product Security Operations.</li>
+                <li>RocketReach. (s.f.). Bosch México Marketing Department | Bosch México Marketing Team.</li>
+                <li>The Official Board. (2026). Bosch Org Chart + Executive Team.</li>
+            </ul>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">13</span> Exportación</h2>
+        <div class="scroll-element" style="text-align: center;">
+            <p>PDF Proyecto 03.</p>
+            
+            <a href="PR03-Equipo02.pdf" class="btn-exportar" target="_blank" type="application/pdf">
+                <i class="fas fa-file-pdf" style="margin-right: 10px;"></i> VER / DESCARGAR PDF
+            </a>
+            
+            <p style="font-size: 0.8rem; color: #666;">Archivo: PR03-Equipo02.pdf</p>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="contenedor contenido-footer">
+            <p>&copy; 2026 Ángel Josué González Delgado. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+        document.querySelectorAll('.scroll-element').forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
