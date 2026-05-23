@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 18 | Análisis de Intrusiones con el modelo de Diamante</title>
+    <link rel="stylesheet" href="style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- 1. ESTILOS GENERALES (FONDO NEGRO PURO) --- */
+        body { 
+            background-color: #050505; 
+            color: #e0e0e0; 
+            font-family: 'Inter', sans-serif; 
+            margin: 0;
+        }
+
+        /* --- 2. CABECERA (LETRAS BLANCAS Y COMPACTAS) --- */
+        .info-materia p {
+            margin: 0 !important;
+            padding: 1px 0 !important;
+            line-height: 1.1 !important;
+            text-align: right !important;
+            font-size: 0.85rem !important;
+            color: #ffffff !important; 
+            font-family: 'JetBrains Mono', monospace !important;
+            display: block !important;
+        }
+        .info-materia span.simbolo, 
+        .info-materia span.cursor {
+            color: #00ff41 !important; 
+        }
+
+        /* --- 3. ESTILOS DEL ARTÍCULO --- */
+        .contenedor-articulo { max-width: 950px; margin: 0 auto; padding: 2rem 1rem; position: relative; z-index: 1; }
+        
+        h1 { font-size: 2.2rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
+
+        .rubrica-titulo {
+            font-family: 'JetBrains Mono', monospace; font-size: 1.3rem; color: #00ff41; 
+            border-bottom: 2px solid #333; padding-bottom: 0.5rem; margin-top: 4rem; margin-bottom: 1.5rem; text-transform: uppercase;
+        }
+        .rubrica-tag { background: #222; color: #aaa; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; margin-right: 10px; vertical-align: middle; }
+        
+        .contenedor-articulo p { line-height: 1.8; margin-bottom: 1.2rem; text-align: justify; font-size: 1rem; color: #d1d1d1; }
+        .contenedor-articulo ul, .contenedor-articulo ol { color: #d1d1d1; line-height: 1.8; margin-bottom: 1.2rem; }
+        strong { color: #fff; }
+        h3 { color: #fff; margin-top: 2rem; margin-bottom: 1rem; font-size: 1.1rem; border-left: 3px solid #00ff41; padding-left: 10px; }
+
+        /* --- 4. COMPONENTES --- */
+        .box-metadata { background: #111; border: 1px solid #333; padding: 1.5rem; margin-bottom: 3rem; border-left: 4px solid #00ff41; }
+        .box-metadata ul { list-style: none; padding: 0; }
+        .box-metadata li { font-size: 0.9rem; color: #aaa; margin-bottom: 5px; line-height: 1.6;}
+        .box-metadata li i { color: #00ff41; margin-right: 8px; }
+
+        .console-block {
+            background: #000;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: #00ff41;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+
+        /* --- 5. TABLAS (NUEVO PARA ESTA ACTIVIDAD) --- */
+        table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.95rem; }
+        th, td { border: 1px solid #333; padding: 12px; text-align: left; vertical-align: top; }
+        th { background-color: #111; color: #00ff41; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; }
+        td { color: #ccc; }
+        tr:hover { background-color: #0a0a0a; }
+
+        /* ESPACIOS PARA IMAGEN */
+        .espacio-imagen {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background-color: #0f0f0f; border: 2px dashed #333; padding: 1.5rem; margin: 2rem 0; border-radius: 6px; transition: 0.3s;
+        }
+        .espacio-imagen:hover { border-color: #00ff41; }
+        .espacio-imagen img { max-width: 100%; height: auto; border: 1px solid #333; box-shadow: 0 5px 15px rgba(0,0,0,0.5); border-radius: 8px; }
+        .caption-imagen { font-size: 0.85rem !important; color: #888 !important; margin-top: 15px !important; font-style: italic; text-align: center !important; }
+
+        .btn-exportar {
+            display: block; width: 100%; max-width: 350px; margin: 3rem auto; padding: 1.2rem; background: #b71c1c; 
+            color: white; text-align: center; text-decoration: none; font-weight: bold; border-radius: 4px; font-family: 'JetBrains Mono', monospace; 
+            transition: 0.3s; border: 1px solid #e53935; box-shadow: 0 4px 10px rgba(183, 28, 28, 0.3);
+        }
+        .btn-exportar:hover { background: #d32f2f; box-shadow: 0 0 20px rgba(229, 57, 53, 0.6); transform: translateY(-2px); }
+
+        .referencias-lista { list-style: none; padding: 0; background: #111; padding: 1.5rem; border-left: 2px solid #555; }
+        .referencias-lista li { margin-bottom: 1rem; font-size: 0.9rem; color: #bbb; word-break: break-all; }
+        .referencias-lista li::before { content: ">> "; color: #00ff41; font-weight: bold; }
+
+    </style>
+</head>
+<body>
+
+    <header class="cabecera-principal">
+        <div class="contenedor contenido-cabecera">
+            <div class="logo-terminal">
+                <span class="simbolo">></span> Ángel Josué González Delgado<span class="cursor">_</span>
+                <br>
+                <span class="simbolo">></span> VenusWatch<span class="cursor">_</span>
+            </div>
+            <div class="info-materia">
+                <p><span class="simbolo">></span> CNO V - Seguridad Informática <span class="cursor">_</span></p>
+                <p><span class="simbolo">></span> Universidad Politécnica de San Luis Potosí <span class="cursor">_</span></p>
+                <p><span class="simbolo">></span> Octavo semestre <span class="cursor">_</span></p>
+            </div>
+        </div>
+        
+        <nav class="barra-navegacion">
+            <ul class="enlaces">
+                <li><a href="index.html">/Inicio</a></li>
+                <li><a href="actividades.html" class="activo">/Actividades</a></li>
+                <li><a href="parcial1.html">/Parcial 1</a></li>
+                <li><a href="parcial2.html">/Parcial 2</a></li>
+                <li><a href="#" class="deshabilitado">/Parcial 3</a></li>
+                <li><a href="proyectos.html">/Proyectos</a></li>
+                <li><a href="certificaciones.html">/Certificaciones</a></li>
+                <li><a href="hall-of-fame.html">/Hall_of_Fame</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="contenedor-articulo">
+        
+        <div class="header-section scroll-element">
+            <h1>ANÁLISIS DE INTRUSIONES CON EL MODELO DE DIAMANTE</h1>
+            <p style="color: #00ff41; font-family: 'JetBrains Mono'; margin-top: 0;">Actividad 18 | Equipo 02</p>
+            
+            <div class="box-metadata">
+                <h4 style="margin-top:0; color:#fff;">// DATOS:</h4>
+                <ul>
+                    <li><i class="fas fa-users"></i> Equipo 02 Integrantes:<br>
+                        - Hazel Mario Ávalos Rangel<br>
+                        - Jorge Alejandro Cabrera Meza<br>
+                        - Ángel Josué González Delgado (182837)<br>
+                        - Diego López Castro<br>
+                        - Jorge Emmanuel López Monsiváis
+                    </li>
+                    <li><i class="fas fa-chalkboard-teacher"></i> Profesor: Servando López Contreras</li>
+                    <li><i class="fas fa-calendar-alt"></i> Fecha de entrega: 15-Mayo-2026</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">01</span> Introducción</h2>
+        <div class="scroll-element">
+            <p>La ciberseguridad moderna enfrenta un panorama de amenazas en constante evolución, donde los ataques dirigidos ya no pueden analizarse como eventos aislados. La sofisticación de los grupos de amenazas persistentes avanzadas (APT) exige marcos analíticos que permitan correlacionar evidencia técnica, comprender la intención del adversario y anticipar patrones de comportamiento futuros. En este contexto, el Modelo Diamante de Análisis de Intrusiones emerge como una herramienta fundamental para los equipos de respuesta a incidentes y los analistas de inteligencia de amenazas.</p>
+            <p>Propuesto por Caltagirone, Pendergast y Betz en 2013, el Modelo Diamante ofrece una estructura conceptual que descompone cualquier evento de intrusión en cuatro elementos interrelacionados: el adversario, la capacidad técnica empleada, la infraestructura utilizada y la víctima objetivo. Esta representación no sólo facilita el análisis forense de un incidente individual, sino que también permite construir hilos de actividad que revelan campañas coordinadas, pivoting entre víctimas y el modus operandi del atacante a lo largo del tiempo.</p>
+            <p>La presente actividad aplica el Modelo Diamante sobre un escenario realista de intrusión, complementando el análisis con la Cadena de Eliminación Cibernética (Cyber Kill Chain) de Lockheed Martin y las tácticas, técnicas y procedimientos documentados en el framework MITRE ATT&CK. El objetivo es demostrar cómo la integración de estos marcos metodológicos produce un entendimiento profundo y estructurado del comportamiento del adversario, condición indispensable para una defensa informada y proactiva.</p>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">02</span> Marco Teórico</h2>
+        <div class="scroll-element">
+            <h3>2.1 El Modelo Diamante de Análisis de Intrusiones</h3>
+            <p>El Modelo Diamante parte de un axioma central: todo evento de intrusión cibernética puede ser representado como la relación entre un adversario que utiliza una capacidad sobre una infraestructura para afectar a una víctima. A diferencia de los modelos puramente procedimentales, adopta una perspectiva centrada en el adversario, permitiendo trasladar el análisis desde la simple detección de indicadores de compromiso (IoC) hacia la comprensión del comportamiento del atacante.</p>
+            
+            <h4>2.1.1 Elementos del modelo</h4>
+            <ul>
+                <li><strong>Adversario:</strong> Actor de amenaza (individuo, grupo o estado-nación). Incluye al operador y al patrocinador.</li>
+                <li><strong>Capacidad:</strong> Arsenal técnico del adversario (malware, exploits, herramientas de post-explotación).</li>
+                <li><strong>Infraestructura:</strong> Recursos físicos y lógicos usados (C2, direcciones IP, dominios). Se distingue entre tipo 1 (controlada directamente) y tipo 2 (recursos de terceros comprometidos).</li>
+                <li><strong>Víctima:</strong> Objetivo del evento (persona, activo, sistema u organización).</li>
+            </ul>
+
+            <h4>2.1.2 Metacaracterísticas del evento</h4>
+            <p>Incorpora seis metacaracterísticas: marca de tiempo, fase dentro de la cadena de ataque, resultado obtenido, dirección del evento, metodología empleada y recursos requeridos. Transforman un simple registro en una descripción estructurada.</p>
+
+            <h4>2.1.3 Hilos de actividad y grafos de actividad</h4>
+            <p>Un hilo de actividad representa la secuencia ordenada de eventos. Cuando el adversario expande su ataque a múltiples víctimas (pivoting), se generan múltiples hilos interrelacionados que forman un grafo de actividad.</p>
+
+            <h3>2.2 La Cyber Kill Chain</h3>
+            <p>Desarrollada en Lockheed Martin, describe siete fases secuenciales: reconocimiento, armamentización, entrega, explotación, instalación, Comando y Control (C2), y acciones sobre objetivos. Su combinación con el Modelo Diamante responde a «qué pasó y quién lo hizo» y «en qué momento de la campaña ocurrió».</p>
+
+            <h3>2.3 MITRE ATT&CK y la inteligencia de amenazas</h3>
+            <p>Documenta el comportamiento de adversarios reales organizados por tácticas y técnicas. Su integración con el Modelo Diamante permite mapear capacidades con TTPs específicos facilitando la atribución y la detección proactiva.</p>
+
+            <h3>2.4 Pivoting y movimiento lateral en campañas APT</h3>
+            <p>El pivoting es una técnica donde el adversario usa un sistema comprometido como trampolín para acceder a nuevos segmentos. Desde el Modelo Diamante, genera un nuevo hilo de actividad donde el host comprometido funciona como infraestructura de tipo 2.</p>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">03</span> Parte 01. Comprensión del modelo - Tabla conceptual</h2>
+        <div class="scroll-element">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Elemento</th>
+                        <th>Descripción</th>
+                        <th>Ejemplo práctico</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Adversario</td>
+                        <td>Actor malicioso que lleva a cabo el ataque (individuo o grupo APT)</td>
+                        <td>Grupo APT28 (Fancy Bear), atacante de estado-nación</td>
+                    </tr>
+                    <tr>
+                        <td>Capacidad</td>
+                        <td>Herramientas, técnicas y procedimientos (TTPs) del atacante</td>
+                        <td>Malware tipo RAT, exploit de vulnerabilidad zero-day en Office</td>
+                    </tr>
+                    <tr>
+                        <td>Infraestructura</td>
+                        <td>Recursos físicos o lógicos usados para ejecutar el ataque (servidores C2)</td>
+                        <td>Dominio malicioso update-srv.net, servidor VPS en Rusia</td>
+                    </tr>
+                    <tr>
+                        <td>Víctima</td>
+                        <td>Entidad objetivo del ataque; persona, sistema u organización</td>
+                        <td>Empresa de infraestructura crítica; equipo Windows de empleado</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">04</span> Parte 02. Análisis de evento (modelo Diamante)</h2>
+        <div class="scroll-element">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Metacaracterísticas</th>
+                        <th>Descripción del evento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Marca del tiempo</td>
+                        <td>Momento en que los logs registran conexiones salientes a IPs externas del C2</td>
+                    </tr>
+                    <tr>
+                        <td>Fase</td>
+                        <td>Comando y Control (C2) Kill Chain fase 6; el malware ya fue instalado y establece canal con el servidor del atacante</td>
+                    </tr>
+                    <tr>
+                        <td>Resultado</td>
+                        <td>Múltiples hosts comprometidos, canal C2 activo, posible exfiltración de datos o movimiento lateral en progreso</td>
+                    </tr>
+                    <tr>
+                        <td>Dirección</td>
+                        <td>Adversario -&gt; Infraestructura (C2) -&gt; Víctima (red interna comprometida)</td>
+                    </tr>
+                    <tr>
+                        <td>Metodología</td>
+                        <td>Malware con dominio C2 embebido; resolución DNS hacia IPs externas; pivoting desde hosts infectados hacia nuevos objetivos</td>
+                    </tr>
+                    <tr>
+                        <td>Recursos</td>
+                        <td>Dominios C2, IPs externas (VPS), WHOIS, logs de red, herramienta de análisis DNS</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><strong>¿Quién es el adversario?:</strong> Un actor de amenaza externo (posiblemente un grupo APT), identificado indirectamente a través de WHOIS/IP que revela un posible origen geográfico del atacante.</p>
+            <p><strong>¿Cuál es la capacidad utilizada?:</strong> Malware con módulos de Comando y Control (C2) embebidos, capaz de resolver dominios y establecer conexiones persistentes hacia servidores externos.</p>
+            <p><strong>¿Qué tipo de infraestructura se emplea?:</strong> Infraestructura de tipo 2 (controlada por el atacante): dominios maliciosos y servidores VPS externos a los cuales el malware reporta.</p>
+            <p><strong>¿Quién es la víctima primaria?:</strong> La organización cuyo equipo detectó el malware inicialmente; los hosts que muestran tráfico anómalo hacia las IPs externas.</p>
+            <p><strong>¿Existe evidencia de movimiento lateral?:</strong> Sí. Los logs muestran múltiples hosts conectándose a las mismas IPs externas del C2, lo que indica que el malware se propagó desde el vector inicial hacia otros equipos de la red.</p>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">05</span> Parte 03. Relación con la Kill Chain</h2>
+        <div class="scroll-element">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Evento</th>
+                        <th>Fase Kill Chain</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Detección de malware</td>
+                        <td>Fase 5 Instalación: el malware ya fue depositado y ejecutado en el sistema víctima</td>
+                    </tr>
+                    <tr>
+                        <td>Envío de phishing</td>
+                        <td>Fase 2 Armamentización / Fase 3 Entrega: correo malicioso como vector de entrega inicial</td>
+                    </tr>
+                    <tr>
+                        <td>Conexión a C2</td>
+                        <td>Fase 6 - Comando y Control (C2): canal de comunicación con el atacante establecido</td>
+                    </tr>
+                    <tr>
+                        <td>Ejecución de malware</td>
+                        <td>Fase 6 - Comando y Control (C2): canal de comunicación con el atacante establecido</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">06</span> Parte 04. Hilos de actividad</h2>
+        <div class="scroll-element">
+            
+            <div class="espacio-imagen">
+                <img src="act18.1.png" alt="Grafo de Hilos de Actividad">
+                <p class="caption-imagen">Representación gráfica de los hilos de actividad del ataque APT y pivoting entre víctimas.</p>
+            </div>
+
+            <h3>Descripción de los hilos</h3>
+            <p><strong>Hilo 1 (Víctima 1):</strong> El adversario envía un correo de phishing dirigido al administrador → el destinatario abre el adjunto malicioso y ejecuta el malware → el malware establece canal C2 con el servidor del atacante → el host comprometido empieza a ser usado como proxy para atacar internamente.</p>
+            <p><strong>Hilo 2 (Víctima 2):</strong> Usando el host de Víctima 1 como trampolín (pivoting), el adversario accede a Víctima 2 desde una IP interna confiable → explota vulnerabilidades del nuevo objetivo → instala malware en el segundo sistema → ejecuta acciones finales (exfiltración, reconocimiento adicional, etc.).</p>
+            <p><strong>Relación de pivoting:</strong> Víctima 1 comprometida actúa como proxy interno, lo que le permite al atacante evadir controles perimetrales y atacar a Víctima 2 desde una dirección IP interna de confianza. Ambos hilos comparten la misma infraestructura C2.</p>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">07</span> Conclusión</h2>
+        <div class="scroll-element">
+            <p>Desde una perspectiva técnica, el análisis del escenario presentado demuestra con claridad la utilidad operacional del Modelo Diamante como marco de inteligencia de amenazas. La detección inicial del malware no constituye el fin del proceso analítico, sino su punto de partida. Al descomponer el incidente en sus cuatro vértices (adversario, capacidad, infraestructura y víctima) y enriquecerlo con las seis metacaracterísticas, el analista obtiene una representación estructurada que trasciende el indicador de compromiso individual y revela la arquitectura de la campaña.</p>
+            <p>La integración del Modelo Diamante con la Cyber Kill Chain revela que, en el escenario analizado, el adversario alcanzó al menos la fase 6 (Comando y Control) y presentó indicios claros de transición hacia la fase 7 (acciones sobre objetivos) a través del movimiento lateral. Desde el punto de vista defensivo, esto implica que la ventana para contener el incidente antes de una exfiltración significativa de información era estrecha.</p>
+            <p>El concepto de pivoting ilustra una limitación crítica de las defensas perimetrales convencionales: una vez que el adversario opera desde el interior de la red, la confianza implícita en el tráfico interno se convierte en un vector de propagación. Este hallazgo refuerza la necesidad de arquitecturas de seguridad basadas en el principio de mínimo privilegio y confianza cero (Zero Trust).</p>
+            <p>En conclusión, el Modelo Diamante es un marco que transforma la evidencia técnica en inteligencia accionable. Su fortaleza reside en la capacidad de correlacionar eventos aparentemente dispersos bajo una lógica de campaña, atribuir comportamiento con grados razonables de confianza y, críticamente, anticipar los próximos movimientos del adversario antes de que estos se materialicen.</p>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">08</span> Referencias Técnicas</h2>
+        <div class="scroll-element">
+            <ul class="referencias-lista">
+                <li>Caltagirone, S., Pendergast, A., & Betz, C. (2013). The diamond model of intrusion analysis. Center for Cyber Intelligence Analysis and Threat Research. https://www.threatintel.academy/wp-content/uploads/2020/07/diamond-model.pdf</li>
+                <li>Hutchins, E. M., Cloppert, M. J., & Amin, R. M. (2011). Intelligence-driven computer network defense informed by analysis of adversary campaigns and intrusion kill chains. Lockheed Martin Corporation.</li>
+                <li>MITRE ATT&CK. (2024). ATT&CK framework: Tactics, techniques and procedures. The MITRE Corporation. https://attack.mitre.org/</li>
+                <li>National Institute of Standards and Technology. (2018). Framework for improving critical infrastructure cybersecurity (Version 1.1). U.S. Department of Commerce. https://doi.org/10.6028/NIST.CSWP.04162018</li>
+                <li>Pols, P. (2017). The unified kill chain: Raising resilience against advanced cyber attacks. Cyber Security Academy. https://www.unifiedkillchain.com/assets/The-Unified-Kill-Chain.pdf</li>
+            </ul>
+        </div>
+
+        <h2 class="rubrica-titulo scroll-element"><span class="rubrica-tag">09</span> Exportación</h2>
+        <div class="scroll-element" style="text-align: center;">
+            <p>PDF Actividad 18</p>
+            
+            <a href="act18-Equipo02.pdf" class="btn-exportar" target="_blank" type="application/pdf">
+                <i class="fas fa-file-pdf" style="margin-right: 10px;"></i> VER / DESCARGAR PDF
+            </a>
+            
+            <p style="font-size: 0.8rem; color: #666;">Archivo: act18-Equipo02.pdf</p>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="contenedor contenido-footer">
+            <p>&copy; 2026 Ángel Josué González Delgado. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+        document.querySelectorAll('.scroll-element').forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
